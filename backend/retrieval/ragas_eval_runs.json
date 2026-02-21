@@ -1,0 +1,3183 @@
+{
+  "runs": [
+    {
+      "timestamp_utc": "2026-02-19T17:16:30.192101+00:00",
+      "query": "cloud computing",
+      "filtered_count": 12,
+      "evaluation": {
+        "query": "cloud computing",
+        "num_retrieved": 16,
+        "relevance_scores": [
+          7.20112419128418,
+          4.364490509033203,
+          9.046664237976074,
+          3.739655017852783,
+          -10.340916633605957,
+          -3.537505626678467,
+          -11.238349914550781,
+          -9.705178260803223,
+          5.6810431480407715,
+          3.1389975547790527,
+          3.1389975547790527,
+          3.994959592819214,
+          3.1389975547790527,
+          3.1389975547790527,
+          3.1389975547790527,
+          3.1389975547790527
+        ],
+        "context_precision": 0.75,
+        "context_recall": 0.0,
+        "avg_relevance": 1.1274982243776321,
+        "passed_threshold": true,
+        "details": {
+          "method": "cross_encoder",
+          "model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "num_relevant": 12,
+          "threshold": 0.5,
+          "node_scores": [
+            {
+              "node_id": "963e1cb8-5d23-42ee-80a1-0722a7dc4322",
+              "text": "What Makes Something \u201cCloud Computing\u201d? \u2022 Services delivered remotely through the internet \u2022 Resourc...",
+              "score": 7.20112419128418,
+              "relevant": true
+            },
+            {
+              "node_id": "eb8fa588-c01c-40ae-8cc0-7842e0104545",
+              "text": "Next Lecture Comparison of cloud computing with traditional IT infrastructure, key benefits of cloud...",
+              "score": 4.364490509033203,
+              "relevant": true
+            },
+            {
+              "node_id": "45326013-c64f-45b0-a8eb-c5464fcc1a28",
+              "text": "Summary \u2022 Cloud computing is remote, automated, internet-based IT service delivery \u2022 It abstracts ph...",
+              "score": 9.046664237976074,
+              "relevant": true
+            },
+            {
+              "node_id": "203a932f-3c50-4b9f-993c-f556deab33ca",
+              "text": "Learning Objectives \u2022 Compare cloud computing with traditional on-premises IT setups \u2022 Understand di...",
+              "score": 3.739655017852783,
+              "relevant": true
+            },
+            {
+              "node_id": "088b27aa-f6a6-4eda-9572-321a2d23acc7",
+              "text": "\u2022 Separates request and processing flow \u2022 Improves system responsiveness \u2022 Handles heavy workloads e...",
+              "score": -10.340916633605957,
+              "relevant": false
+            },
+            {
+              "node_id": "fe82b31c-6e61-4e0b-9cf4-24e53b3889b6",
+              "text": "Next Lecture Public cloud, private cloud, hybrid cloud, and multi-cloud architectures, decision crit...",
+              "score": -3.537505626678467,
+              "relevant": false
+            },
+            {
+              "node_id": "aa549ba7-2dcf-41bd-9541-2a6e69c42bf1",
+              "text": "\u2022 Design systems for growth \u2022 Prefer stateless components \u2022 Avoid tight component coupling \u2022 Monitor...",
+              "score": -11.238349914550781,
+              "relevant": false
+            },
+            {
+              "node_id": "f07114d1-ff93-43f7-88d0-28f9d4adbd7f",
+              "text": "\u2022 Stores frequently accessed data \u2022 Reduces repeated data retrieval \u2022 Improves system response time ...",
+              "score": -9.705178260803223,
+              "relevant": false
+            },
+            {
+              "node_id": "6c01b1f8-d565-4e4c-b0ff-129ecb1feeba",
+              "text": "References/ Articles/ Videos \u2022IBM \u2014 History of Mainframe Computing \u2022https://www.ibm.com/it-infrastru...",
+              "score": 5.6810431480407715,
+              "relevant": true
+            },
+            {
+              "node_id": "a2378b2e-59fe-4fa8-842b-7b41af1f1530",
+              "text": "Faculty-curated videos, NPTEL, Coursera, LinkedIn, or other relevant learning resources \u2022 Cloud Comp...",
+              "score": 3.1389975547790527,
+              "relevant": true
+            },
+            {
+              "node_id": "1acd4b93-6cc6-4860-9d58-1b2821d3bfd5",
+              "text": "Faculty-curated videos, NPTEL, Coursera, LinkedIn, or other relevant learning resources \u2022 Cloud Comp...",
+              "score": 3.1389975547790527,
+              "relevant": true
+            },
+            {
+              "node_id": "58aa21db-83ef-4a01-b5c5-e5a305a70672",
+              "text": "\u2022 Cloud Computing: https://onlinecourses.nptel.ac.in/noc21_cs14/preview \u2022 Cloud Computing: https://o...",
+              "score": 3.994959592819214,
+              "relevant": true
+            },
+            {
+              "node_id": "0459c14d-49a1-43c8-85ae-32f821514784",
+              "text": "Faculty-curated videos, NPTEL, Coursera, LinkedIn, or other relevant learning resources \u2022 Cloud Comp...",
+              "score": 3.1389975547790527,
+              "relevant": true
+            },
+            {
+              "node_id": "98462bd6-3f3d-4290-a9d5-ecbf82a2f6f6",
+              "text": "Faculty-curated videos, NPTEL, Coursera, LinkedIn, or other relevant learning resources \u2022 Cloud Comp...",
+              "score": 3.1389975547790527,
+              "relevant": true
+            },
+            {
+              "node_id": "d762fea4-77d0-4a12-ae7a-4e2c7001fbf1",
+              "text": "Faculty-curated videos, NPTEL, Coursera, LinkedIn, or other relevant learning resources \u2022 Cloud Comp...",
+              "score": 3.1389975547790527,
+              "relevant": true
+            },
+            {
+              "node_id": "30666cb7-9bd4-4530-a006-a0bc460a231a",
+              "text": "Faculty-curated videos, NPTEL, Coursera, LinkedIn, or other relevant learning resources \u2022 Cloud Comp...",
+              "score": 3.1389975547790527,
+              "relevant": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-02-19T17:18:49.084127+00:00",
+      "query": "deep learning",
+      "filtered_count": 0,
+      "evaluation": {
+        "query": "deep learning",
+        "num_retrieved": 11,
+        "relevance_scores": [
+          -10.755784034729004,
+          -10.823122024536133,
+          -9.984908103942871,
+          -10.774189949035645,
+          -11.285517692565918,
+          -10.811184883117676,
+          -11.322314262390137,
+          -11.373664855957031,
+          -10.570557594299316,
+          -10.408348083496094,
+          -11.013468742370605
+        ],
+        "context_precision": 0.0,
+        "context_recall": 0.0,
+        "avg_relevance": -10.829369111494584,
+        "passed_threshold": false,
+        "details": {
+          "method": "cross_encoder",
+          "model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "num_relevant": 0,
+          "threshold": 0.5,
+          "node_scores": [
+            {
+              "node_id": "c525dd7f-97d3-4f7f-a4a0-e5371530b1ce",
+              "text": "Learning Objectives \u2022 Understand container and virtual machine architectures \u2022 Compare performance c...",
+              "score": -10.755784034729004,
+              "relevant": false
+            },
+            {
+              "node_id": "f0dc8cdf-3c64-477c-8fc1-1995e48ed8b3",
+              "text": "Learning Objectives \u2022 Understand different types of virtualization \u2022 Distinguish between Type 1 and ...",
+              "score": -10.823122024536133,
+              "relevant": false
+            },
+            {
+              "node_id": "88307823-912e-4a46-91aa-7a555b3eda06",
+              "text": "Learning Objectives \u2022 Distinguish between vertical and horizontal scaling \u2022 Understand elasticity an...",
+              "score": -9.984908103942871,
+              "relevant": false
+            },
+            {
+              "node_id": "d197230a-a816-45b7-94a4-71de19065036",
+              "text": "Learning Objectives \u2022 Understand load balancing fundamentals \u2022 Compare common load balancing algorit...",
+              "score": -10.774189949035645,
+              "relevant": false
+            },
+            {
+              "node_id": "dede8dd6-6c1f-43e5-95f2-dd941f5f8f1a",
+              "text": "Next Lecture Load balancing fundamentals, algorithms (round-robin, least connection, IP hash, weight...",
+              "score": -11.285517692565918,
+              "relevant": false
+            },
+            {
+              "node_id": "103d5711-b4d0-4cd4-987f-03fbb82e65e7",
+              "text": "Learning Objectives \u2022 Understand the concept of virtualization \u2022 Explain the need for virtualization...",
+              "score": -10.811184883117676,
+              "relevant": false
+            },
+            {
+              "node_id": "daf1c6da-ce46-4015-b135-2c9fe1a96415",
+              "text": "Next Lecture Types of virtualization (full, paravirtualization, hardware assisted), Type 1 vs Type 2...",
+              "score": -11.322314262390137,
+              "relevant": false
+            },
+            {
+              "node_id": "eb319ea3-633a-4eae-8329-c3ef6b984f25",
+              "text": "Next Lecture Architectural comparison of containers and virtual machines, performance analysis, use ...",
+              "score": -11.373664855957031,
+              "relevant": false
+            },
+            {
+              "node_id": "fdd4be64-25be-4f99-855c-041107d027c8",
+              "text": "Learning Objectives \u2022 Understand the purpose and structure of IaaS, PaaS, and SaaS. \u2022 Explore real-w...",
+              "score": -10.570557594299316,
+              "relevant": false
+            },
+            {
+              "node_id": "6803bba6-f9bf-41de-b867-fb03d4a4183d",
+              "text": "Learning Objectives \u2022 Understand how public, private, hybrid, and multi-cloud architectures differ. ...",
+              "score": -10.408348083496094,
+              "relevant": false
+            },
+            {
+              "node_id": "3f2378aa-c5b3-4f0d-84d8-f0055c88e92b",
+              "text": "Type 1 vs Type 2 Hypervisors Feature Type 1 Type 2 Placement Runs directly on hardware Runs on host ...",
+              "score": -11.013468742370605,
+              "relevant": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-02-19T17:19:52.959618+00:00",
+      "query": "infrastructure as a service",
+      "filtered_count": 5,
+      "evaluation": {
+        "query": "infrastructure as a service",
+        "num_retrieved": 16,
+        "relevance_scores": [
+          7.556997776031494,
+          0.5255018472671509,
+          3.094005584716797,
+          -4.6615118980407715,
+          -3.4320526123046875,
+          -0.7126812934875488,
+          -10.110986709594727,
+          -2.228518486022949,
+          6.9331817626953125,
+          -7.95426607131958,
+          -8.561975479125977,
+          -0.6347074508666992,
+          -5.897002696990967,
+          -7.133245468139648,
+          3.921945333480835,
+          -4.672443866729736
+        ],
+        "context_precision": 0.3125,
+        "context_recall": 0.0,
+        "avg_relevance": -2.1229849830269814,
+        "passed_threshold": false,
+        "details": {
+          "method": "cross_encoder",
+          "model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "num_relevant": 5,
+          "threshold": 0.5,
+          "node_scores": [
+            {
+              "node_id": "10d9c103-a5b9-421c-bf14-d50c8779a0e3",
+              "text": "\u2022 Provides virtualized computing resources like VMs, storage, and networks. \u2022 Users manage operating...",
+              "score": 7.556997776031494,
+              "relevant": true
+            },
+            {
+              "node_id": "c41a5e16-3aa5-44d8-b31b-39d1a76c1e12",
+              "text": "\u2022 Enables on-demand infrastructure availability \u2022 Supports rapid provisioning of resources \u2022 Simplif...",
+              "score": 0.5255018472671509,
+              "relevant": true
+            },
+            {
+              "node_id": "006d8504-e544-43d3-a5c6-719da1789d06",
+              "text": "\u2022 Infrastructure hosted externally by a service provider \u2022 Users access computing resources remotely...",
+              "score": 3.094005584716797,
+              "relevant": true
+            },
+            {
+              "node_id": "e2419775-15c5-4dc4-8aa3-8b3650dc4383",
+              "text": "\u2022 Organizations purchase and maintain physical hardware \u2022 Requires dedicated data center space, cool...",
+              "score": -4.6615118980407715,
+              "relevant": false
+            },
+            {
+              "node_id": "3df00c9e-272e-445c-b99e-12f80b7f35d5",
+              "text": "\u2022 Cloud demands efficient use of hardware resources \u2022 Traditional systems leave resources underutili...",
+              "score": -3.4320526123046875,
+              "relevant": false
+            },
+            {
+              "node_id": "0d065b76-2c21-47c8-bcc3-5affd9960f37",
+              "text": "Core Characteristics of Cloud Computing \u2022 Instant Availability: Computing resources delivered immedi...",
+              "score": -0.7126812934875488,
+              "relevant": false
+            },
+            {
+              "node_id": "58cc8072-91d2-48e8-9a7b-caa22f818405",
+              "text": "\u2022 Stateless service design \u2022 Data partitioning techniques \u2022 Caching mechanisms \u2022 Asynchronous proces...",
+              "score": -10.110986709594727,
+              "relevant": false
+            },
+            {
+              "node_id": "963e1cb8-5d23-42ee-80a1-0722a7dc4322",
+              "text": "What Makes Something \u201cCloud Computing\u201d? \u2022 Services delivered remotely through the internet \u2022 Resourc...",
+              "score": -2.228518486022949,
+              "relevant": false
+            },
+            {
+              "node_id": "9e77a906-53f9-4c27-b595-d662f6345916",
+              "text": "Source: shutterstock Infrastructure as a Service (IaaS): Key Concepts",
+              "score": 6.9331817626953125,
+              "relevant": true
+            },
+            {
+              "node_id": "6d555b59-a780-46ed-94a4-ba77ebdfdd42",
+              "text": "Source: dreamstime Platform as a Service (PaaS): Key Concepts",
+              "score": -7.95426607131958,
+              "relevant": false
+            },
+            {
+              "node_id": "2da34f89-5654-4351-8bc6-82e88ccbddc7",
+              "text": "Source: dreamstime Software as a Service (SaaS): Key Concepts",
+              "score": -8.561975479125977,
+              "relevant": false
+            },
+            {
+              "node_id": "8c6351b6-7cf8-4f04-9b24-09b7f931bd79",
+              "text": "FAQ'S \u2022 Was cloud computing possible during mainframe era? No, network and virtualization technologi...",
+              "score": -0.6347074508666992,
+              "relevant": false
+            },
+            {
+              "node_id": "e9835ca6-ef0a-4e65-ba2b-7e37a67c69b4",
+              "text": "\u2022 Serves as a standardized framework for understanding cloud ecosystems. \u2022 Defines the key actors an...",
+              "score": -5.897002696990967,
+              "relevant": false
+            },
+            {
+              "node_id": "4cb543a0-3792-49fc-9345-500a51ea0626",
+              "text": "\u2022 Entity that uses cloud services delivered by a provider. \u2022 Responsible for managing user access, a...",
+              "score": -7.133245468139648,
+              "relevant": false
+            },
+            {
+              "node_id": "604d059a-8d41-40df-96be-84f386742040",
+              "text": "\u2022 Provides a pre-built platform with OS, runtime, and development tools. \u2022 Developers focus on appli...",
+              "score": 3.921945333480835,
+              "relevant": true
+            },
+            {
+              "node_id": "71d9b3bd-7148-4f5d-8b92-c1673a8eea96",
+              "text": "\u2022 Abstracts physical hardware into virtual resources \u2022 Enables multiple logical environments on one ...",
+              "score": -4.672443866729736,
+              "relevant": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-02-19T17:20:53.870256+00:00",
+      "query": "scalability",
+      "filtered_count": 11,
+      "evaluation": {
+        "query": "scalability",
+        "num_retrieved": 11,
+        "relevance_scores": [
+          2.1019887924194336,
+          9.470259666442871,
+          8.566576957702637,
+          6.694183349609375,
+          3.0198121070861816,
+          2.011869430541992,
+          3.5317916870117188,
+          3.688612699508667,
+          6.5500407218933105,
+          5.315185546875,
+          6.029942989349365
+        ],
+        "context_precision": 1.0,
+        "context_recall": 0.0,
+        "avg_relevance": 5.180023995312777,
+        "passed_threshold": true,
+        "details": {
+          "method": "cross_encoder",
+          "model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "num_relevant": 11,
+          "threshold": 0.5,
+          "node_scores": [
+            {
+              "node_id": "aa549ba7-2dcf-41bd-9541-2a6e69c42bf1",
+              "text": "\u2022 Design systems for growth \u2022 Prefer stateless components \u2022 Avoid tight component coupling \u2022 Monitor...",
+              "score": 2.1019887924194336,
+              "relevant": true
+            },
+            {
+              "node_id": "fa1363a4-78e4-4841-bc7a-8c18fb3feaff",
+              "text": "\u2022 Scalability refers to a system\u2019s ability to handle increasing workload efficiently \u2022 It ensures co...",
+              "score": 9.470259666442871,
+              "relevant": true
+            },
+            {
+              "node_id": "bb57ddc4-2e4e-431c-9212-3241f015574a",
+              "text": "\u2022 Scalability allows applications to support growing user bases \u2022 It prevents system crashes during ...",
+              "score": 8.566576957702637,
+              "relevant": true
+            },
+            {
+              "node_id": "ec920287-5199-4247-a350-bfb481418fa9",
+              "text": "Types of Scalability \u2022Scalability can be achieved using multiple architectural approaches \u2022Vertical ...",
+              "score": 6.694183349609375,
+              "relevant": true
+            },
+            {
+              "node_id": "c42b6683-fdd6-4351-a993-6cda4bc2d128",
+              "text": "References/ Articles/ Videos https://martinfowler.com/articles/scaling.html https://aws.amazon.com/w...",
+              "score": 3.0198121070861816,
+              "relevant": true
+            },
+            {
+              "node_id": "1b58cdcc-6953-4641-a2f8-56cc691ed532",
+              "text": "Challenges of Horizontal Scalability \u2022Increased system design complexity \u2022Data consistency becomes h...",
+              "score": 2.011869430541992,
+              "relevant": true
+            },
+            {
+              "node_id": "356c0491-f343-4d16-90fd-53d6b0d0cde9",
+              "text": "Characteristics of Horizontal Scalability \u2022Resources grow by adding identical or similar nodes \u2022Syst...",
+              "score": 3.5317916870117188,
+              "relevant": true
+            },
+            {
+              "node_id": "d31f4155-3412-448e-847d-5459649e0f5d",
+              "text": "Advantages of Horizontal Scalability \u2022Virtually unlimited scaling potential \u2022High availability throu...",
+              "score": 3.688612699508667,
+              "relevant": true
+            },
+            {
+              "node_id": "41d91689-32e4-4c4d-8294-004802cbe636",
+              "text": "\u2022 Scalability defines growth capability \u2022 Elasticity defines responsiveness speed \u2022 Scalability may ...",
+              "score": 6.5500407218933105,
+              "relevant": true
+            },
+            {
+              "node_id": "ccabb7a6-ef0d-4b2a-b431-d7994bcb1a29",
+              "text": "\u2022 Horizontal scalability is also known as scaling out \u2022 It involves adding more machines or instance...",
+              "score": 5.315185546875,
+              "relevant": true
+            },
+            {
+              "node_id": "25a4e10b-71c6-4ee5-98bb-9c859e83d06a",
+              "text": "Vertical Scalability Overview \u2022Vertical scalability is also known as scaling up \u2022It involves adding ...",
+              "score": 6.029942989349365,
+              "relevant": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-02-19T17:21:52.370286+00:00",
+      "query": "cost",
+      "filtered_count": 0,
+      "evaluation": {
+        "query": "cost",
+        "num_retrieved": 15,
+        "relevance_scores": [
+          -8.329018592834473,
+          -9.281709671020508,
+          -11.301508903503418,
+          -11.30217456817627,
+          -11.196727752685547,
+          -10.403854370117188,
+          -9.014591217041016,
+          -11.342578887939453,
+          -8.309244155883789,
+          -7.129543781280518,
+          -8.121875762939453,
+          -8.6395845413208,
+          -7.746330738067627,
+          -6.859351634979248,
+          -9.706439971923828
+        ],
+        "context_precision": 0.0,
+        "context_recall": 0.0,
+        "avg_relevance": -9.245635636647542,
+        "passed_threshold": false,
+        "details": {
+          "method": "cross_encoder",
+          "model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "num_relevant": 0,
+          "threshold": 0.5,
+          "node_scores": [
+            {
+              "node_id": "09fd9ba8-ccd2-43d7-ae5b-df32d2f77ae2",
+              "text": "Quiz/ FAQ\u2019s \u2022 Does cloud completely eliminate the need for IT staff? \u2022 No, staff roles shift toward ...",
+              "score": -8.329018592834473,
+              "relevant": false
+            },
+            {
+              "node_id": "203a932f-3c50-4b9f-993c-f556deab33ca",
+              "text": "Learning Objectives \u2022 Compare cloud computing with traditional on-premises IT setups \u2022 Understand di...",
+              "score": -9.281709671020508,
+              "relevant": false
+            },
+            {
+              "node_id": "cae24414-da29-47e1-b2f7-3587c91add70",
+              "text": "Next Lecture Need for virtualization in cloud environments, key benefits (resource optimization, iso...",
+              "score": -11.301508903503418,
+              "relevant": false
+            },
+            {
+              "node_id": "103d5711-b4d0-4cd4-987f-03fbb82e65e7",
+              "text": "Learning Objectives \u2022 Understand the concept of virtualization \u2022 Explain the need for virtualization...",
+              "score": -11.30217456817627,
+              "relevant": false
+            },
+            {
+              "node_id": "d651f9c6-b426-491d-9146-f04b8429b427",
+              "text": "Next Lecture NIST cloud reference architecture, layered components (consumer, provider, carrier, bro...",
+              "score": -11.196727752685547,
+              "relevant": false
+            },
+            {
+              "node_id": "a52a8d2f-8fcb-4ca5-9df6-1e79445aa65b",
+              "text": "\u2022 Reduced capital expenditure on hardware & data centers \u2022 Faster deployment of applications and ser...",
+              "score": -10.403854370117188,
+              "relevant": false
+            },
+            {
+              "node_id": "15e06aca-29e8-4bc6-81dc-74b4c4cbd019",
+              "text": "\u2022 Maximizes CPU utilization \u2022 Improves memory usage efficiency \u2022 Enables storage consolidation \u2022 Red...",
+              "score": -9.014591217041016,
+              "relevant": false
+            },
+            {
+              "node_id": "eb8fa588-c01c-40ae-8cc0-7842e0104545",
+              "text": "Next Lecture Comparison of cloud computing with traditional IT infrastructure, key benefits of cloud...",
+              "score": -11.342578887939453,
+              "relevant": false
+            },
+            {
+              "node_id": "ab894b16-615f-4399-9d2d-2b1011fdfb47",
+              "text": "\u2022 Near-unlimited scalability potential \u2022 Improved fault tolerance \u2022 High availability through redund...",
+              "score": -8.309244155883789,
+              "relevant": false
+            },
+            {
+              "node_id": "74c209a1-b562-4b85-979b-47303de498bc",
+              "text": "\u2022 Physical hardware imposes scaling limits \u2022 Single point of failure remains \u2022 Cost increases sharpl...",
+              "score": -7.129543781280518,
+              "relevant": false
+            },
+            {
+              "node_id": "d31f4155-3412-448e-847d-5459649e0f5d",
+              "text": "Advantages of Horizontal Scalability \u2022Virtually unlimited scaling potential \u2022High availability throu...",
+              "score": -8.121875762939453,
+              "relevant": false
+            },
+            {
+              "node_id": "6420b516-5df4-433c-9a64-18419356dec1",
+              "text": "Scalability Comparison: Vertical vs Horizontal \u2022Vertical scaling strengthens a single machine \u2022Horiz...",
+              "score": -8.6395845413208,
+              "relevant": false
+            },
+            {
+              "node_id": "d8d3b3a4-23b4-4e7e-bbf6-ab6849e7ab8f",
+              "text": "\u2022 Faster disaster recovery through provider infrastructure \u2022 Simplified backup and data retention pr...",
+              "score": -7.746330738067627,
+              "relevant": false
+            },
+            {
+              "node_id": "35a1e002-9b0c-4ed4-bd81-f3147bdf4f55",
+              "text": "\u2022 Hardware upgrades are limited by machine capacity \u2022 Scaling beyond a certain point becomes impossi...",
+              "score": -6.859351634979248,
+              "relevant": false
+            },
+            {
+              "node_id": "a58a1a89-333c-49dc-b9c2-11948e527aa4",
+              "text": "Evolution: Virtualization & Distributed Systems \u2022 Early 2000s brought virtualization technologies \u2022 ...",
+              "score": -9.706439971923828,
+              "relevant": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-02-19T17:23:07.024946+00:00",
+      "query": "blockchain",
+      "filtered_count": 0,
+      "evaluation": {
+        "query": "blockchain",
+        "num_retrieved": 16,
+        "relevance_scores": [
+          -11.370976448059082,
+          -11.339414596557617,
+          -11.29787826538086,
+          -11.158016204833984,
+          -11.40533447265625,
+          -11.358803749084473,
+          -11.284079551696777,
+          -11.346196174621582,
+          -11.316884994506836,
+          -11.305093765258789,
+          -11.277416229248047,
+          -11.326553344726562,
+          -11.194042205810547,
+          -11.331188201904297,
+          -11.274706840515137,
+          -11.304550170898438
+        ],
+        "context_precision": 0.0,
+        "context_recall": 0.0,
+        "avg_relevance": -11.305695950984955,
+        "passed_threshold": false,
+        "details": {
+          "method": "cross_encoder",
+          "model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "num_relevant": 0,
+          "threshold": 0.5,
+          "node_scores": [
+            {
+              "node_id": "eb8fa588-c01c-40ae-8cc0-7842e0104545",
+              "text": "Next Lecture Comparison of cloud computing with traditional IT infrastructure, key benefits of cloud...",
+              "score": -11.370976448059082,
+              "relevant": false
+            },
+            {
+              "node_id": "d651f9c6-b426-491d-9146-f04b8429b427",
+              "text": "Next Lecture NIST cloud reference architecture, layered components (consumer, provider, carrier, bro...",
+              "score": -11.339414596557617,
+              "relevant": false
+            },
+            {
+              "node_id": "eb319ea3-633a-4eae-8329-c3ef6b984f25",
+              "text": "Next Lecture Architectural comparison of containers and virtual machines, performance analysis, use ...",
+              "score": -11.29787826538086,
+              "relevant": false
+            },
+            {
+              "node_id": "dede8dd6-6c1f-43e5-95f2-dd941f5f8f1a",
+              "text": "Next Lecture Load balancing fundamentals, algorithms (round-robin, least connection, IP hash, weight...",
+              "score": -11.158016204833984,
+              "relevant": false
+            },
+            {
+              "node_id": "fe82b31c-6e61-4e0b-9cf4-24e53b3889b6",
+              "text": "Next Lecture Public cloud, private cloud, hybrid cloud, and multi-cloud architectures, decision crit...",
+              "score": -11.40533447265625,
+              "relevant": false
+            },
+            {
+              "node_id": "6f3d3f90-4b50-4e78-bbb9-9fdef0d36037",
+              "text": "Next Lecture Detailed exploration of IaaS, PaaS, and SaaS with real-world examples, understanding th...",
+              "score": -11.358803749084473,
+              "relevant": false
+            },
+            {
+              "node_id": "1ca32cfd-adfa-4874-a69c-8ca4e3babda5",
+              "text": "Next Lecture Concept of redundancy, failover mechanisms, active-active vs. active-passive configurat...",
+              "score": -11.284079551696777,
+              "relevant": false
+            },
+            {
+              "node_id": "1b980c20-a598-4437-80a2-4e2748473df7",
+              "text": "Next Lecture Vertical scaling vs horizontal scaling, elasticity concepts, scalability design pattern...",
+              "score": -11.346196174621582,
+              "relevant": false
+            },
+            {
+              "node_id": "df2344a3-10e6-4cbe-b6f8-21e2242e1d1d",
+              "text": "UNIVERSITY INSTITUTE OF ENGINEERING DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING BTECH CSE \u2013 CS 20...",
+              "score": -11.316884994506836,
+              "relevant": false
+            },
+            {
+              "node_id": "c1f6ca37-7ae5-4d0b-b18b-31749f9fa053",
+              "text": "Learning Objectives 1 \u2022 Understand what cloud computing fundamentally means \u2022 Learn how computing ev...",
+              "score": -11.305093765258789,
+              "relevant": false
+            },
+            {
+              "node_id": "9962f6bd-d48c-4225-be9a-ebed7efaa7eb",
+              "text": "Definition of Cloud Computing \u2022 Cloud computing provides IT resources over the internet \u2022 Resources ...",
+              "score": -11.277416229248047,
+              "relevant": false
+            },
+            {
+              "node_id": "963e1cb8-5d23-42ee-80a1-0722a7dc4322",
+              "text": "What Makes Something \u201cCloud Computing\u201d? \u2022 Services delivered remotely through the internet \u2022 Resourc...",
+              "score": -11.326553344726562,
+              "relevant": false
+            },
+            {
+              "node_id": "a203bd2d-c64d-4f45-841b-0381e1465874",
+              "text": "Evolution of Computing: Mainframes \u2022 1950s\u20131970s: Computing started with powerful centralized machin...",
+              "score": -11.194042205810547,
+              "relevant": false
+            },
+            {
+              "node_id": "f5f84af3-9212-441b-840a-8430fdd9ce2f",
+              "text": "Evolution: Client\u2013Server Era \u2022 Emerged in 1980s\u20131990s with personal computers \u2022 Workload distributed...",
+              "score": -11.331188201904297,
+              "relevant": false
+            },
+            {
+              "node_id": "a58a1a89-333c-49dc-b9c2-11948e527aa4",
+              "text": "Evolution: Virtualization & Distributed Systems \u2022 Early 2000s brought virtualization technologies \u2022 ...",
+              "score": -11.274706840515137,
+              "relevant": false
+            },
+            {
+              "node_id": "a7d52caa-b3e7-4354-ad80-e1ba5856ba79",
+              "text": "Evolution: Cloud Era Emerges \u2022 Mid-2000s: providers began offering computing via the internet \u2022 Larg...",
+              "score": -11.304550170898438,
+              "relevant": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-02-19T18:14:37.383197+00:00",
+      "query": "Characteristics of Vertical Scalability",
+      "filtered_count": 6,
+      "evaluation": {
+        "query": "Characteristics of Vertical Scalability",
+        "num_retrieved": 20,
+        "relevance_scores": [
+          5.952685832977295,
+          3.3596396446228027,
+          5.868046760559082,
+          6.238913059234619,
+          3.544675588607788,
+          -0.5398771166801453,
+          -0.7533687353134155,
+          -2.5402791500091553,
+          6.504918098449707,
+          -3.033008098602295,
+          -4.625980854034424,
+          0.2104724496603012,
+          0.3823780119419098,
+          -1.2670587301254272,
+          -4.015233039855957,
+          -2.3289332389831543,
+          -11.314668655395508,
+          -3.609431028366089,
+          -3.615589141845703,
+          -5.805543422698975
+        ],
+        "context_precision": 0.3,
+        "context_recall": 0.0,
+        "avg_relevance": -0.5693620882928372,
+        "passed_threshold": false,
+        "details": {
+          "method": "cross_encoder",
+          "model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "num_relevant": 6,
+          "threshold": 0.5,
+          "node_scores": [
+            {
+              "node_id": "eefcc664-4475-4ae3-b9a4-50317d77a8c6",
+              "text": "Characteristics of Horizontal Scalability \u2022Resources grow by adding identical or similar nodes \u2022Syst...",
+              "score": 5.952685832977295,
+              "relevant": true
+            },
+            {
+              "node_id": "d457f546-7ade-4804-8154-17606e6c805c",
+              "text": "Scalability Comparison: Vertical vs Horizontal \u2022Vertical scaling strengthens a single machine \u2022Horiz...",
+              "score": 3.3596396446228027,
+              "relevant": true
+            },
+            {
+              "node_id": "121c417a-811f-4c1c-8716-005da309cbe8",
+              "text": "Advantages of Vertical Scalability \u2022Simple implementation with minimal configuration changes \u2022No nee...",
+              "score": 5.868046760559082,
+              "relevant": true
+            },
+            {
+              "node_id": "dce7d214-9bfb-4c7f-af7b-4de250338723",
+              "text": "Vertical Scalability Overview \u2022Vertical scalability is also known as scaling up \u2022It involves adding ...",
+              "score": 6.238913059234619,
+              "relevant": true
+            },
+            {
+              "node_id": "102b52e7-8d9b-45b7-9b06-91e0fd2ca9b8",
+              "text": "Types of Scalability \u2022Scalability can be achieved using multiple architectural approaches \u2022Vertical ...",
+              "score": 3.544675588607788,
+              "relevant": true
+            },
+            {
+              "node_id": "59c3a8d5-5854-46b9-9c9e-4ecb30756bf2",
+              "text": "Summary of the Lecture \u2022 Vertical scaling increases single-system capacity \u2022 Horizontal scaling incr...",
+              "score": -0.5398771166801453,
+              "relevant": false
+            },
+            {
+              "node_id": "675cdd60-42c5-45a7-8284-6de5137e24d2",
+              "text": "Learning Objectives \u2022 Distinguish between vertical and horizontal scaling \u2022 Understand elasticity an...",
+              "score": -0.7533687353134155,
+              "relevant": false
+            },
+            {
+              "node_id": "1c46aca1-06eb-4ce6-b196-5b104307ca43",
+              "text": "\u2022 Scalability allows applications to support growing user bases \u2022 It prevents system crashes during ...",
+              "score": -2.5402791500091553,
+              "relevant": false
+            },
+            {
+              "node_id": "ce60c264-66eb-4a74-a5d7-9e7e00696832",
+              "text": "\u2022 Performance improvement is immediate after resource upgrade \u2022 System architecture remains largely ...",
+              "score": 6.504918098449707,
+              "relevant": true
+            },
+            {
+              "node_id": "bd616083-9814-448c-8211-8210d2b9c7d1",
+              "text": "\u2022 Vertical scaling enhances single-node capacity \u2022 Horizontal scaling increases number of nodes \u2022 Ve...",
+              "score": -3.033008098602295,
+              "relevant": false
+            },
+            {
+              "node_id": "28f563ae-c736-4374-8e86-d59e8cea5380",
+              "text": "\u2022 Near-unlimited scalability potential \u2022 Improved fault tolerance \u2022 High availability through redund...",
+              "score": -4.625980854034424,
+              "relevant": false
+            },
+            {
+              "node_id": "66df91e3-4e48-4732-afd3-0721a826c681",
+              "text": "Advantages of Horizontal Scalability \u2022Virtually unlimited scaling potential \u2022High availability throu...",
+              "score": 0.2104724496603012,
+              "relevant": false
+            },
+            {
+              "node_id": "84636c43-b09b-48be-87c4-0e48c3dd65fb",
+              "text": "\u2022 Hardware upgrades are limited by machine capacity \u2022 Scaling beyond a certain point becomes impossi...",
+              "score": 0.3823780119419098,
+              "relevant": false
+            },
+            {
+              "node_id": "3e9c2548-4d54-4c75-8d1f-556305bd50da",
+              "text": "\u2022 Scalability refers to a system\u2019s ability to handle increasing workload efficiently \u2022 It ensures co...",
+              "score": -1.2670587301254272,
+              "relevant": false
+            },
+            {
+              "node_id": "51e0cadd-be0f-438f-ab42-255a37142497",
+              "text": "Quiz/ FAQ\u2019s \u2022 Q1. Is horizontal scaling always better than vertical scaling? \u2022 Solution: No. Horizon...",
+              "score": -4.015233039855957,
+              "relevant": false
+            },
+            {
+              "node_id": "3ae7754a-7cab-4d4c-bbe5-51c84dcc5333",
+              "text": "Next Lecture Vertical scaling vs horizontal scaling, elasticity concepts, scalability design pattern...",
+              "score": -2.3289332389831543,
+              "relevant": false
+            },
+            {
+              "node_id": "1dd8b7e2-32f6-4560-b0e0-8dda77f07edd",
+              "text": "Learning Objectives \u2022 Understand container and virtual machine architectures \u2022 Compare performance c...",
+              "score": -11.314668655395508,
+              "relevant": false
+            },
+            {
+              "node_id": "cf53bed3-d379-4200-a059-d95693675ec9",
+              "text": "\u2022 Increases capacity of a single system \u2022 Achieved by upgrading CPU, memory, or storage \u2022 Maintains ...",
+              "score": -3.609431028366089,
+              "relevant": false
+            },
+            {
+              "node_id": "56783f08-477b-4aae-b9e3-2350eedc2970",
+              "text": "UNIVERSITY INSTITUTE OF ENGINEERING DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING BTECH CSE \u2013 CS 20...",
+              "score": -3.615589141845703,
+              "relevant": false
+            },
+            {
+              "node_id": "241c8cce-c946-40c3-8c61-d223bc36c55a",
+              "text": "\u2022 Simple implementation approach \u2022 No need for distributed system redesign \u2022 Easier troubleshooting ...",
+              "score": -5.805543422698975,
+              "relevant": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-02-19T18:15:39.785941+00:00",
+      "query": "What is Blockchain",
+      "filtered_count": 0,
+      "evaluation": {
+        "query": "What is Blockchain",
+        "num_retrieved": 30,
+        "relevance_scores": [
+          -10.852972030639648,
+          -11.336114883422852,
+          -11.397664070129395,
+          -11.295743942260742,
+          -11.38339614868164,
+          -11.25667953491211,
+          -11.34919548034668,
+          -11.285452842712402,
+          -11.321778297424316,
+          -11.3971529006958,
+          -11.331751823425293,
+          -10.986796379089355,
+          -11.294158935546875,
+          -11.348957061767578,
+          -11.3971529006958,
+          -11.319809913635254,
+          -11.212578773498535,
+          -11.329581260681152,
+          -11.258328437805176,
+          -11.285806655883789,
+          -11.230709075927734,
+          -11.251591682434082,
+          -11.406171798706055,
+          -11.238266944885254,
+          -11.303523063659668,
+          -11.289859771728516,
+          -11.135769844055176,
+          -11.272296905517578,
+          -11.032386779785156,
+          -11.063699722290039
+        ],
+        "context_precision": 0.0,
+        "context_recall": 0.0,
+        "avg_relevance": -11.262178262074789,
+        "passed_threshold": false,
+        "details": {
+          "method": "cross_encoder",
+          "model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "num_relevant": 0,
+          "threshold": 0.5,
+          "node_scores": [
+            {
+              "node_id": "72cb54b3-8c31-4a63-8220-345522ac7a61",
+              "text": "\u2022 Provides network connectivity between consumer and provider. \u2022 Responsible for secure and reliable...",
+              "score": -10.852972030639648,
+              "relevant": false
+            },
+            {
+              "node_id": "5958353b-5cdd-44a7-b0c6-4cd73001a71e",
+              "text": "Next Lecture Load balancing fundamentals, algorithms (round-robin, least connection, IP hash, weight...",
+              "score": -11.336114883422852,
+              "relevant": false
+            },
+            {
+              "node_id": "2a1c89d5-587b-488a-97b3-5d2061c872e4",
+              "text": "Source: https://www.researchgate.net/figure/NIST-Visual-model-of- cloud-computing-definition_fig1_29...",
+              "score": -11.397664070129395,
+              "relevant": false
+            },
+            {
+              "node_id": "98193c90-9d9e-495c-a32c-ddc4e5952035",
+              "text": "Next Lecture Concept of redundancy, failover mechanisms, active-active vs. active-passive configurat...",
+              "score": -11.295743942260742,
+              "relevant": false
+            },
+            {
+              "node_id": "c9fd79ee-b404-42c3-9660-b81f368af28e",
+              "text": "Next Lecture Architectural comparison of containers and virtual machines, performance analysis, use ...",
+              "score": -11.38339614868164,
+              "relevant": false
+            },
+            {
+              "node_id": "a995fecb-1fbf-4e87-896b-cb7f6cb2dbfe",
+              "text": "\u2022 Divides large datasets logically \u2022 Distributes data across nodes \u2022 Improves access performance \u2022 R...",
+              "score": -11.25667953491211,
+              "relevant": false
+            },
+            {
+              "node_id": "4b149bb1-3394-43ce-9b59-aa2bfafada19",
+              "text": "Learning Objectives \u2022 Understand different types of virtualization \u2022 Distinguish between Type 1 and ...",
+              "score": -11.34919548034668,
+              "relevant": false
+            },
+            {
+              "node_id": "13a78265-3720-4628-87ca-8f4b052593fb",
+              "text": "Learning Objectives \u2022 Understand the purpose and structure of the NIST Cloud Reference Architecture....",
+              "score": -11.285452842712402,
+              "relevant": false
+            },
+            {
+              "node_id": "3695dd3f-47d6-4f61-8e12-20bd0ab46ff3",
+              "text": "UNIVERSITY INSTITUTE OF ENGINEERING DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING BTECH CSE \u2013 CS 20...",
+              "score": -11.321778297424316,
+              "relevant": false
+            },
+            {
+              "node_id": "6117d508-3a9b-467b-b910-3cd06ba813ed",
+              "text": "Faculty-curated videos, NPTEL, Coursera, LinkedIn, or other relevant learning resources \u2022 Cloud Comp...",
+              "score": -11.3971529006958,
+              "relevant": false
+            },
+            {
+              "node_id": "3ae7754a-7cab-4d4c-bbe5-51c84dcc5333",
+              "text": "Next Lecture Vertical scaling vs horizontal scaling, elasticity concepts, scalability design pattern...",
+              "score": -11.331751823425293,
+              "relevant": false
+            },
+            {
+              "node_id": "8bb28893-9fac-4217-b2d3-10605554432b",
+              "text": "\u2022 Distributes incoming client requests across multiple resources \u2022 Prevents any single component fro...",
+              "score": -10.986796379089355,
+              "relevant": false
+            },
+            {
+              "node_id": "d75e8be1-fd9c-4b13-9793-a75f286a0744",
+              "text": "UNIVERSITY INSTITUTE OF ENGINEERING DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING BTECH CSE \u2013 CS 20...",
+              "score": -11.294158935546875,
+              "relevant": false
+            },
+            {
+              "node_id": "1dd8b7e2-32f6-4560-b0e0-8dda77f07edd",
+              "text": "Learning Objectives \u2022 Understand container and virtual machine architectures \u2022 Compare performance c...",
+              "score": -11.348957061767578,
+              "relevant": false
+            },
+            {
+              "node_id": "5aed21c0-fc79-489a-b2e5-42acc906e795",
+              "text": "Faculty-curated videos, NPTEL, Coursera, LinkedIn, or other relevant learning resources \u2022 Cloud Comp...",
+              "score": -11.3971529006958,
+              "relevant": false
+            },
+            {
+              "node_id": "33f36846-4efb-43b6-b25f-5b356d32067b",
+              "text": "References/ Articles/ Videos \u2022 https://www.redhat.com/en/topics/virtualization \u2022 https://www.vmware....",
+              "score": -11.319809913635254,
+              "relevant": false
+            },
+            {
+              "node_id": "951c4eef-8549-4094-8f93-8132077efcdd",
+              "text": "References/ Articles/ Videos \u2022 https://www.redhat.com/en/topics/virtualization \u2022 https://www.vmware....",
+              "score": -11.212578773498535,
+              "relevant": false
+            },
+            {
+              "node_id": "60dbcb62-2d99-4b5e-a164-36c31a859697",
+              "text": "References/ Articles/ Videos \u2022 https://aws.amazon.com/what-is/load-balancing/ \u2022 https://cloud.google...",
+              "score": -11.329581260681152,
+              "relevant": false
+            },
+            {
+              "node_id": "51e0cadd-be0f-438f-ab42-255a37142497",
+              "text": "Quiz/ FAQ\u2019s \u2022 Q1. Is horizontal scaling always better than vertical scaling? \u2022 Solution: No. Horizon...",
+              "score": -11.258328437805176,
+              "relevant": false
+            },
+            {
+              "node_id": "7d99aa7e-722f-408a-b38f-a03d072e0108",
+              "text": "Quiz/ FAQ\u2019s \u2022 Q1. Why is load balancing essential in scalable systems? \u2022 Solution: It prevents overl...",
+              "score": -11.285806655883789,
+              "relevant": false
+            },
+            {
+              "node_id": "781ada7b-2eeb-43e5-97bd-f90b2b5b6039",
+              "text": "Quiz/ FAQ\u2019s \u2022 Q1. Why is virtualization required in cloud environments? \u2022 Solution: It enables effic...",
+              "score": -11.230709075927734,
+              "relevant": false
+            },
+            {
+              "node_id": "eae171a2-614c-4a10-b647-b643b04819f1",
+              "text": "Quiz/ FAQ\u2019s Q1. Why are different virtualization types required? Solution: Different workloads requi...",
+              "score": -11.251591682434082,
+              "relevant": false
+            },
+            {
+              "node_id": "f6674f4e-6cf1-4314-bfcf-89417b43eafb",
+              "text": "References/ Articles/ Videos https://martinfowler.com/articles/scaling.html https://aws.amazon.com/w...",
+              "score": -11.406171798706055,
+              "relevant": false
+            },
+            {
+              "node_id": "eefcc664-4475-4ae3-b9a4-50317d77a8c6",
+              "text": "Characteristics of Horizontal Scalability \u2022Resources grow by adding identical or similar nodes \u2022Syst...",
+              "score": -11.238266944885254,
+              "relevant": false
+            },
+            {
+              "node_id": "a7acb204-75fd-4f1b-88ff-efaa917077a7",
+              "text": "\u2022 Increased architectural complexity \u2022 Requires coordination between nodes \u2022 Data consistency manage...",
+              "score": -11.303523063659668,
+              "relevant": false
+            },
+            {
+              "node_id": "0c79040f-87ff-4751-9d0e-d218278f8d6f",
+              "text": "\u2022 Guest OS is modified to interact with hypervisor \u2022 Reduces need for hardware emulation \u2022 Improves ...",
+              "score": -11.289859771728516,
+              "relevant": false
+            },
+            {
+              "node_id": "bd616083-9814-448c-8211-8210d2b9c7d1",
+              "text": "\u2022 Vertical scaling enhances single-node capacity \u2022 Horizontal scaling increases number of nodes \u2022 Ve...",
+              "score": -11.135769844055176,
+              "relevant": false
+            },
+            {
+              "node_id": "ce60c264-66eb-4a74-a5d7-9e7e00696832",
+              "text": "\u2022 Performance improvement is immediate after resource upgrade \u2022 System architecture remains largely ...",
+              "score": -11.272296905517578,
+              "relevant": false
+            },
+            {
+              "node_id": "2ae15d34-8ac3-4e1d-989d-c22f6eec0e3c",
+              "text": "\u2022 Horizontal scalability is also known as scaling out \u2022 It involves adding more machines or instance...",
+              "score": -11.032386779785156,
+              "relevant": false
+            },
+            {
+              "node_id": "dce7d214-9bfb-4c7f-af7b-4de250338723",
+              "text": "Vertical Scalability Overview \u2022Vertical scalability is also known as scaling up \u2022It involves adding ...",
+              "score": -11.063699722290039,
+              "relevant": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-02-19T18:16:48.352037+00:00",
+      "query": "Need for Virtualization in Cloud Environments",
+      "filtered_count": 11,
+      "evaluation": {
+        "query": "Need for Virtualization in Cloud Environments",
+        "num_retrieved": 21,
+        "relevance_scores": [
+          7.2164435386657715,
+          7.9566755294799805,
+          6.6113996505737305,
+          8.135948181152344,
+          6.380722999572754,
+          -0.7691598534584045,
+          -1.0921564102172852,
+          0.23759886622428894,
+          -0.7278327345848083,
+          1.0923818349838257,
+          -4.869621276855469,
+          3.1384711265563965,
+          4.642664432525635,
+          -5.23268461227417,
+          0.5167196989059448,
+          6.999844551086426,
+          6.596305847167969,
+          -1.36192786693573,
+          -3.210463285446167,
+          -7.484188556671143,
+          -2.6944472789764404
+        ],
+        "context_precision": 0.5238095238095238,
+        "context_recall": 0.0,
+        "avg_relevance": 1.527747351498831,
+        "passed_threshold": true,
+        "details": {
+          "method": "cross_encoder",
+          "model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "num_relevant": 11,
+          "threshold": 0.5,
+          "node_scores": [
+            {
+              "node_id": "781ada7b-2eeb-43e5-97bd-f90b2b5b6039",
+              "text": "Quiz/ FAQ\u2019s \u2022 Q1. Why is virtualization required in cloud environments? \u2022 Solution: It enables effic...",
+              "score": 7.2164435386657715,
+              "relevant": true
+            },
+            {
+              "node_id": "e153255b-0ba0-44bf-9cad-c6c30f9a6eb4",
+              "text": "\u2022 Cloud demands efficient use of hardware resources \u2022 Traditional systems leave resources underutili...",
+              "score": 7.9566755294799805,
+              "relevant": true
+            },
+            {
+              "node_id": "132b00e3-2735-4345-8c96-0e66be6f359a",
+              "text": "Learning Objectives \u2022 Understand the concept of virtualization \u2022 Explain the need for virtualization...",
+              "score": 6.6113996505737305,
+              "relevant": true
+            },
+            {
+              "node_id": "cf7b188e-6a79-4f08-a081-9b21458d63a6",
+              "text": "Next Lecture Need for virtualization in cloud environments, key benefits (resource optimization, iso...",
+              "score": 8.135948181152344,
+              "relevant": true
+            },
+            {
+              "node_id": "0303051e-8faa-4d71-9348-28e640e9c54a",
+              "text": "\u2022 Virtualization abstracts physical hardware into logical resources. \u2022 It enables efficient utilizat...",
+              "score": 6.380722999572754,
+              "relevant": true
+            },
+            {
+              "node_id": "b592d650-d23e-4ed7-a95c-933eb0e344ad",
+              "text": "Summary of the Lecture \u2022 Virtualization has multiple implementation types \u2022 Full virtualization supp...",
+              "score": -0.7691598534584045,
+              "relevant": false
+            },
+            {
+              "node_id": "eae171a2-614c-4a10-b647-b643b04819f1",
+              "text": "Quiz/ FAQ\u2019s Q1. Why are different virtualization types required? Solution: Different workloads requi...",
+              "score": -1.0921564102172852,
+              "relevant": false
+            },
+            {
+              "node_id": "654b468d-d2e1-40f2-8ac4-7888009eff07",
+              "text": "\u2022 Virtualization enables multiple environments on one machine \u2022 Different techniques manage hardware...",
+              "score": 0.23759886622428894,
+              "relevant": false
+            },
+            {
+              "node_id": "dfe22a8f-c1bf-46bd-bb66-61236c659241",
+              "text": "\u2022 Physical resources are shared logically \u2022 Each virtual environment runs independently \u2022 A virtuali...",
+              "score": -0.7278327345848083,
+              "relevant": false
+            },
+            {
+              "node_id": "87761d67-19c4-4e43-9d06-5c585bfbccd5",
+              "text": "\u2022 Virtualization can be implemented using multiple architectural approaches. \u2022 Full virtualization a...",
+              "score": 1.0923818349838257,
+              "relevant": true
+            },
+            {
+              "node_id": "4502e2be-9918-410e-a183-83c8ef1f9122",
+              "text": "\u2022 Legacy or monolithic applications \u2022 Applications requiring full OS control \u2022 Strong isolation and ...",
+              "score": -4.869621276855469,
+              "relevant": false
+            },
+            {
+              "node_id": "d5eba3df-c274-4ce2-a479-27b410a35eff",
+              "text": "\u2022 Abstracts physical hardware into virtual resources \u2022 Enables multiple logical environments on one ...",
+              "score": 3.1384711265563965,
+              "relevant": true
+            },
+            {
+              "node_id": "1c9199ca-dbae-4402-8e63-38a50df040df",
+              "text": "Summary of the Lecture \u2022 Virtualization abstracts physical hardware \u2022 Enables efficient resource uti...",
+              "score": 4.642664432525635,
+              "relevant": true
+            },
+            {
+              "node_id": "4b149bb1-3394-43ce-9b59-aa2bfafada19",
+              "text": "Learning Objectives \u2022 Understand different types of virtualization \u2022 Distinguish between Type 1 and ...",
+              "score": -5.23268461227417,
+              "relevant": false
+            },
+            {
+              "node_id": "08ab90a6-561e-41aa-96b9-976faae18109",
+              "text": "\u2022 Enables on-demand infrastructure availability \u2022 Supports rapid provisioning of resources \u2022 Simplif...",
+              "score": 0.5167196989059448,
+              "relevant": true
+            },
+            {
+              "node_id": "5bf728c2-434e-40d2-a5a7-b8c2ab840ffd",
+              "text": "UNIVERSITY INSTITUTE OF ENGINEERING DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING BTECH CSE \u2013 CS 20...",
+              "score": 6.999844551086426,
+              "relevant": true
+            },
+            {
+              "node_id": "2d1af0e2-d0a3-4d14-94ae-858d1274f611",
+              "text": "\u2022 Enables dynamic allocation of resources \u2022 Supports multi-tenant cloud environments \u2022 Simplifies in...",
+              "score": 6.596305847167969,
+              "relevant": true
+            },
+            {
+              "node_id": "52400f02-b121-4913-bc55-64f640360fee",
+              "text": "\u2022 Provides complete hardware abstraction \u2022 Guest OS runs without modification \u2022 Hypervisor emulates ...",
+              "score": -1.36192786693573,
+              "relevant": false
+            },
+            {
+              "node_id": "0c79040f-87ff-4751-9d0e-d218278f8d6f",
+              "text": "\u2022 Guest OS is modified to interact with hypervisor \u2022 Reduces need for hardware emulation \u2022 Improves ...",
+              "score": -3.210463285446167,
+              "relevant": false
+            },
+            {
+              "node_id": "319ed149-dd67-4f84-90f6-3abd0fb399ee",
+              "text": "\u2022 Independent party that assesses cloud services for compliance. \u2022 Evaluates performance of cloud pr...",
+              "score": -7.484188556671143,
+              "relevant": false
+            },
+            {
+              "node_id": "ddfee15c-5cf6-4be2-9cd5-260bafaf2213",
+              "text": "\u2022 Uses CPU virtualization extensions \u2022 Hardware directly supports virtualization tasks \u2022 Reduces hyp...",
+              "score": -2.6944472789764404,
+              "relevant": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-02-19T18:17:21.781233+00:00",
+      "query": "what is deep learning",
+      "filtered_count": 0,
+      "evaluation": {
+        "query": "what is deep learning",
+        "num_retrieved": 25,
+        "relevance_scores": [
+          -11.144503593444824,
+          -10.711782455444336,
+          -11.123983383178711,
+          -11.108245849609375,
+          -11.375534057617188,
+          -10.942885398864746,
+          -11.10104751586914,
+          -11.079723358154297,
+          -11.356241226196289,
+          -11.348447799682617,
+          -11.365766525268555,
+          -11.343423843383789,
+          -11.32734489440918,
+          -11.343664169311523,
+          -11.329500198364258,
+          -10.775710105895996,
+          -10.519876480102539,
+          -11.225475311279297,
+          -11.277146339416504,
+          -11.342487335205078,
+          -11.34638786315918,
+          -11.352314949035645,
+          -11.133557319641113,
+          -11.316887855529785,
+          -11.312317848205566
+        ],
+        "context_precision": 0.0,
+        "context_recall": 0.0,
+        "avg_relevance": -11.184170227050782,
+        "passed_threshold": false,
+        "details": {
+          "method": "cross_encoder",
+          "model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "num_relevant": 0,
+          "threshold": 0.5,
+          "node_scores": [
+            {
+              "node_id": "4b149bb1-3394-43ce-9b59-aa2bfafada19",
+              "text": "Learning Objectives \u2022 Understand different types of virtualization \u2022 Distinguish between Type 1 and ...",
+              "score": -11.144503593444824,
+              "relevant": false
+            },
+            {
+              "node_id": "675cdd60-42c5-45a7-8284-6de5137e24d2",
+              "text": "Learning Objectives \u2022 Distinguish between vertical and horizontal scaling \u2022 Understand elasticity an...",
+              "score": -10.711782455444336,
+              "relevant": false
+            },
+            {
+              "node_id": "1dd8b7e2-32f6-4560-b0e0-8dda77f07edd",
+              "text": "Learning Objectives \u2022 Understand container and virtual machine architectures \u2022 Compare performance c...",
+              "score": -11.123983383178711,
+              "relevant": false
+            },
+            {
+              "node_id": "132b00e3-2735-4345-8c96-0e66be6f359a",
+              "text": "Learning Objectives \u2022 Understand the concept of virtualization \u2022 Explain the need for virtualization...",
+              "score": -11.108245849609375,
+              "relevant": false
+            },
+            {
+              "node_id": "de49ee75-d5b3-4b86-a703-4d585678089e",
+              "text": "Next Lecture Types of virtualization (full, paravirtualization, hardware assisted), Type 1 vs Type 2...",
+              "score": -11.375534057617188,
+              "relevant": false
+            },
+            {
+              "node_id": "13a78265-3720-4628-87ca-8f4b052593fb",
+              "text": "Learning Objectives \u2022 Understand the purpose and structure of the NIST Cloud Reference Architecture....",
+              "score": -10.942885398864746,
+              "relevant": false
+            },
+            {
+              "node_id": "f29c5839-e819-4822-9f7e-7106a02faea8",
+              "text": "Learning Objectives \u2022 Understand load balancing fundamentals \u2022 Compare common load balancing algorit...",
+              "score": -11.10104751586914,
+              "relevant": false
+            },
+            {
+              "node_id": "dce7d214-9bfb-4c7f-af7b-4de250338723",
+              "text": "Vertical Scalability Overview \u2022Vertical scalability is also known as scaling up \u2022It involves adding ...",
+              "score": -11.079723358154297,
+              "relevant": false
+            },
+            {
+              "node_id": "a995fecb-1fbf-4e87-896b-cb7f6cb2dbfe",
+              "text": "\u2022 Divides large datasets logically \u2022 Distributes data across nodes \u2022 Improves access performance \u2022 R...",
+              "score": -11.356241226196289,
+              "relevant": false
+            },
+            {
+              "node_id": "fab153a6-e8f1-4b7d-9d63-102c00178200",
+              "text": "\u2022 Each VM includes a full guest OS \u2022 Hypervisor manages hardware access \u2022 Strong isolation at hardwa...",
+              "score": -11.348447799682617,
+              "relevant": false
+            },
+            {
+              "node_id": "b592d650-d23e-4ed7-a95c-933eb0e344ad",
+              "text": "Summary of the Lecture \u2022 Virtualization has multiple implementation types \u2022 Full virtualization supp...",
+              "score": -11.365766525268555,
+              "relevant": false
+            },
+            {
+              "node_id": "d4eb478d-7b6a-4e7b-a7fe-0c779655de40",
+              "text": "\u2022 Physical hardware forms base layer \u2022 Hypervisor sits above hardware \u2022 Virtual machines run on hype...",
+              "score": -11.343423843383789,
+              "relevant": false
+            },
+            {
+              "node_id": "aaf7d877-c964-47e6-b07b-30d6c93397cc",
+              "text": "UNIVERSITY INSTITUTE OF ENGINEERING DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING BTECH CSE \u2013 CS 20...",
+              "score": -11.32734489440918,
+              "relevant": false
+            },
+            {
+              "node_id": "3ae7754a-7cab-4d4c-bbe5-51c84dcc5333",
+              "text": "Next Lecture Vertical scaling vs horizontal scaling, elasticity concepts, scalability design pattern...",
+              "score": -11.343664169311523,
+              "relevant": false
+            },
+            {
+              "node_id": "52400f02-b121-4913-bc55-64f640360fee",
+              "text": "\u2022 Provides complete hardware abstraction \u2022 Guest OS runs without modification \u2022 Hypervisor emulates ...",
+              "score": -11.329500198364258,
+              "relevant": false
+            },
+            {
+              "node_id": "33f36846-4efb-43b6-b25f-5b356d32067b",
+              "text": "References/ Articles/ Videos \u2022 https://www.redhat.com/en/topics/virtualization \u2022 https://www.vmware....",
+              "score": -10.775710105895996,
+              "relevant": false
+            },
+            {
+              "node_id": "951c4eef-8549-4094-8f93-8132077efcdd",
+              "text": "References/ Articles/ Videos \u2022 https://www.redhat.com/en/topics/virtualization \u2022 https://www.vmware....",
+              "score": -10.519876480102539,
+              "relevant": false
+            },
+            {
+              "node_id": "60dbcb62-2d99-4b5e-a164-36c31a859697",
+              "text": "References/ Articles/ Videos \u2022 https://aws.amazon.com/what-is/load-balancing/ \u2022 https://cloud.google...",
+              "score": -11.225475311279297,
+              "relevant": false
+            },
+            {
+              "node_id": "51e0cadd-be0f-438f-ab42-255a37142497",
+              "text": "Quiz/ FAQ\u2019s \u2022 Q1. Is horizontal scaling always better than vertical scaling? \u2022 Solution: No. Horizon...",
+              "score": -11.277146339416504,
+              "relevant": false
+            },
+            {
+              "node_id": "7d99aa7e-722f-408a-b38f-a03d072e0108",
+              "text": "Quiz/ FAQ\u2019s \u2022 Q1. Why is load balancing essential in scalable systems? \u2022 Solution: It prevents overl...",
+              "score": -11.342487335205078,
+              "relevant": false
+            },
+            {
+              "node_id": "781ada7b-2eeb-43e5-97bd-f90b2b5b6039",
+              "text": "Quiz/ FAQ\u2019s \u2022 Q1. Why is virtualization required in cloud environments? \u2022 Solution: It enables effic...",
+              "score": -11.34638786315918,
+              "relevant": false
+            },
+            {
+              "node_id": "eae171a2-614c-4a10-b647-b643b04819f1",
+              "text": "Quiz/ FAQ\u2019s Q1. Why are different virtualization types required? Solution: Different workloads requi...",
+              "score": -11.352314949035645,
+              "relevant": false
+            },
+            {
+              "node_id": "f6674f4e-6cf1-4314-bfcf-89417b43eafb",
+              "text": "References/ Articles/ Videos https://martinfowler.com/articles/scaling.html https://aws.amazon.com/w...",
+              "score": -11.133557319641113,
+              "relevant": false
+            },
+            {
+              "node_id": "eefcc664-4475-4ae3-b9a4-50317d77a8c6",
+              "text": "Characteristics of Horizontal Scalability \u2022Resources grow by adding identical or similar nodes \u2022Syst...",
+              "score": -11.316887855529785,
+              "relevant": false
+            },
+            {
+              "node_id": "a7acb204-75fd-4f1b-88ff-efaa917077a7",
+              "text": "\u2022 Increased architectural complexity \u2022 Requires coordination between nodes \u2022 Data consistency manage...",
+              "score": -11.312317848205566,
+              "relevant": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-02-19T18:18:07.814579+00:00",
+      "query": "what is Amazon IAM in cloud computing",
+      "filtered_count": 0,
+      "evaluation": {
+        "query": "what is Amazon IAM in cloud computing",
+        "num_retrieved": 30,
+        "relevance_scores": [
+          -11.334510803222656,
+          -11.351615905761719,
+          -10.307836532592773,
+          -11.394516944885254,
+          -9.530482292175293,
+          -10.22559642791748,
+          -11.35447883605957,
+          -10.427985191345215,
+          -11.391874313354492,
+          -9.620521545410156,
+          -10.990424156188965,
+          -9.072880744934082,
+          -10.007895469665527,
+          -11.375860214233398,
+          -9.372774124145508,
+          -5.6466803550720215,
+          -7.09494686126709,
+          -6.5933146476745605,
+          -6.7375922203063965,
+          -8.396090507507324,
+          -8.396090507507324,
+          -8.396090507507324,
+          -8.396090507507324,
+          -8.396090507507324,
+          -8.396090507507324,
+          -8.396090507507324,
+          -10.031113624572754,
+          -11.370299339294434,
+          -7.401456356048584,
+          -8.19172191619873
+        ],
+        "context_precision": 0.0,
+        "context_recall": 0.0,
+        "avg_relevance": -9.319967079162598,
+        "passed_threshold": false,
+        "details": {
+          "method": "cross_encoder",
+          "model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "num_relevant": 0,
+          "threshold": 0.5,
+          "node_scores": [
+            {
+              "node_id": "8bb28893-9fac-4217-b2d3-10605554432b",
+              "text": "\u2022 Distributes incoming client requests across multiple resources \u2022 Prevents any single component fro...",
+              "score": -11.334510803222656,
+              "relevant": false
+            },
+            {
+              "node_id": "4502e2be-9918-410e-a183-83c8ef1f9122",
+              "text": "\u2022 Legacy or monolithic applications \u2022 Applications requiring full OS control \u2022 Strong isolation and ...",
+              "score": -11.351615905761719,
+              "relevant": false
+            },
+            {
+              "node_id": "2d1af0e2-d0a3-4d14-94ae-858d1274f611",
+              "text": "\u2022 Enables dynamic allocation of resources \u2022 Supports multi-tenant cloud environments \u2022 Simplifies in...",
+              "score": -10.307836532592773,
+              "relevant": false
+            },
+            {
+              "node_id": "8a6fabf8-a971-49ea-8f19-fae0d2ece6fd",
+              "text": "\u2022 Microservices-based applications \u2022 Continuous integration and deployment \u2022 Stateless or loosely co...",
+              "score": -11.394516944885254,
+              "relevant": false
+            },
+            {
+              "node_id": "cc6c520b-7d38-4dbd-ba6b-8eef8d2cb4a7",
+              "text": "\u2022 Serves as a standardized framework for understanding cloud ecosystems. \u2022 Defines the key actors an...",
+              "score": -9.530482292175293,
+              "relevant": false
+            },
+            {
+              "node_id": "9c4a8407-8e5f-42d8-9ace-40c5d6adf971",
+              "text": "\u2022 Facilitates use, performance, and delivery of cloud services. \u2022 Acts as an intermediary between co...",
+              "score": -10.22559642791748,
+              "relevant": false
+            },
+            {
+              "node_id": "cb23d5a3-17f4-4258-a550-49f8521423b7",
+              "text": "\u2022 Separates request and processing flow \u2022 Improves system responsiveness \u2022 Handles heavy workloads e...",
+              "score": -11.35447883605957,
+              "relevant": false
+            },
+            {
+              "node_id": "052cb341-6b22-46b7-b07c-062ff6c77487",
+              "text": "\u2022 Service Orchestration Pattern \u2013 coordinated management of cloud services. \u2022 Intermediation Pattern...",
+              "score": -10.427985191345215,
+              "relevant": false
+            },
+            {
+              "node_id": "e7d40ed8-02c4-492f-aed8-4b5ce156d58a",
+              "text": "\u2022 Routes requests sequentially across available servers \u2022 Ensures equal distribution without conside...",
+              "score": -11.391874313354492,
+              "relevant": false
+            },
+            {
+              "node_id": "08ab90a6-561e-41aa-96b9-976faae18109",
+              "text": "\u2022 Enables on-demand infrastructure availability \u2022 Supports rapid provisioning of resources \u2022 Simplif...",
+              "score": -9.620521545410156,
+              "relevant": false
+            },
+            {
+              "node_id": "fab153a6-e8f1-4b7d-9d63-102c00178200",
+              "text": "\u2022 Each VM includes a full guest OS \u2022 Hypervisor manages hardware access \u2022 Strong isolation at hardwa...",
+              "score": -10.990424156188965,
+              "relevant": false
+            },
+            {
+              "node_id": "bb2a48f5-29ee-40ef-b9be-379bec36380b",
+              "text": "\u2022 Entity that uses cloud services delivered by a provider. \u2022 Responsible for managing user access, a...",
+              "score": -9.072880744934082,
+              "relevant": false
+            },
+            {
+              "node_id": "c23dc636-c7a1-4848-88a9-1c09b8b470f8",
+              "text": "\u2022 Cloud Consumer \u2013 uses cloud services and manages usage/controls. \u2022 Cloud Provider \u2013 delivers cloud...",
+              "score": -10.007895469665527,
+              "relevant": false
+            },
+            {
+              "node_id": "7c820c69-eb14-43b5-9d79-099ff1175a3f",
+              "text": "\u2022 Assigns traffic proportionally based on server capacity \u2022 Allows stronger servers to handle more r...",
+              "score": -11.375860214233398,
+              "relevant": false
+            },
+            {
+              "node_id": "bd5ae698-5df0-475d-929f-477f3dd96355",
+              "text": "\u2022 The entity responsible for offering cloud services to consumers. \u2022 Manages infrastructure, platfor...",
+              "score": -9.372774124145508,
+              "relevant": false
+            },
+            {
+              "node_id": "60dbcb62-2d99-4b5e-a164-36c31a859697",
+              "text": "References/ Articles/ Videos \u2022 https://aws.amazon.com/what-is/load-balancing/ \u2022 https://cloud.google...",
+              "score": -5.6466803550720215,
+              "relevant": false
+            },
+            {
+              "node_id": "33f36846-4efb-43b6-b25f-5b356d32067b",
+              "text": "References/ Articles/ Videos \u2022 https://www.redhat.com/en/topics/virtualization \u2022 https://www.vmware....",
+              "score": -7.09494686126709,
+              "relevant": false
+            },
+            {
+              "node_id": "951c4eef-8549-4094-8f93-8132077efcdd",
+              "text": "References/ Articles/ Videos \u2022 https://www.redhat.com/en/topics/virtualization \u2022 https://www.vmware....",
+              "score": -6.5933146476745605,
+              "relevant": false
+            },
+            {
+              "node_id": "f6674f4e-6cf1-4314-bfcf-89417b43eafb",
+              "text": "References/ Articles/ Videos https://martinfowler.com/articles/scaling.html https://aws.amazon.com/w...",
+              "score": -6.7375922203063965,
+              "relevant": false
+            },
+            {
+              "node_id": "5aed21c0-fc79-489a-b2e5-42acc906e795",
+              "text": "Faculty-curated videos, NPTEL, Coursera, LinkedIn, or other relevant learning resources \u2022 Cloud Comp...",
+              "score": -8.396090507507324,
+              "relevant": false
+            },
+            {
+              "node_id": "6117d508-3a9b-467b-b910-3cd06ba813ed",
+              "text": "Faculty-curated videos, NPTEL, Coursera, LinkedIn, or other relevant learning resources \u2022 Cloud Comp...",
+              "score": -8.396090507507324,
+              "relevant": false
+            },
+            {
+              "node_id": "ae197de7-0e3b-4aed-b3ad-d87c3934ecdc",
+              "text": "Faculty-curated videos, NPTEL, Coursera, LinkedIn, or other relevant learning resources \u2022 Cloud Comp...",
+              "score": -8.396090507507324,
+              "relevant": false
+            },
+            {
+              "node_id": "fe451feb-6d35-49e5-88dc-df7d948c8c3e",
+              "text": "Faculty-curated videos, NPTEL, Coursera, LinkedIn, or other relevant learning resources \u2022 Cloud Comp...",
+              "score": -8.396090507507324,
+              "relevant": false
+            },
+            {
+              "node_id": "35aebe00-c061-41b4-a5c7-5378312dd77b",
+              "text": "Faculty-curated videos, NPTEL, Coursera, LinkedIn, or other relevant learning resources \u2022 Cloud Comp...",
+              "score": -8.396090507507324,
+              "relevant": false
+            },
+            {
+              "node_id": "4428ef82-906f-4c43-84b0-eae488aef6f8",
+              "text": "Faculty-curated videos, NPTEL, Coursera, LinkedIn, or other relevant learning resources \u2022 Cloud Comp...",
+              "score": -8.396090507507324,
+              "relevant": false
+            },
+            {
+              "node_id": "77be1a2d-6827-4867-b69c-d25060d8532d",
+              "text": "Faculty-curated videos, NPTEL, Coursera, LinkedIn, or other relevant learning resources \u2022 Cloud Comp...",
+              "score": -8.396090507507324,
+              "relevant": false
+            },
+            {
+              "node_id": "781ada7b-2eeb-43e5-97bd-f90b2b5b6039",
+              "text": "Quiz/ FAQ\u2019s \u2022 Q1. Why is virtualization required in cloud environments? \u2022 Solution: It enables effic...",
+              "score": -10.031113624572754,
+              "relevant": false
+            },
+            {
+              "node_id": "7d99aa7e-722f-408a-b38f-a03d072e0108",
+              "text": "Quiz/ FAQ\u2019s \u2022 Q1. Why is load balancing essential in scalable systems? \u2022 Solution: It prevents overl...",
+              "score": -11.370299339294434,
+              "relevant": false
+            },
+            {
+              "node_id": "fd7d1a7d-65ab-4517-969e-4546dce149ef",
+              "text": "References/ Articles/ Videos \u2022 https://www.redhat.com/en/topics/containers/containers-vs-vms \u2022 https...",
+              "score": -7.401456356048584,
+              "relevant": false
+            },
+            {
+              "node_id": "ca7d776c-3941-43f9-a2ac-4daf947b079b",
+              "text": "\u2022 NIST Cloud Computing Reference Architecture (Full PDF) https://nvlpubs.nist.gov/nistpubs/Legacy/SP...",
+              "score": -8.19172191619873,
+              "relevant": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-02-20T16:50:15.760065+00:00",
+      "query": "what is virtualisation",
+      "filtered_count": 10,
+      "evaluation": {
+        "query": "what is virtualisation",
+        "num_retrieved": 26,
+        "relevance_scores": [
+          4.454889297485352,
+          8.067792892456055,
+          2.5657429695129395,
+          -0.587253749370575,
+          2.0925307273864746,
+          1.9742263555526733,
+          5.635708808898926,
+          -0.4744464159011841,
+          4.907359600067139,
+          1.4778364896774292,
+          -0.5369831323623657,
+          -0.480118989944458,
+          1.9626891613006592,
+          2.4394848346710205,
+          0.1821330189704895,
+          -11.236621856689453,
+          -11.172956466674805,
+          -11.142254829406738,
+          -11.293249130249023,
+          -11.062800407409668,
+          -11.26638126373291,
+          -3.5784354209899902,
+          -11.180434226989746,
+          -11.192992210388184,
+          -10.390262603759766,
+          -10.639641761779785
+        ],
+        "context_precision": 0.38461538461538464,
+        "context_recall": 0.0,
+        "avg_relevance": -3.0951707042180576,
+        "passed_threshold": false,
+        "details": {
+          "method": "cross_encoder",
+          "model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "num_relevant": 10,
+          "threshold": 0.5,
+          "node_scores": [
+            {
+              "node_id": "c0526da9-e041-49eb-af85-834ba831db43",
+              "text": "Quiz/ FAQ\u2019s \u2022 Q1. Why is virtualization required in cloud environments? \u2022 Solution: It enables effic...",
+              "score": 4.454889297485352,
+              "relevant": true
+            },
+            {
+              "node_id": "b057c6fb-6671-498e-814f-2e6fbf152671",
+              "text": "\u2022 Virtualization abstracts physical hardware into logical resources. \u2022 It enables efficient utilizat...",
+              "score": 8.067792892456055,
+              "relevant": true
+            },
+            {
+              "node_id": "ceba28f7-ebdd-47bb-a9f7-0c39341f0d1a",
+              "text": "Summary of the Lecture \u2022 Virtualization has multiple implementation types \u2022 Full virtualization supp...",
+              "score": 2.5657429695129395,
+              "relevant": true
+            },
+            {
+              "node_id": "fd42ade2-2716-4717-88bb-d691f4ced4ee",
+              "text": "Learning Objectives \u2022 Understand different types of virtualization \u2022 Distinguish between Type 1 and ...",
+              "score": -0.587253749370575,
+              "relevant": false
+            },
+            {
+              "node_id": "5717d5ed-647d-4ecd-ae7e-68f8c2e18a4c",
+              "text": "Learning Objectives \u2022 Understand the concept of virtualization \u2022 Explain the need for virtualization...",
+              "score": 2.0925307273864746,
+              "relevant": true
+            },
+            {
+              "node_id": "d297f696-0c3d-4c8a-a746-1b224cb9f8f9",
+              "text": "Quiz/ FAQ\u2019s Q1. Why are different virtualization types required? Solution: Different workloads requi...",
+              "score": 1.9742263555526733,
+              "relevant": true
+            },
+            {
+              "node_id": "2118b6b6-65bc-4bcd-8515-75506a508c55",
+              "text": "\u2022 Virtualization enables multiple environments on one machine \u2022 Different techniques manage hardware...",
+              "score": 5.635708808898926,
+              "relevant": true
+            },
+            {
+              "node_id": "e4c43fdb-b7a2-430b-80f5-a56e7f13b4a7",
+              "text": "Next Lecture Types of virtualization (full, paravirtualization, hardware assisted), Type 1 vs Type 2...",
+              "score": -0.4744464159011841,
+              "relevant": false
+            },
+            {
+              "node_id": "9aed62bb-1d4d-4450-a9f9-0b2c5c035b8e",
+              "text": "\u2022 Virtualization can be implemented using multiple architectural approaches. \u2022 Full virtualization a...",
+              "score": 4.907359600067139,
+              "relevant": true
+            },
+            {
+              "node_id": "733ec2f8-37e1-4585-becd-85878d261af0",
+              "text": "\u2022 Acts as virtualization control layer \u2022 Manages access to physical resources \u2022 Allocates CPU, memor...",
+              "score": 1.4778364896774292,
+              "relevant": true
+            },
+            {
+              "node_id": "9c0ac9a8-35e3-4052-9437-9ac663d853da",
+              "text": "\u2022 Virtual environments are hardware-independent \u2022 Enables easy migration across systems \u2022 Simplifies...",
+              "score": -0.5369831323623657,
+              "relevant": false
+            },
+            {
+              "node_id": "9c1eb0a4-9ff4-4de4-bbf2-3cca036f1ef3",
+              "text": "Next Lecture Need for virtualization in cloud environments, key benefits (resource optimization, iso...",
+              "score": -0.480118989944458,
+              "relevant": false
+            },
+            {
+              "node_id": "425ef008-c9ac-4622-b2a5-a3099e8f3264",
+              "text": "References/ Articles/ Videos \u2022 https://www.redhat.com/en/topics/virtualization \u2022 https://www.vmware....",
+              "score": 1.9626891613006592,
+              "relevant": true
+            },
+            {
+              "node_id": "13c1e39e-dc59-4a5b-af84-66f7984acb69",
+              "text": "\u2022 Cloud demands efficient use of hardware resources \u2022 Traditional systems leave resources underutili...",
+              "score": 2.4394848346710205,
+              "relevant": true
+            },
+            {
+              "node_id": "f7e20d2e-0f72-4b6e-a20c-1a98e2e1f3bb",
+              "text": "References/ Articles/ Videos \u2022 https://www.redhat.com/en/topics/virtualization \u2022 https://www.vmware....",
+              "score": 0.1821330189704895,
+              "relevant": false
+            },
+            {
+              "node_id": "4bab00ea-723d-4e5d-a55f-51856e45c56a",
+              "text": "References/ Articles/ Videos \u2022 https://aws.amazon.com/what-is/load-balancing/ \u2022 https://cloud.google...",
+              "score": -11.236621856689453,
+              "relevant": false
+            },
+            {
+              "node_id": "c707aac3-bf19-4b22-9e67-614a8d70c5b1",
+              "text": "Quiz/ FAQ\u2019s \u2022 Q1. Is horizontal scaling always better than vertical scaling? \u2022 Solution: No. Horizon...",
+              "score": -11.172956466674805,
+              "relevant": false
+            },
+            {
+              "node_id": "cc946144-e2d9-4019-858f-8569b722356b",
+              "text": "Quiz/ FAQ\u2019s \u2022 Q1. Why is load balancing essential in scalable systems? \u2022 Solution: It prevents overl...",
+              "score": -11.142254829406738,
+              "relevant": false
+            },
+            {
+              "node_id": "e3b5f5fb-8e78-4608-b850-ebf8ed942e38",
+              "text": "References/ Articles/ Videos https://martinfowler.com/articles/scaling.html https://aws.amazon.com/w...",
+              "score": -11.293249130249023,
+              "relevant": false
+            },
+            {
+              "node_id": "eb20a317-006a-4abf-aae6-8e79c0941e72",
+              "text": "Characteristics of Horizontal Scalability \u2022Resources grow by adding identical or similar nodes \u2022Syst...",
+              "score": -11.062800407409668,
+              "relevant": false
+            },
+            {
+              "node_id": "af4b1f74-e830-4be2-ad27-dd6ff871cb9b",
+              "text": "\u2022 Increased architectural complexity \u2022 Requires coordination between nodes \u2022 Data consistency manage...",
+              "score": -11.26638126373291,
+              "relevant": false
+            },
+            {
+              "node_id": "e8513bb0-c5d4-4432-9ab0-5dfa6f642e05",
+              "text": "\u2022 Guest OS is modified to interact with hypervisor \u2022 Reduces need for hardware emulation \u2022 Improves ...",
+              "score": -3.5784354209899902,
+              "relevant": false
+            },
+            {
+              "node_id": "c4b99652-4418-4c76-a7db-d085ae10c846",
+              "text": "\u2022 Vertical scaling enhances single-node capacity \u2022 Horizontal scaling increases number of nodes \u2022 Ve...",
+              "score": -11.180434226989746,
+              "relevant": false
+            },
+            {
+              "node_id": "43540453-e691-4958-af94-40399cf16590",
+              "text": "\u2022 Performance improvement is immediate after resource upgrade \u2022 System architecture remains largely ...",
+              "score": -11.192992210388184,
+              "relevant": false
+            },
+            {
+              "node_id": "56ad7259-7d81-4329-8eb9-7178e19eb9d6",
+              "text": "\u2022 Horizontal scalability is also known as scaling out \u2022 It involves adding more machines or instance...",
+              "score": -10.390262603759766,
+              "relevant": false
+            },
+            {
+              "node_id": "7ad4879d-87f2-4686-8a1a-754b309cca3b",
+              "text": "Vertical Scalability Overview \u2022Vertical scalability is also known as scaling up \u2022It involves adding ...",
+              "score": -10.639641761779785,
+              "relevant": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-02-20T17:14:19.410874+00:00",
+      "query": "what is cloud computing and virtualisation?",
+      "filtered_count": 9,
+      "evaluation": {
+        "query": "what is cloud computing and virtualisation?",
+        "num_retrieved": 27,
+        "relevance_scores": [
+          2.2597036361694336,
+          -2.2104036808013916,
+          -3.712981700897217,
+          5.814360618591309,
+          -5.009150505065918,
+          2.5556485652923584,
+          3.736077070236206,
+          6.495940208435059,
+          -4.272279739379883,
+          -2.2638704776763916,
+          3.5317306518554688,
+          -4.698067665100098,
+          0.9680193066596985,
+          3.347857713699341,
+          -2.514086961746216,
+          -0.1673109531402588,
+          -6.0680389404296875,
+          3.477182626724243,
+          0.381617933511734,
+          -0.9407716393470764,
+          -10.322157859802246,
+          -11.270852088928223,
+          -11.254707336425781,
+          -0.17037779092788696,
+          -10.162369728088379,
+          -6.78290319442749,
+          -5.475826740264893
+        ],
+        "context_precision": 0.3333333333333333,
+        "context_recall": 0.0,
+        "avg_relevance": -2.0269636544916363,
+        "passed_threshold": false,
+        "details": {
+          "method": "cross_encoder",
+          "model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "num_relevant": 9,
+          "threshold": 0.5,
+          "node_scores": [
+            {
+              "node_id": "1049a9f0-6c26-4863-b97c-1822ef709ebb",
+              "text": "Learning Objectives \u2022 Understand the concept of virtualization \u2022 Explain the need for virtualization...",
+              "score": 2.2597036361694336,
+              "relevant": true
+            },
+            {
+              "node_id": "eee3e4cd-d648-4d33-94c8-1d4f10910222",
+              "text": "Summary of the Lecture \u2022 Virtualization has multiple implementation types \u2022 Full virtualization supp...",
+              "score": -2.2104036808013916,
+              "relevant": false
+            },
+            {
+              "node_id": "fff57fe0-9c51-4680-8b0e-2ae4749f2d40",
+              "text": "\u2022 Provides virtualized computing resources like VMs, storage, and networks. \u2022 Users manage operating...",
+              "score": -3.712981700897217,
+              "relevant": false
+            },
+            {
+              "node_id": "ac108030-94fd-497f-aa72-4778af043908",
+              "text": "\u2022 Virtualization abstracts physical hardware into logical resources. \u2022 It enables efficient utilizat...",
+              "score": 5.814360618591309,
+              "relevant": true
+            },
+            {
+              "node_id": "f1294a5c-a563-46f0-ad0b-d00f276645b5",
+              "text": "Learning Objectives \u2022 Understand different types of virtualization \u2022 Distinguish between Type 1 and ...",
+              "score": -5.009150505065918,
+              "relevant": false
+            },
+            {
+              "node_id": "187fe6fe-6ce2-44d1-963e-521384833c06",
+              "text": "What Makes Something \u201cCloud Computing\u201d? \u2022 Services delivered remotely through the internet \u2022 Resourc...",
+              "score": 2.5556485652923584,
+              "relevant": true
+            },
+            {
+              "node_id": "cee0c80c-d30c-4e74-82b9-59b8e887d721",
+              "text": "Quiz/ FAQ\u2019s \u2022 Q1. Why is virtualization required in cloud environments? \u2022 Solution: It enables effic...",
+              "score": 3.736077070236206,
+              "relevant": true
+            },
+            {
+              "node_id": "1aead4e1-942e-453b-a0d4-de95a8843533",
+              "text": "Summary \u2022 Cloud computing is remote, automated, internet-based IT service delivery \u2022 It abstracts ph...",
+              "score": 6.495940208435059,
+              "relevant": true
+            },
+            {
+              "node_id": "d8c01a2a-46e1-4178-8789-4d77fb6a2853",
+              "text": "Next Lecture Types of virtualization (full, paravirtualization, hardware assisted), Type 1 vs Type 2...",
+              "score": -4.272279739379883,
+              "relevant": false
+            },
+            {
+              "node_id": "1f1c1c45-0e0a-4ca7-a368-c56ab70a44b6",
+              "text": "\u2022 Acts as virtualization control layer \u2022 Manages access to physical resources \u2022 Allocates CPU, memor...",
+              "score": -2.2638704776763916,
+              "relevant": false
+            },
+            {
+              "node_id": "1f92056f-a580-45e3-b430-878fdadff131",
+              "text": "Definition of Cloud Computing \u2022 Cloud computing provides IT resources over the internet \u2022 Resources ...",
+              "score": 3.5317306518554688,
+              "relevant": true
+            },
+            {
+              "node_id": "e2dd2a7a-6229-47da-9102-aa5c35b299ff",
+              "text": "Learning Objectives \u2022 Compare cloud computing with traditional on-premises IT setups \u2022 Understand di...",
+              "score": -4.698067665100098,
+              "relevant": false
+            },
+            {
+              "node_id": "978df71e-af52-4ef7-83c3-2c1d254b7770",
+              "text": "Next Lecture Need for virtualization in cloud environments, key benefits (resource optimization, iso...",
+              "score": 0.9680193066596985,
+              "relevant": true
+            },
+            {
+              "node_id": "7090c023-9dd2-4ffe-94dc-f4ef410a5234",
+              "text": "\u2022 Cloud demands efficient use of hardware resources \u2022 Traditional systems leave resources underutili...",
+              "score": 3.347857713699341,
+              "relevant": true
+            },
+            {
+              "node_id": "cf9589ba-f8bf-4e89-86a8-fb77f296aa42",
+              "text": "Quiz/ FAQ\u2019s Q1. Why are different virtualization types required? Solution: Different workloads requi...",
+              "score": -2.514086961746216,
+              "relevant": false
+            },
+            {
+              "node_id": "ec64bb7b-b675-4559-befb-58e1e28108d5",
+              "text": "References/ Articles/ Videos \u2022IBM \u2014 History of Mainframe Computing \u2022https://www.ibm.com/it-infrastru...",
+              "score": -0.1673109531402588,
+              "relevant": false
+            },
+            {
+              "node_id": "0690fc6e-c125-462e-b6a8-d28ac3b98f67",
+              "text": "References/ Articles/ Videos AWS \u2014 Cloud Deployment Models https://aws.amazon.com/what-is-cloud-comp...",
+              "score": -6.0680389404296875,
+              "relevant": false
+            },
+            {
+              "node_id": "88196a77-5c30-4386-b965-1759807fdbfa",
+              "text": "FAQ'S \u2022 Was cloud computing possible during mainframe era? No, network and virtualization technologi...",
+              "score": 3.477182626724243,
+              "relevant": true
+            },
+            {
+              "node_id": "1757cbfa-1556-4b0c-b541-ec97908bf495",
+              "text": "References/ Articles/ Videos \u2022 https://www.redhat.com/en/topics/virtualization \u2022 https://www.vmware....",
+              "score": 0.381617933511734,
+              "relevant": false
+            },
+            {
+              "node_id": "1f7e411e-b94e-4881-ae16-3c3674854d16",
+              "text": "References/ Articles/ Videos \u2022 https://www.redhat.com/en/topics/virtualization \u2022 https://www.vmware....",
+              "score": -0.9407716393470764,
+              "relevant": false
+            },
+            {
+              "node_id": "485bde9b-cbf7-423c-8f89-8a6da517e632",
+              "text": "References/ Articles/ Videos \u2022 https://aws.amazon.com/what-is/load-balancing/ \u2022 https://cloud.google...",
+              "score": -10.322157859802246,
+              "relevant": false
+            },
+            {
+              "node_id": "ebe6ef9d-7dc2-4383-9328-8b435292458d",
+              "text": "Quiz/ FAQ\u2019s \u2022 Q1. Is horizontal scaling always better than vertical scaling? \u2022 Solution: No. Horizon...",
+              "score": -11.270852088928223,
+              "relevant": false
+            },
+            {
+              "node_id": "b29e10aa-eddd-47c4-9c3c-feecc15f02ec",
+              "text": "Quiz/ FAQ\u2019s \u2022 Q1. Why is load balancing essential in scalable systems? \u2022 Solution: It prevents overl...",
+              "score": -11.254707336425781,
+              "relevant": false
+            },
+            {
+              "node_id": "35b14f3e-5ef3-4b19-81b9-58dbac44f239",
+              "text": "Learning Objectives 1 \u2022 Understand what cloud computing fundamentally means \u2022 Learn how computing ev...",
+              "score": -0.17037779092788696,
+              "relevant": false
+            },
+            {
+              "node_id": "e3439603-55a9-47e5-bc7a-ec32f298e01e",
+              "text": "References/ Articles/ Videos https://martinfowler.com/articles/scaling.html https://aws.amazon.com/w...",
+              "score": -10.162369728088379,
+              "relevant": false
+            },
+            {
+              "node_id": "de1ba6e3-78a0-49e5-8b35-45e2e188b47f",
+              "text": "\u2022 Scalability refers to a system\u2019s ability to handle increasing workload efficiently \u2022 It ensures co...",
+              "score": -6.78290319442749,
+              "relevant": false
+            },
+            {
+              "node_id": "f918c343-7b30-48ab-bceb-d94621bae506",
+              "text": "\u2022 Infrastructure hosted externally by a service provider \u2022 Users access computing resources remotely...",
+              "score": -5.475826740264893,
+              "relevant": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-02-20T17:15:27.346494+00:00",
+      "query": "define cloud computing and blockchain?",
+      "filtered_count": 4,
+      "evaluation": {
+        "query": "define cloud computing and blockchain?",
+        "num_retrieved": 27,
+        "relevance_scores": [
+          3.8294997215270996,
+          0.9330529570579529,
+          2.0906190872192383,
+          -5.27360725402832,
+          -6.000162124633789,
+          -7.509296417236328,
+          -9.063786506652832,
+          -8.9245023727417,
+          -6.79550313949585,
+          -10.03321361541748,
+          0.904036819934845,
+          -9.123858451843262,
+          -11.118165016174316,
+          -5.163266658782959,
+          -11.12485408782959,
+          -5.936710357666016,
+          -11.327933311462402,
+          -6.538495063781738,
+          -6.888894081115723,
+          -6.368673801422119,
+          -4.335168361663818,
+          -0.5817625522613525,
+          -8.217656135559082,
+          -7.5567626953125,
+          -6.448525905609131,
+          -9.051563262939453,
+          -1.8835265636444092
+        ],
+        "context_precision": 0.14814814814814814,
+        "context_recall": 0.0,
+        "avg_relevance": -5.833654783390187,
+        "passed_threshold": false,
+        "details": {
+          "method": "cross_encoder",
+          "model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "num_relevant": 4,
+          "threshold": 0.5,
+          "node_scores": [
+            {
+              "node_id": "1f92056f-a580-45e3-b430-878fdadff131",
+              "text": "Definition of Cloud Computing \u2022 Cloud computing provides IT resources over the internet \u2022 Resources ...",
+              "score": 3.8294997215270996,
+              "relevant": true
+            },
+            {
+              "node_id": "187fe6fe-6ce2-44d1-963e-521384833c06",
+              "text": "What Makes Something \u201cCloud Computing\u201d? \u2022 Services delivered remotely through the internet \u2022 Resourc...",
+              "score": 0.9330529570579529,
+              "relevant": true
+            },
+            {
+              "node_id": "1aead4e1-942e-453b-a0d4-de95a8843533",
+              "text": "Summary \u2022 Cloud computing is remote, automated, internet-based IT service delivery \u2022 It abstracts ph...",
+              "score": 2.0906190872192383,
+              "relevant": true
+            },
+            {
+              "node_id": "232903d7-40f5-499d-9c24-706358560669",
+              "text": "\u2022 Cloud infrastructure dedicated exclusively to one organization. \u2022 Hosted either on-premises or in ...",
+              "score": -5.27360725402832,
+              "relevant": false
+            },
+            {
+              "node_id": "788b6fd6-a497-4e61-ba5f-7ed0a5d0152e",
+              "text": "\u2022 Cloud services delivered over shared infrastructure maintained by a provider. \u2022 Users access compu...",
+              "score": -6.000162124633789,
+              "relevant": false
+            },
+            {
+              "node_id": "fdb3a692-eedf-4d76-9b39-b17640b3e0a3",
+              "text": "\u2022 Provides network connectivity between consumer and provider. \u2022 Responsible for secure and reliable...",
+              "score": -7.509296417236328,
+              "relevant": false
+            },
+            {
+              "node_id": "34d3e2c9-4f65-4db6-b4fe-bda278b143e1",
+              "text": "\u2022 Combines private and public cloud environments into one architecture. \u2022 Workloads can move between...",
+              "score": -9.063786506652832,
+              "relevant": false
+            },
+            {
+              "node_id": "67d8970a-d95f-4150-8460-386cf3c2cfb6",
+              "text": "\u2022 Uses more than one public cloud provider simultaneously. \u2022 Allows distributing workloads across AW...",
+              "score": -8.9245023727417,
+              "relevant": false
+            },
+            {
+              "node_id": "dc5cc47f-120c-43f5-a5fa-2b363c3865d8",
+              "text": "\u2022 Serves as a standardized framework for understanding cloud ecosystems. \u2022 Defines the key actors an...",
+              "score": -6.79550313949585,
+              "relevant": false
+            },
+            {
+              "node_id": "fff57fe0-9c51-4680-8b0e-2ae4749f2d40",
+              "text": "\u2022 Provides virtualized computing resources like VMs, storage, and networks. \u2022 Users manage operating...",
+              "score": -10.03321361541748,
+              "relevant": false
+            },
+            {
+              "node_id": "a4db5e1d-c674-4cec-8d2b-16502fc9e76e",
+              "text": "Why These Characteristics Matter \u2022 Together, they define cloud as a modern computing approach \u2022 They...",
+              "score": 0.904036819934845,
+              "relevant": true
+            },
+            {
+              "node_id": "8d616f1b-80e1-4102-91ed-20208ed99219",
+              "text": "\u2022 Facilitates use, performance, and delivery of cloud services. \u2022 Acts as an intermediary between co...",
+              "score": -9.123858451843262,
+              "relevant": false
+            },
+            {
+              "node_id": "a741c745-5d69-48f8-8260-156f647c9423",
+              "text": "\u2022 Divides large datasets logically \u2022 Distributes data across nodes \u2022 Improves access performance \u2022 R...",
+              "score": -11.118165016174316,
+              "relevant": false
+            },
+            {
+              "node_id": "8896906a-9094-47f5-8f0e-31c841b9b814",
+              "text": "Next Lecture Comparison of cloud computing with traditional IT infrastructure, key benefits of cloud...",
+              "score": -5.163266658782959,
+              "relevant": false
+            },
+            {
+              "node_id": "ed80c23d-ec97-4433-84d8-545a1cb651c8",
+              "text": "\u2022 Both enable application isolation \u2022 Both support multiple workloads on one system \u2022 Differ in abst...",
+              "score": -11.12485408782959,
+              "relevant": false
+            },
+            {
+              "node_id": "0e1ab59f-f612-4d0b-95b1-1fd9116b0a70",
+              "text": "\u2022 Cloud Consumer \u2013 uses cloud services and manages usage/controls. \u2022 Cloud Provider \u2013 delivers cloud...",
+              "score": -5.936710357666016,
+              "relevant": false
+            },
+            {
+              "node_id": "bdc28f61-a117-4178-82ed-5471e76041d9",
+              "text": "Summary of the Lecture \u2022 Load balancing distributes client requests efficiently \u2022 Algorithms define ...",
+              "score": -11.327933311462402,
+              "relevant": false
+            },
+            {
+              "node_id": "daa5c37e-601b-4387-9f47-5adc5f3a32af",
+              "text": "Quiz/ FAQ\u2019s 1. Why does NIST define cloud roles? To standardize communication, clarify responsibilit...",
+              "score": -6.538495063781738,
+              "relevant": false
+            },
+            {
+              "node_id": "e3d6b6a9-fa68-48c5-af29-2a20295ac9d1",
+              "text": "\u2022 NIST Cloud Computing Reference Architecture (Full PDF) https://nvlpubs.nist.gov/nistpubs/Legacy/SP...",
+              "score": -6.888894081115723,
+              "relevant": false
+            },
+            {
+              "node_id": "10d9360b-8cef-49c1-b51e-ac88ff3ef551",
+              "text": "References/ Articles/ Videos IBM \u2014 Cloud vs Traditional IT: https://www.ibm.com/cloud/learn/cloud-vs...",
+              "score": -6.368673801422119,
+              "relevant": false
+            },
+            {
+              "node_id": "88196a77-5c30-4386-b965-1759807fdbfa",
+              "text": "FAQ'S \u2022 Was cloud computing possible during mainframe era? No, network and virtualization technologi...",
+              "score": -4.335168361663818,
+              "relevant": false
+            },
+            {
+              "node_id": "1f4d6c7b-4786-4dc5-9720-4475b77695bd",
+              "text": "Unit 1: Introduction to cloud computing and Virtualization (10 contact hours) \u2022 1.1 Introduction to ...",
+              "score": -0.5817625522613525,
+              "relevant": false
+            },
+            {
+              "node_id": "d402bc74-1bd6-493f-8e2b-b3bf411479d1",
+              "text": "UNIVERSITY INSTITUTE OF ENGINEERING DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING BTECH CSE \u2013 CS 20...",
+              "score": -8.217656135559082,
+              "relevant": false
+            },
+            {
+              "node_id": "e150c5b2-cdeb-48ca-a4ad-095161b95d27",
+              "text": "UNIVERSITY INSTITUTE OF ENGINEERING DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING BTECH CSE \u2013 CS 20...",
+              "score": -7.5567626953125,
+              "relevant": false
+            },
+            {
+              "node_id": "e2dd2a7a-6229-47da-9102-aa5c35b299ff",
+              "text": "Learning Objectives \u2022 Compare cloud computing with traditional on-premises IT setups \u2022 Understand di...",
+              "score": -6.448525905609131,
+              "relevant": false
+            },
+            {
+              "node_id": "6cc2abfe-4322-4e3a-86f4-a61fa1995c46",
+              "text": "UNIVERSITY INSTITUTE OF ENGINEERING DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING BTECH CSE \u2013 CS 20...",
+              "score": -9.051563262939453,
+              "relevant": false
+            },
+            {
+              "node_id": "ec64bb7b-b675-4559-befb-58e1e28108d5",
+              "text": "References/ Articles/ Videos \u2022IBM \u2014 History of Mainframe Computing \u2022https://www.ibm.com/it-infrastru...",
+              "score": -1.8835265636444092,
+              "relevant": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-02-20T17:20:46.118842+00:00",
+      "query": "define blockchain and cloud computing",
+      "filtered_count": 3,
+      "evaluation": {
+        "query": "define blockchain and cloud computing",
+        "num_retrieved": 27,
+        "relevance_scores": [
+          3.9556493759155273,
+          -0.010410450398921967,
+          -5.2973761558532715,
+          2.171785593032837,
+          -5.857085704803467,
+          -7.503084659576416,
+          -8.934063911437988,
+          -8.799649238586426,
+          -6.429963111877441,
+          1.1909230947494507,
+          -5.5973920822143555,
+          -11.155593872070312,
+          -11.136022567749023,
+          -10.345537185668945,
+          -9.893058776855469,
+          -6.244162559509277,
+          -11.306450843811035,
+          -7.504027843475342,
+          -6.552196025848389,
+          -6.095492839813232,
+          -4.260332107543945,
+          -0.2385578602552414,
+          -8.628609657287598,
+          -8.010758399963379,
+          -5.864153861999512,
+          -9.429594993591309,
+          -2.173276662826538
+        ],
+        "context_precision": 0.1111111111111111,
+        "context_recall": 0.0,
+        "avg_relevance": -5.92401827071552,
+        "passed_threshold": false,
+        "details": {
+          "method": "cross_encoder",
+          "model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "num_relevant": 3,
+          "threshold": 0.5,
+          "node_scores": [
+            {
+              "node_id": "673d91fb-4dae-454e-89f6-ce919d420a2f",
+              "text": "Definition of Cloud Computing \u2022 Cloud computing provides IT resources over the internet \u2022 Resources ...",
+              "score": 3.9556493759155273,
+              "relevant": true
+            },
+            {
+              "node_id": "8ca4a751-033f-42ee-a36f-b48c62001990",
+              "text": "What Makes Something \u201cCloud Computing\u201d? \u2022 Services delivered remotely through the internet \u2022 Resourc...",
+              "score": -0.010410450398921967,
+              "relevant": false
+            },
+            {
+              "node_id": "08dc0de4-93a1-473d-ade2-2aca3e382318",
+              "text": "\u2022 Cloud infrastructure dedicated exclusively to one organization. \u2022 Hosted either on-premises or in ...",
+              "score": -5.2973761558532715,
+              "relevant": false
+            },
+            {
+              "node_id": "6fc53723-0d3a-43a0-a6dc-938c99c583a0",
+              "text": "Summary \u2022 Cloud computing is remote, automated, internet-based IT service delivery \u2022 It abstracts ph...",
+              "score": 2.171785593032837,
+              "relevant": true
+            },
+            {
+              "node_id": "b5b4c0db-2900-4360-b526-85a60a12344d",
+              "text": "\u2022 Cloud services delivered over shared infrastructure maintained by a provider. \u2022 Users access compu...",
+              "score": -5.857085704803467,
+              "relevant": false
+            },
+            {
+              "node_id": "aa024745-063d-41a5-8d57-670209d73057",
+              "text": "\u2022 Provides network connectivity between consumer and provider. \u2022 Responsible for secure and reliable...",
+              "score": -7.503084659576416,
+              "relevant": false
+            },
+            {
+              "node_id": "2dfe6d74-c431-420d-8137-2cd0bc1a8155",
+              "text": "\u2022 Combines private and public cloud environments into one architecture. \u2022 Workloads can move between...",
+              "score": -8.934063911437988,
+              "relevant": false
+            },
+            {
+              "node_id": "05b0503e-b2d8-42d7-9582-86182e6821db",
+              "text": "\u2022 Uses more than one public cloud provider simultaneously. \u2022 Allows distributing workloads across AW...",
+              "score": -8.799649238586426,
+              "relevant": false
+            },
+            {
+              "node_id": "b239d704-a195-4a94-b1e7-cddaa9545e50",
+              "text": "\u2022 Serves as a standardized framework for understanding cloud ecosystems. \u2022 Defines the key actors an...",
+              "score": -6.429963111877441,
+              "relevant": false
+            },
+            {
+              "node_id": "492797b6-a770-436e-8acf-57fe1f98e56a",
+              "text": "Why These Characteristics Matter \u2022 Together, they define cloud as a modern computing approach \u2022 They...",
+              "score": 1.1909230947494507,
+              "relevant": true
+            },
+            {
+              "node_id": "724322a1-603a-46d7-a5eb-d2b0fc858107",
+              "text": "Next Lecture Comparison of cloud computing with traditional IT infrastructure, key benefits of cloud...",
+              "score": -5.5973920822143555,
+              "relevant": false
+            },
+            {
+              "node_id": "8203514f-a27c-4c41-b5b3-a7a5a747b691",
+              "text": "\u2022 Divides large datasets logically \u2022 Distributes data across nodes \u2022 Improves access performance \u2022 R...",
+              "score": -11.155593872070312,
+              "relevant": false
+            },
+            {
+              "node_id": "c76a3ae8-d436-402a-91c4-c7d18747314d",
+              "text": "\u2022 Both enable application isolation \u2022 Both support multiple workloads on one system \u2022 Differ in abst...",
+              "score": -11.136022567749023,
+              "relevant": false
+            },
+            {
+              "node_id": "5f4e19cd-f4d1-4465-8bb7-2b28b7ecfcb6",
+              "text": "\u2022 Separates request and processing flow \u2022 Improves system responsiveness \u2022 Handles heavy workloads e...",
+              "score": -10.345537185668945,
+              "relevant": false
+            },
+            {
+              "node_id": "181f842a-4d76-40b4-ba53-69109f4d4701",
+              "text": "\u2022 Provides virtualized computing resources like VMs, storage, and networks. \u2022 Users manage operating...",
+              "score": -9.893058776855469,
+              "relevant": false
+            },
+            {
+              "node_id": "59d937b3-0f23-43fd-b657-c2711bb9b447",
+              "text": "\u2022 Cloud Consumer \u2013 uses cloud services and manages usage/controls. \u2022 Cloud Provider \u2013 delivers cloud...",
+              "score": -6.244162559509277,
+              "relevant": false
+            },
+            {
+              "node_id": "e5efb896-e415-420f-96dd-1d3216c8892c",
+              "text": "Summary of the Lecture \u2022 Load balancing distributes client requests efficiently \u2022 Algorithms define ...",
+              "score": -11.306450843811035,
+              "relevant": false
+            },
+            {
+              "node_id": "93000a72-35c4-44a8-9b0d-598f4ba07864",
+              "text": "Quiz/ FAQ\u2019s 1. Why does NIST define cloud roles? To standardize communication, clarify responsibilit...",
+              "score": -7.504027843475342,
+              "relevant": false
+            },
+            {
+              "node_id": "f15d2368-487f-4596-ad83-a866e2420f80",
+              "text": "\u2022 NIST Cloud Computing Reference Architecture (Full PDF) https://nvlpubs.nist.gov/nistpubs/Legacy/SP...",
+              "score": -6.552196025848389,
+              "relevant": false
+            },
+            {
+              "node_id": "843ebe41-31b5-4ae2-9d3a-8aaf65ee5bff",
+              "text": "References/ Articles/ Videos IBM \u2014 Cloud vs Traditional IT: https://www.ibm.com/cloud/learn/cloud-vs...",
+              "score": -6.095492839813232,
+              "relevant": false
+            },
+            {
+              "node_id": "7e3ccdbf-867e-4e2a-9fa2-64c5881b0a0b",
+              "text": "FAQ'S \u2022 Was cloud computing possible during mainframe era? No, network and virtualization technologi...",
+              "score": -4.260332107543945,
+              "relevant": false
+            },
+            {
+              "node_id": "e7f635e5-5762-4e32-a2ab-a7126a573b74",
+              "text": "Unit 1: Introduction to cloud computing and Virtualization (10 contact hours) \u2022 1.1 Introduction to ...",
+              "score": -0.2385578602552414,
+              "relevant": false
+            },
+            {
+              "node_id": "92a40569-9bfb-4312-9bfa-b61d87ccc4c0",
+              "text": "UNIVERSITY INSTITUTE OF ENGINEERING DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING BTECH CSE \u2013 CS 20...",
+              "score": -8.628609657287598,
+              "relevant": false
+            },
+            {
+              "node_id": "8bbb78e6-b732-4e67-8c91-669e9119481d",
+              "text": "UNIVERSITY INSTITUTE OF ENGINEERING DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING BTECH CSE \u2013 CS 20...",
+              "score": -8.010758399963379,
+              "relevant": false
+            },
+            {
+              "node_id": "b771c23d-c5fa-4b5e-a884-68e49b966f62",
+              "text": "Learning Objectives \u2022 Compare cloud computing with traditional on-premises IT setups \u2022 Understand di...",
+              "score": -5.864153861999512,
+              "relevant": false
+            },
+            {
+              "node_id": "7f6afcc1-c6d6-4cec-973e-00fe3975ac95",
+              "text": "UNIVERSITY INSTITUTE OF ENGINEERING DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING BTECH CSE \u2013 CS 20...",
+              "score": -9.429594993591309,
+              "relevant": false
+            },
+            {
+              "node_id": "05113b38-3de5-42c8-b10f-cd57e9cc225e",
+              "text": "References/ Articles/ Videos \u2022IBM \u2014 History of Mainframe Computing \u2022https://www.ibm.com/it-infrastru...",
+              "score": -2.173276662826538,
+              "relevant": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-02-20T17:22:37.542829+00:00",
+      "query": "what is virtualisation",
+      "filtered_count": 10,
+      "evaluation": {
+        "query": "what is virtualisation",
+        "num_retrieved": 27,
+        "relevance_scores": [
+          4.454889297485352,
+          8.067792892456055,
+          2.5657429695129395,
+          -0.587253749370575,
+          2.0925307273864746,
+          1.9742263555526733,
+          5.635708808898926,
+          -0.4744464159011841,
+          4.907359600067139,
+          1.4778364896774292,
+          -0.5369831323623657,
+          -0.480118989944458,
+          -3.354325532913208,
+          1.9626891613006592,
+          2.4394848346710205,
+          -11.028388023376465,
+          -11.316883087158203,
+          0.1821330189704895,
+          -11.236621856689453,
+          -11.172956466674805,
+          -11.142254829406738,
+          -11.293249130249023,
+          -11.372162818908691,
+          -11.062800407409668,
+          -11.266383171081543,
+          -9.645112991333008,
+          -10.910837173461914
+        ],
+        "context_precision": 0.37037037037037035,
+        "context_recall": 0.0,
+        "avg_relevance": -3.3748290229726723,
+        "passed_threshold": false,
+        "details": {
+          "method": "cross_encoder",
+          "model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "num_relevant": 10,
+          "threshold": 0.5,
+          "node_scores": [
+            {
+              "node_id": "ae6b4508-48ca-41ea-a87f-027a72795cbc",
+              "text": "Quiz/ FAQ\u2019s \u2022 Q1. Why is virtualization required in cloud environments? \u2022 Solution: It enables effic...",
+              "score": 4.454889297485352,
+              "relevant": true
+            },
+            {
+              "node_id": "71b8a0cb-1446-4527-954e-2a4ed0423c4c",
+              "text": "\u2022 Virtualization abstracts physical hardware into logical resources. \u2022 It enables efficient utilizat...",
+              "score": 8.067792892456055,
+              "relevant": true
+            },
+            {
+              "node_id": "ef1f7122-b03c-4bfe-876a-95109d745b9e",
+              "text": "Summary of the Lecture \u2022 Virtualization has multiple implementation types \u2022 Full virtualization supp...",
+              "score": 2.5657429695129395,
+              "relevant": true
+            },
+            {
+              "node_id": "296e3dcd-e575-40b6-95df-b9e95dec661d",
+              "text": "Learning Objectives \u2022 Understand different types of virtualization \u2022 Distinguish between Type 1 and ...",
+              "score": -0.587253749370575,
+              "relevant": false
+            },
+            {
+              "node_id": "3ff7b900-1858-4de8-b098-b7ae8b076b47",
+              "text": "Learning Objectives \u2022 Understand the concept of virtualization \u2022 Explain the need for virtualization...",
+              "score": 2.0925307273864746,
+              "relevant": true
+            },
+            {
+              "node_id": "43f7812f-ede8-4fdb-8219-5fab05307d45",
+              "text": "Quiz/ FAQ\u2019s Q1. Why are different virtualization types required? Solution: Different workloads requi...",
+              "score": 1.9742263555526733,
+              "relevant": true
+            },
+            {
+              "node_id": "11610af6-a419-4cc2-a894-cd164a5df9fc",
+              "text": "\u2022 Virtualization enables multiple environments on one machine \u2022 Different techniques manage hardware...",
+              "score": 5.635708808898926,
+              "relevant": true
+            },
+            {
+              "node_id": "93e8eed6-e1b7-4c08-9d7f-9319398cd6c6",
+              "text": "Next Lecture Types of virtualization (full, paravirtualization, hardware assisted), Type 1 vs Type 2...",
+              "score": -0.4744464159011841,
+              "relevant": false
+            },
+            {
+              "node_id": "65b44767-a0e9-43f6-959a-83ea4ccf183e",
+              "text": "\u2022 Virtualization can be implemented using multiple architectural approaches. \u2022 Full virtualization a...",
+              "score": 4.907359600067139,
+              "relevant": true
+            },
+            {
+              "node_id": "37e48590-a439-42b9-9581-d349fd14304f",
+              "text": "\u2022 Acts as virtualization control layer \u2022 Manages access to physical resources \u2022 Allocates CPU, memor...",
+              "score": 1.4778364896774292,
+              "relevant": true
+            },
+            {
+              "node_id": "694a01da-fad5-4d52-98c6-8bbddd8c1e2d",
+              "text": "\u2022 Virtual environments are hardware-independent \u2022 Enables easy migration across systems \u2022 Simplifies...",
+              "score": -0.5369831323623657,
+              "relevant": false
+            },
+            {
+              "node_id": "1dfddff2-59e5-4adf-9b5d-076b7175ac3c",
+              "text": "Next Lecture Need for virtualization in cloud environments, key benefits (resource optimization, iso...",
+              "score": -0.480118989944458,
+              "relevant": false
+            },
+            {
+              "node_id": "181f842a-4d76-40b4-ba53-69109f4d4701",
+              "text": "\u2022 Provides virtualized computing resources like VMs, storage, and networks. \u2022 Users manage operating...",
+              "score": -3.354325532913208,
+              "relevant": false
+            },
+            {
+              "node_id": "7c895f36-c272-40cf-94d1-4fe1c03732d7",
+              "text": "References/ Articles/ Videos \u2022 https://www.redhat.com/en/topics/virtualization \u2022 https://www.vmware....",
+              "score": 1.9626891613006592,
+              "relevant": true
+            },
+            {
+              "node_id": "207e76ef-10a4-4dfc-8e8e-6b73c50724e4",
+              "text": "\u2022 Cloud demands efficient use of hardware resources \u2022 Traditional systems leave resources underutili...",
+              "score": 2.4394848346710205,
+              "relevant": true
+            },
+            {
+              "node_id": "05113b38-3de5-42c8-b10f-cd57e9cc225e",
+              "text": "References/ Articles/ Videos \u2022IBM \u2014 History of Mainframe Computing \u2022https://www.ibm.com/it-infrastru...",
+              "score": -11.028388023376465,
+              "relevant": false
+            },
+            {
+              "node_id": "352af78e-f5ee-47ee-b6ce-9053c34468a5",
+              "text": "References/ Articles/ Videos AWS \u2014 Cloud Deployment Models https://aws.amazon.com/what-is-cloud-comp...",
+              "score": -11.316883087158203,
+              "relevant": false
+            },
+            {
+              "node_id": "6b81d535-9930-4b6a-a034-e7039d47c83e",
+              "text": "References/ Articles/ Videos \u2022 https://www.redhat.com/en/topics/virtualization \u2022 https://www.vmware....",
+              "score": 0.1821330189704895,
+              "relevant": false
+            },
+            {
+              "node_id": "517db075-c807-49ba-a63f-451f8ce1febf",
+              "text": "References/ Articles/ Videos \u2022 https://aws.amazon.com/what-is/load-balancing/ \u2022 https://cloud.google...",
+              "score": -11.236621856689453,
+              "relevant": false
+            },
+            {
+              "node_id": "d86963cb-1264-479a-b68b-2a89add49ea4",
+              "text": "Quiz/ FAQ\u2019s \u2022 Q1. Is horizontal scaling always better than vertical scaling? \u2022 Solution: No. Horizon...",
+              "score": -11.172956466674805,
+              "relevant": false
+            },
+            {
+              "node_id": "992f169b-e2c5-4632-83e1-e2485f7350f6",
+              "text": "Quiz/ FAQ\u2019s \u2022 Q1. Why is load balancing essential in scalable systems? \u2022 Solution: It prevents overl...",
+              "score": -11.142254829406738,
+              "relevant": false
+            },
+            {
+              "node_id": "d74bd802-559a-4c2b-ae9a-844b1017820c",
+              "text": "References/ Articles/ Videos https://martinfowler.com/articles/scaling.html https://aws.amazon.com/w...",
+              "score": -11.293249130249023,
+              "relevant": false
+            },
+            {
+              "node_id": "6c0029fb-22ca-4cce-8717-9dde6944b98d",
+              "text": "References/ Articles/ Videos AWS \u2014 Types of Cloud Service Models https://aws.amazon.com/types-of-clo...",
+              "score": -11.372162818908691,
+              "relevant": false
+            },
+            {
+              "node_id": "8ee9ac3a-2d92-4f18-a5ee-2574c8dc7eea",
+              "text": "Characteristics of Horizontal Scalability \u2022Resources grow by adding identical or similar nodes \u2022Syst...",
+              "score": -11.062800407409668,
+              "relevant": false
+            },
+            {
+              "node_id": "676169c2-6554-4543-b3da-74cace243146",
+              "text": "\u2022 Increased architectural complexity \u2022 Requires coordination between nodes \u2022 Data consistency manage...",
+              "score": -11.266383171081543,
+              "relevant": false
+            },
+            {
+              "node_id": "8ca4a751-033f-42ee-a36f-b48c62001990",
+              "text": "What Makes Something \u201cCloud Computing\u201d? \u2022 Services delivered remotely through the internet \u2022 Resourc...",
+              "score": -9.645112991333008,
+              "relevant": false
+            },
+            {
+              "node_id": "ccce0db1-c5cd-4b85-a728-b325924af21d",
+              "text": "\u2022 Traditional IT requires upfront hardware investment; cloud does not \u2022 Cloud allows flexible resour...",
+              "score": -10.910837173461914,
+              "relevant": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-02-20T17:27:16.676348+00:00",
+      "query": "what is cloud computing",
+      "filtered_count": 9,
+      "evaluation": {
+        "query": "what is cloud computing",
+        "num_retrieved": 29,
+        "relevance_scores": [
+          8.99592113494873,
+          7.144201755523682,
+          9.741321563720703,
+          0.4350343644618988,
+          -1.4139047861099243,
+          5.52667236328125,
+          -5.8395676612854,
+          -3.6968767642974854,
+          -0.316776305437088,
+          -1.6883292198181152,
+          -2.8790879249572754,
+          -10.127781867980957,
+          -3.4696266651153564,
+          -0.1928437501192093,
+          -10.15811538696289,
+          5.858081340789795,
+          1.0534528493881226,
+          -7.483811378479004,
+          -7.212443828582764,
+          -8.110198020935059,
+          5.312503814697266,
+          3.809008836746216,
+          -4.585949897766113,
+          -11.142489433288574,
+          -1.1780720949172974,
+          -10.97622299194336,
+          4.568093776702881,
+          -7.603099822998047,
+          -10.74759578704834
+        ],
+        "context_precision": 0.3103448275862069,
+        "context_recall": 0.0,
+        "avg_relevance": -1.944086268544197,
+        "passed_threshold": false,
+        "details": {
+          "method": "cross_encoder",
+          "model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "num_relevant": 9,
+          "threshold": 0.5,
+          "node_scores": [
+            {
+              "node_id": "673d91fb-4dae-454e-89f6-ce919d420a2f",
+              "text": "Definition of Cloud Computing \u2022 Cloud computing provides IT resources over the internet \u2022 Resources ...",
+              "score": 8.99592113494873,
+              "relevant": true
+            },
+            {
+              "node_id": "8ca4a751-033f-42ee-a36f-b48c62001990",
+              "text": "What Makes Something \u201cCloud Computing\u201d? \u2022 Services delivered remotely through the internet \u2022 Resourc...",
+              "score": 7.144201755523682,
+              "relevant": true
+            },
+            {
+              "node_id": "6fc53723-0d3a-43a0-a6dc-938c99c583a0",
+              "text": "Summary \u2022 Cloud computing is remote, automated, internet-based IT service delivery \u2022 It abstracts ph...",
+              "score": 9.741321563720703,
+              "relevant": true
+            },
+            {
+              "node_id": "b5b4c0db-2900-4360-b526-85a60a12344d",
+              "text": "\u2022 Cloud services delivered over shared infrastructure maintained by a provider. \u2022 Users access compu...",
+              "score": 0.4350343644618988,
+              "relevant": false
+            },
+            {
+              "node_id": "4354b3b0-e66a-4f83-a862-bad8e1e9a2fb",
+              "text": "\u2022 Entity that uses cloud services delivered by a provider. \u2022 Responsible for managing user access, a...",
+              "score": -1.4139047861099243,
+              "relevant": false
+            },
+            {
+              "node_id": "492797b6-a770-436e-8acf-57fe1f98e56a",
+              "text": "Why These Characteristics Matter \u2022 Together, they define cloud as a modern computing approach \u2022 They...",
+              "score": 5.52667236328125,
+              "relevant": true
+            },
+            {
+              "node_id": "181f842a-4d76-40b4-ba53-69109f4d4701",
+              "text": "\u2022 Provides virtualized computing resources like VMs, storage, and networks. \u2022 Users manage operating...",
+              "score": -5.8395676612854,
+              "relevant": false
+            },
+            {
+              "node_id": "aa024745-063d-41a5-8d57-670209d73057",
+              "text": "\u2022 Provides network connectivity between consumer and provider. \u2022 Responsible for secure and reliable...",
+              "score": -3.6968767642974854,
+              "relevant": false
+            },
+            {
+              "node_id": "08dc0de4-93a1-473d-ade2-2aca3e382318",
+              "text": "\u2022 Cloud infrastructure dedicated exclusively to one organization. \u2022 Hosted either on-premises or in ...",
+              "score": -0.316776305437088,
+              "relevant": false
+            },
+            {
+              "node_id": "b239d704-a195-4a94-b1e7-cddaa9545e50",
+              "text": "\u2022 Serves as a standardized framework for understanding cloud ecosystems. \u2022 Defines the key actors an...",
+              "score": -1.6883292198181152,
+              "relevant": false
+            },
+            {
+              "node_id": "d8a3c317-7204-41d9-86ec-c43c5ca82975",
+              "text": "\u2022 Scalability refers to a system\u2019s ability to handle increasing workload efficiently \u2022 It ensures co...",
+              "score": -2.8790879249572754,
+              "relevant": false
+            },
+            {
+              "node_id": "67c1f7be-5ca0-4787-9a89-eb8f2827c14c",
+              "text": "\u2022 Delivers complete applications over the internet. \u2022 Accessible through web browsers or mobile apps...",
+              "score": -10.127781867980957,
+              "relevant": false
+            },
+            {
+              "node_id": "69925b80-e58a-4c98-b071-6f251173275f",
+              "text": "\u2022 Facilitates use, performance, and delivery of cloud services. \u2022 Acts as an intermediary between co...",
+              "score": -3.4696266651153564,
+              "relevant": false
+            },
+            {
+              "node_id": "9b438a2a-42ee-4aa3-be5d-e163ec5e3b37",
+              "text": "\u2022 Infrastructure hosted externally by a service provider \u2022 Users access computing resources remotely...",
+              "score": -0.1928437501192093,
+              "relevant": false
+            },
+            {
+              "node_id": "5fafb62f-0a25-43b5-bfec-cb3b3dbc2feb",
+              "text": "\u2022 Provides a pre-built platform with OS, runtime, and development tools. \u2022 Developers focus on appli...",
+              "score": -10.15811538696289,
+              "relevant": false
+            },
+            {
+              "node_id": "05113b38-3de5-42c8-b10f-cd57e9cc225e",
+              "text": "References/ Articles/ Videos \u2022IBM \u2014 History of Mainframe Computing \u2022https://www.ibm.com/it-infrastru...",
+              "score": 5.858081340789795,
+              "relevant": true
+            },
+            {
+              "node_id": "352af78e-f5ee-47ee-b6ce-9053c34468a5",
+              "text": "References/ Articles/ Videos AWS \u2014 Cloud Deployment Models https://aws.amazon.com/what-is-cloud-comp...",
+              "score": 1.0534528493881226,
+              "relevant": true
+            },
+            {
+              "node_id": "7c895f36-c272-40cf-94d1-4fe1c03732d7",
+              "text": "References/ Articles/ Videos \u2022 https://www.redhat.com/en/topics/virtualization \u2022 https://www.vmware....",
+              "score": -7.483811378479004,
+              "relevant": false
+            },
+            {
+              "node_id": "6b81d535-9930-4b6a-a034-e7039d47c83e",
+              "text": "References/ Articles/ Videos \u2022 https://www.redhat.com/en/topics/virtualization \u2022 https://www.vmware....",
+              "score": -7.212443828582764,
+              "relevant": false
+            },
+            {
+              "node_id": "517db075-c807-49ba-a63f-451f8ce1febf",
+              "text": "References/ Articles/ Videos \u2022 https://aws.amazon.com/what-is/load-balancing/ \u2022 https://cloud.google...",
+              "score": -8.110198020935059,
+              "relevant": false
+            },
+            {
+              "node_id": "e16f9407-2508-4c68-b0ed-1a3b29a2b29e",
+              "text": "Learning Objectives 1 \u2022 Understand what cloud computing fundamentally means \u2022 Learn how computing ev...",
+              "score": 5.312503814697266,
+              "relevant": true
+            },
+            {
+              "node_id": "7e3ccdbf-867e-4e2a-9fa2-64c5881b0a0b",
+              "text": "FAQ'S \u2022 Was cloud computing possible during mainframe era? No, network and virtualization technologi...",
+              "score": 3.809008836746216,
+              "relevant": true
+            },
+            {
+              "node_id": "ae6b4508-48ca-41ea-a87f-027a72795cbc",
+              "text": "Quiz/ FAQ\u2019s \u2022 Q1. Why is virtualization required in cloud environments? \u2022 Solution: It enables effic...",
+              "score": -4.585949897766113,
+              "relevant": false
+            },
+            {
+              "node_id": "d86963cb-1264-479a-b68b-2a89add49ea4",
+              "text": "Quiz/ FAQ\u2019s \u2022 Q1. Is horizontal scaling always better than vertical scaling? \u2022 Solution: No. Horizon...",
+              "score": -11.142489433288574,
+              "relevant": false
+            },
+            {
+              "node_id": "6c0029fb-22ca-4cce-8717-9dde6944b98d",
+              "text": "References/ Articles/ Videos AWS \u2014 Types of Cloud Service Models https://aws.amazon.com/types-of-clo...",
+              "score": -1.1780720949172974,
+              "relevant": false
+            },
+            {
+              "node_id": "992f169b-e2c5-4632-83e1-e2485f7350f6",
+              "text": "Quiz/ FAQ\u2019s \u2022 Q1. Why is load balancing essential in scalable systems? \u2022 Solution: It prevents overl...",
+              "score": -10.97622299194336,
+              "relevant": false
+            },
+            {
+              "node_id": "f1b2f93d-d499-48b8-836a-c1d82e05450c",
+              "text": "Core Characteristics of Cloud Computing \u2022 Instant Availability: Computing resources delivered immedi...",
+              "score": 4.568093776702881,
+              "relevant": true
+            },
+            {
+              "node_id": "d74bd802-559a-4c2b-ae9a-844b1017820c",
+              "text": "References/ Articles/ Videos https://martinfowler.com/articles/scaling.html https://aws.amazon.com/w...",
+              "score": -7.603099822998047,
+              "relevant": false
+            },
+            {
+              "node_id": "43f7812f-ede8-4fdb-8219-5fab05307d45",
+              "text": "Quiz/ FAQ\u2019s Q1. Why are different virtualization types required? Solution: Different workloads requi...",
+              "score": -10.74759578704834,
+              "relevant": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-02-20T17:31:01.304418+00:00",
+      "query": "scalability",
+      "filtered_count": 16,
+      "evaluation": {
+        "query": "scalability",
+        "num_retrieved": 21,
+        "relevance_scores": [
+          9.470259666442871,
+          8.566577911376953,
+          2.1019885540008545,
+          3.0198123455047607,
+          6.694183349609375,
+          2.0118696689605713,
+          3.5317914485931396,
+          3.688612937927246,
+          6.550040245056152,
+          3.8720579147338867,
+          1.7653559446334839,
+          1.1729931831359863,
+          5.315185546875,
+          0.707690417766571,
+          -10.272735595703125,
+          6.029943466186523,
+          4.592294692993164,
+          -1.3426074981689453,
+          -0.3765638768672943,
+          3.087148070335388e-05,
+          -1.6445553302764893
+        ],
+        "context_precision": 0.7619047619047619,
+        "context_recall": 0.0,
+        "avg_relevance": 2.640677422107685,
+        "passed_threshold": true,
+        "details": {
+          "method": "cross_encoder",
+          "model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "num_relevant": 16,
+          "threshold": 0.5,
+          "node_scores": [
+            {
+              "node_id": "d8a3c317-7204-41d9-86ec-c43c5ca82975",
+              "text": "\u2022 Scalability refers to a system\u2019s ability to handle increasing workload efficiently \u2022 It ensures co...",
+              "score": 9.470259666442871,
+              "relevant": true
+            },
+            {
+              "node_id": "b18793c8-adf8-434f-b80e-64e9fbb041c2",
+              "text": "\u2022 Scalability allows applications to support growing user bases \u2022 It prevents system crashes during ...",
+              "score": 8.566577911376953,
+              "relevant": true
+            },
+            {
+              "node_id": "26e2e763-c167-4c52-847c-5013b5d538d7",
+              "text": "\u2022 Design systems for growth \u2022 Prefer stateless components \u2022 Avoid tight component coupling \u2022 Monitor...",
+              "score": 2.1019885540008545,
+              "relevant": true
+            },
+            {
+              "node_id": "d74bd802-559a-4c2b-ae9a-844b1017820c",
+              "text": "References/ Articles/ Videos https://martinfowler.com/articles/scaling.html https://aws.amazon.com/w...",
+              "score": 3.0198123455047607,
+              "relevant": true
+            },
+            {
+              "node_id": "21d71772-7663-4f7c-a183-be9b4f10c35f",
+              "text": "Types of Scalability \u2022Scalability can be achieved using multiple architectural approaches \u2022Vertical ...",
+              "score": 6.694183349609375,
+              "relevant": true
+            },
+            {
+              "node_id": "3475eeac-cfa6-43e5-9687-a876d81605d2",
+              "text": "Challenges of Horizontal Scalability \u2022Increased system design complexity \u2022Data consistency becomes h...",
+              "score": 2.0118696689605713,
+              "relevant": true
+            },
+            {
+              "node_id": "8ee9ac3a-2d92-4f18-a5ee-2574c8dc7eea",
+              "text": "Characteristics of Horizontal Scalability \u2022Resources grow by adding identical or similar nodes \u2022Syst...",
+              "score": 3.5317914485931396,
+              "relevant": true
+            },
+            {
+              "node_id": "6b1fec1b-d4fe-4207-aef5-fe9fad29fa80",
+              "text": "Advantages of Horizontal Scalability \u2022Virtually unlimited scaling potential \u2022High availability throu...",
+              "score": 3.688612937927246,
+              "relevant": true
+            },
+            {
+              "node_id": "425d0765-7065-48f7-8683-7305a5a52d36",
+              "text": "\u2022 Scalability defines growth capability \u2022 Elasticity defines responsiveness speed \u2022 Scalability may ...",
+              "score": 6.550040245056152,
+              "relevant": true
+            },
+            {
+              "node_id": "30d29c95-ffee-4134-92b7-42a8f05a7cd1",
+              "text": "Advantages of Vertical Scalability \u2022Simple implementation with minimal configuration changes \u2022No nee...",
+              "score": 3.8720579147338867,
+              "relevant": true
+            },
+            {
+              "node_id": "9b8c8ed3-7999-42ba-9138-187ef3878d35",
+              "text": "\u2022 Near-unlimited scalability potential \u2022 Improved fault tolerance \u2022 High availability through redund...",
+              "score": 1.7653559446334839,
+              "relevant": true
+            },
+            {
+              "node_id": "91ee882a-c458-4f47-a003-80f01fdf2979",
+              "text": "Learning Objectives \u2022 Distinguish between vertical and horizontal scaling \u2022 Understand elasticity an...",
+              "score": 1.1729931831359863,
+              "relevant": true
+            },
+            {
+              "node_id": "c09f952e-b71f-4539-938d-bc144d2c4f1f",
+              "text": "\u2022 Horizontal scalability is also known as scaling out \u2022 It involves adding more machines or instance...",
+              "score": 5.315185546875,
+              "relevant": true
+            },
+            {
+              "node_id": "fc8f5538-48d9-48b0-a964-8b8c1ac9a4f0",
+              "text": "Next Lecture Vertical scaling vs horizontal scaling, elasticity concepts, scalability design pattern...",
+              "score": 0.707690417766571,
+              "relevant": true
+            },
+            {
+              "node_id": "676169c2-6554-4543-b3da-74cace243146",
+              "text": "\u2022 Increased architectural complexity \u2022 Requires coordination between nodes \u2022 Data consistency manage...",
+              "score": -10.272735595703125,
+              "relevant": false
+            },
+            {
+              "node_id": "b65933eb-fe26-47ac-b202-a6f19ed0075c",
+              "text": "Vertical Scalability Overview \u2022Vertical scalability is also known as scaling up \u2022It involves adding ...",
+              "score": 6.029943466186523,
+              "relevant": true
+            },
+            {
+              "node_id": "2873b22d-8e17-49c0-8de0-87c00ba4534a",
+              "text": "Scalability Comparison: Vertical vs Horizontal \u2022Vertical scaling strengthens a single machine \u2022Horiz...",
+              "score": 4.592294692993164,
+              "relevant": true
+            },
+            {
+              "node_id": "6fc53723-0d3a-43a0-a6dc-938c99c583a0",
+              "text": "Summary \u2022 Cloud computing is remote, automated, internet-based IT service delivery \u2022 It abstracts ph...",
+              "score": -1.3426074981689453,
+              "relevant": false
+            },
+            {
+              "node_id": "0d7a7e3a-72ea-440a-a423-5bd8d4ba3626",
+              "text": "\u2022 Stateless service design \u2022 Data partitioning techniques \u2022 Caching mechanisms \u2022 Asynchronous proces...",
+              "score": -0.3765638768672943,
+              "relevant": false
+            },
+            {
+              "node_id": "58182014-f736-4d3c-af80-0193c3dd6447",
+              "text": "\u2022 Implement proactive monitoring \u2022 Review capacity usage regularly \u2022 Plan scaling thresholds careful...",
+              "score": 3.087148070335388e-05,
+              "relevant": false
+            },
+            {
+              "node_id": "b1352738-14f9-41cd-93e1-6bae4c5d769f",
+              "text": "\u2022 Application architecture style \u2022 Isolation and security requirements \u2022 Performance and startup nee...",
+              "score": -1.6445553302764893,
+              "relevant": false
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
