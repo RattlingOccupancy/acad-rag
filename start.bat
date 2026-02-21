@@ -29,7 +29,7 @@ echo.
 
 REM Start backend in a new window
 echo [1/2] Starting Backend (FastAPI on port 8000)...
-start cmd /k "cd backend && python -m pip install fastapi uvicorn python-multipart -q && uvicorn api:app --reload --port 8000"
+start cmd /k "cd backend && python -m pip install fastapi uvicorn python-multipart -q && python -m uvicorn api:app --reload --port 8000"
 
 REM Wait a moment for backend to start
 timeout /t 3 /nobreak
