@@ -263,11 +263,14 @@ export default function NoirTutor() {
       const result = await res.json();
 
       // Update docs to mark as indexed
-      setDocs(p => p.map(d =>
-        placeholders.some(ph => ph.id === d.id)
-          ? { ...d, status: "indexed", pages: Math.floor(Math.random() * 50 + 10) }
-          : d
-      ));
+      setDocs(p => p.map(d => {
+        if (placeholders.some(ph => ph.id === d.id)) {
+          const matchingKey = Object.keys(result.file_pages || {}).find(k => k.startsWith(d.name));
+          const pages = matchingKey && result.file_pages ? result.file_pages[matchingKey] : 1;
+          return { ...d, status: "indexed", pages };
+        }
+        return d;
+      }));
 
       setMessages(p => [...p, {
         id: Date.now(),

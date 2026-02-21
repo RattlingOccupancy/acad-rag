@@ -102,10 +102,29 @@ async def upload_endpoint(files: List[UploadFile] = File(...)) -> dict:
         reset_runtime()
         initialize_runtime(retrieval_top_k=8)
 
+        file_pages = {}
+        for node in nodes:
+            metadata = getattr(node, "metadata", {}) or {}
+            source = metadata.get("source")
+            page_label = metadata.get("page_label")
+            if source and page_label:
+                source_basename = Path(str(source)).name
+                try:
+                    page_num = int(page_label)
+                    file_pages[source_basename] = max(file_pages.get(source_basename, 0), page_num)
+                except ValueError:
+                    pass
+
+        return_files = [Path(f.filename or "").name for f in files]
+        for fname in return_files:
+            if fname not in file_pages:
+                file_pages[fname] = 1
+
         return {
             "status": "success",
             "message": f"Uploaded and indexed {len(files)} file(s)",
-            "files": [Path(f.filename or "").name for f in files],
+            "files": return_files,
+            "file_pages": file_pages,
             "nodes_created": len(nodes),
         }
     except HTTPException:
