@@ -1,3 +1,7 @@
+
+
+
+
 import { useState, useRef, useEffect } from "react";
 
 const API_BASE_URL = "http://localhost:8000";
@@ -94,23 +98,7 @@ function parseText(text) {
   });
 }
 
-function ConfidenceRing({ pct }) {
-  const r = 14, circ = 2 * Math.PI * r;
-  const dash = (pct / 100) * circ;
-  const color = pct > 90 ? "#c9a84c" : pct > 70 ? "#a78bfa" : "#fb923c";
-  return (
-    <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 10 }}>
-      <svg width={34} height={34} viewBox="0 0 34 34">
-        <circle cx={17} cy={17} r={r} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth={3} />
-        <circle cx={17} cy={17} r={r} fill="none" stroke={color} strokeWidth={3}
-          strokeDasharray={`${dash} ${circ}`} strokeLinecap="round"
-          transform="rotate(-90 17 17)" style={{ transition: "stroke-dasharray 1s ease" }} />
-        <text x={17} y={21} textAnchor="middle" fontSize={8} fill={color} fontWeight={700}>{pct}</text>
-      </svg>
-      <span style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", letterSpacing: "0.06em" }}>CONFIDENCE</span>
-    </div>
-  );
-}
+
 
 function CourseTag({ course }) {
   const c = COURSE_COLORS[course] || COURSE_COLORS["GENERAL"];
@@ -186,9 +174,9 @@ export default function NoirTutor() {
       const data = await res.json();
       const sources = (data.sources || []).map((src, idx) => ({
         id: idx,
-        doc: src,
-        page: "—",
-        snippet: src,
+        doc: src.doc || src,
+        page: src.page || "—",
+        snippet: src.snippet || src,
       }));
 
       setMessages(p => [...p, {
@@ -196,7 +184,7 @@ export default function NoirTutor() {
         role: "assistant",
         text: data.answer || "No answer generated",
         sources: sources,
-        confidence: sources.length > 0 ? 85 + Math.floor(Math.random() * 10) : null,
+        confidence: null,
       }]);
     } catch (err) {
       setApiError(err.message || "Error processing query");
@@ -236,7 +224,7 @@ export default function NoirTutor() {
     const formData = new FormData();
     pdfFiles.forEach(f => formData.append("files", f));
 
-    // Add placeholder docs
+    // Add placeholder docs (and wipe old ones for Strict Replace Mode)
     const placeholders = pdfFiles.map(f => ({
       id: Date.now() + Math.random(),
       name: f.name.replace(/\.[^.]+$/, ""),
@@ -247,7 +235,10 @@ export default function NoirTutor() {
       status: "processing",
       size: (f.size / 1e6).toFixed(1) + " MB",
     }));
-    setDocs(p => [...placeholders, ...p]);
+
+    // Reset UI to mirror Backend Strict Replace Mode Wipe
+    setDocs(placeholders);
+    setMessages(INITIAL_MESSAGES);
 
     try {
       const res = await fetch(`${API_BASE_URL}/upload`, {
@@ -272,13 +263,7 @@ export default function NoirTutor() {
         return d;
       }));
 
-      setMessages(p => [...p, {
-        id: Date.now(),
-        role: "system",
-        text: `✓ ${result.message} (${result.nodes_created} chunks created)`,
-        sources: [],
-        confidence: null,
-      }]);
+
 
       setTab("docs");
     } catch (err) {
@@ -580,10 +565,6 @@ export default function NoirTutor() {
             <div className="brand-eyebrow">Private Academic Intelligence</div>
             <div className="brand-name">ScholArx</div>
             <div className="brand-sub">Knowledge-grounded Q&A · Zero external data · Your materials only</div>
-            <div className="status-pill">
-              <div className="status-dot" />
-              Knowledge Base Active
-            </div>
           </div>
 
           <div className="sb-tabs">
@@ -648,32 +629,16 @@ export default function NoirTutor() {
             </div>
           )}
 
-          <div className="sb-stats">
-            <div className="stat">
-              <div className="stat-n">{indexed}</div>
-              <div className="stat-l">Indexed</div>
-            </div>
-            <div className="stat-div" />
-            <div className="stat">
-              <div className="stat-n">{totalPg}</div>
-              <div className="stat-l">Pages</div>
-            </div>
-            <div className="stat-div" />
-            <div className="stat">
-              <div className="stat-n">{docs.length}</div>
-              <div className="stat-l">Total</div>
-            </div>
-          </div>
+
         </aside>
 
         {/* ── MAIN ─────────────────────────────────────────── */}
         <main className="main">
-          <div className="corner-decor">S</div>
+
 
           <div className="top-bar">
             <div className="top-title">Academic Q&A</div>
             <div className="top-badges">
-              <span className="badge badge-lock">🔒 Local &amp; Private</span>
               <span className="badge badge-active">● {indexed} docs active</span>
             </div>
           </div>
@@ -691,18 +656,6 @@ export default function NoirTutor() {
                 </div>
               )}
               {messages.map((msg, i) => {
-                if (msg.role === "system") {
-                  return (
-                    <div key={msg.id} style={{
-                      margin: "12px 0", padding: "10px 16px", borderRadius: "10px",
-                      background: "rgba(52,211,153,0.08)", border: "1px solid rgba(52,211,153,0.25)",
-                      color: "#86efac", fontSize: "12px", maxWidth: "640px",
-                      animation: "fade-up 0.3s ease"
-                    }}>
-                      {msg.text}
-                    </div>
-                  );
-                }
                 return (
                   <div key={msg.id} className={`msg-wrap ${msg.role}`} style={{ animationDelay: mounted ? "0s" : `${i * 0.07}s` }}>
                     {msg.role === "assistant" && (
@@ -716,7 +669,7 @@ export default function NoirTutor() {
                         {parseText(msg.text)}
                       </ul>
 
-                      {msg.confidence !== null && <ConfidenceRing pct={msg.confidence} />}
+
 
                       {msg.sources?.length > 0 && (
                         <div className="sources-section">
@@ -779,9 +732,7 @@ export default function NoirTutor() {
                 </svg>
               </button>
             </div>
-            <div className="input-footer">
-              ✦ Answers are strictly grounded in your uploaded knowledge base &nbsp;·&nbsp; No external sources &nbsp;·&nbsp; No fabrication
-            </div>
+
           </div>
         </main>
       </div>

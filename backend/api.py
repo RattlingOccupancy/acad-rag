@@ -1,3 +1,5 @@
+
+
 import os
 import sys
 from pathlib import Path
@@ -22,20 +24,32 @@ class AskRequest(BaseModel):
     use_cache: bool = True
 
 
+class SourceItem(BaseModel):
+    doc: str
+    page: str
+    snippet: str
+
+
 class AskResponse(BaseModel):
     answer: str
-    sources: List[str]
+    sources: List[SourceItem]
 
 
-def _extract_unique_sources(final_nodes: List[object]) -> List[str]:
-    unique_sources: List[str] = []
+def _extract_source_items(final_nodes: List[object]) -> List[dict]:
+    items = []
+    seen_snips = set()
     for item in final_nodes:
         node = item.node if hasattr(item, "node") else item
         metadata = getattr(node, "metadata", {}) or {}
         source = metadata.get("source", "unknown")
-        if source not in unique_sources:
-            unique_sources.append(source)
-    return unique_sources
+        page = metadata.get("page_label", "—")
+        text = getattr(node, "text", "") or ""
+        text = getattr(node, "get_content", lambda: text)()
+        
+        if text not in seen_snips:
+            seen_snips.add(text)
+            items.append({"doc": str(source), "page": str(page), "snippet": text})
+    return items
 
 
 app = FastAPI(title="RAG API", version="1.0.0")
@@ -55,11 +69,22 @@ app.add_middleware(
 )
 
 
+import shutil
+
 @app.on_event("startup")
 def startup_event() -> None:
     # Warm the runtime once so first user request is faster.
     global RUNTIME_INIT_ERROR
     try:
+        # Clear out old storage and uploads on fresh start to match frontend
+        for d in ["data/uploads", "storage", "backend/storage", "backend/data/uploads"]:
+            path = Path(d)
+            if path.exists():
+                shutil.rmtree(path, ignore_errors=True)
+                
+        # Initialize an empty vector index so LlamaIndex doesn't crash on load
+        build_vector_index([])
+        reset_runtime(clear_reranker=False)
         initialize_runtime(retrieval_top_k=8)
         RUNTIME_INIT_ERROR = None
     except Exception as exc:
@@ -74,10 +99,33 @@ def health() -> dict:
     return {"status": "ok"}
 
 
+@app.post("/reset")
+def reset_endpoint() -> dict:
+    try:
+        for d in ["data/uploads", "storage", "backend/storage", "backend/data/uploads"]:
+            path = Path(d)
+            if path.exists():
+                shutil.rmtree(path, ignore_errors=True)
+                
+        Path("data/uploads").mkdir(parents=True, exist_ok=True)
+        build_vector_index([])
+        reset_runtime(clear_reranker=False)
+        initialize_runtime(retrieval_top_k=8)
+        return {"status": "success", "message": "Backend reset completely"}
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc))
+
+
 @app.post("/upload")
 async def upload_endpoint(files: List[UploadFile] = File(...)) -> dict:
     """Upload PDF files and ingest them into the RAG system."""
     try:
+        # Strict Replace Mode: completely wipe old database and files on new upload
+        for d in ["data/uploads", "storage", "backend/storage", "backend/data/uploads"]:
+            path = Path(d)
+            if path.exists():
+                shutil.rmtree(path, ignore_errors=True)
+
         upload_dir = Path("data/uploads")
         upload_dir.mkdir(parents=True, exist_ok=True)
 
@@ -136,6 +184,10 @@ async def upload_endpoint(files: List[UploadFile] = File(...)) -> dict:
 @app.post("/ask", response_model=AskResponse)
 def ask_endpoint(payload: AskRequest) -> AskResponse:
     try:
+        upload_dir = Path("data/uploads")
+        if not upload_dir.exists() or not any(upload_dir.iterdir()):
+            return AskResponse(answer="No pdf file uploaded available", sources=[])
+
         global RUNTIME_INIT_ERROR
         if RUNTIME_INIT_ERROR:
             initialize_runtime(retrieval_top_k=8)
@@ -150,4 +202,4 @@ def ask_endpoint(payload: AskRequest) -> AskResponse:
     except Exception as exc:
         raise HTTPException(status_code=500, detail=str(exc))
 
-    return AskResponse(answer=answer, sources=_extract_unique_sources(final_nodes))
+    return AskResponse(answer=answer, sources=_extract_source_items(final_nodes))

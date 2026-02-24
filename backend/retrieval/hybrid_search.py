@@ -18,8 +18,9 @@ class HybridRetriever:
         self.top_k= top_k
 
         embed_model= HuggingFaceEmbedding(
-            model_name= "BAAI/bge-small-en-v1.5"
-        )  
+            model_name= "BAAI/bge-small-en-v1.5",
+            device="cpu"
+        )
 
         storage_context= StorageContext.from_defaults(
             persist_dir= "./storage"
@@ -32,26 +33,35 @@ class HybridRetriever:
 
         self.nodes= list(self.index.docstore.docs.values())
 
-        tokenized= [tokenize(n.text) for n in self.nodes]
-        self.bm25= BM25Okapi((tokenized))
+        if self.nodes:
+            tokenized= [tokenize(n.text) for n in self.nodes]
+            self.bm25= BM25Okapi((tokenized))
+        else:
+            self.bm25 = None
 
     def retrieve(self, query):
+        if not self.nodes:
+            return []
+            
         # Dense retrieval
         dense_results = self.index.as_retriever(
             similarity_top_k=self.top_k
         ).retrieve(query)
 
         # Sparse retrieval
-        tokenized_query = tokenize(query)
-        bm25_scores = self.bm25.get_scores(tokenized_query)
+        if self.bm25:
+            tokenized_query = tokenize(query)
+            bm25_scores = self.bm25.get_scores(tokenized_query)
 
-        top_sparse_idx = sorted(
-            range(len(bm25_scores)),
-            key=lambda i: bm25_scores[i],
-            reverse=True
-        )[:self.top_k]
+            top_sparse_idx = sorted(
+                range(len(bm25_scores)),
+                key=lambda i: bm25_scores[i],
+                reverse=True
+            )[:self.top_k]
 
-        sparse_results = [self.nodes[i] for i in top_sparse_idx]
+            sparse_results = [self.nodes[i] for i in top_sparse_idx]
+        else:
+            sparse_results = []
 
         # Merge (union)
         combined = {n.node_id: n for n in dense_results}

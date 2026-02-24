@@ -19,7 +19,8 @@ except ImportError:
 
 def load_index():
     embed_model = HuggingFaceEmbedding(
-        model_name="BAAI/bge-small-en-v1.5"
+        model_name="BAAI/bge-small-en-v1.5",
+        device="cpu"
     )
     storage_context = StorageContext.from_defaults(persist_dir="./storage")
 
