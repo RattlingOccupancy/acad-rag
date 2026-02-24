@@ -73,7 +73,8 @@ import shutil
 
 @app.on_event("startup")
 def startup_event() -> None:
-    # Warm the runtime once so first user request is faster.
+    # We now use Lazy Loading. 
+    # The brain (models) will only load when the user first uploads or asks.
     global RUNTIME_INIT_ERROR
     try:
         # Clear out old storage and uploads on fresh start to match frontend
@@ -81,14 +82,8 @@ def startup_event() -> None:
             path = Path(d)
             if path.exists():
                 shutil.rmtree(path, ignore_errors=True)
-                
-        # Initialize an empty vector index so LlamaIndex doesn't crash on load
-        build_vector_index([])
-        reset_runtime(clear_reranker=False)
-        initialize_runtime(retrieval_top_k=8)
         RUNTIME_INIT_ERROR = None
     except Exception as exc:
-        # Keep API alive and lazily retry on first ask request.
         RUNTIME_INIT_ERROR = str(exc)
 
 
@@ -108,9 +103,7 @@ def reset_endpoint() -> dict:
                 shutil.rmtree(path, ignore_errors=True)
                 
         Path("data/uploads").mkdir(parents=True, exist_ok=True)
-        build_vector_index([])
         reset_runtime(clear_reranker=False)
-        initialize_runtime(retrieval_top_k=8)
         return {"status": "success", "message": "Backend reset completely"}
     except Exception as exc:
         raise HTTPException(status_code=500, detail=str(exc))

@@ -29,14 +29,14 @@ echo.
 
 REM Start backend in a new window
 echo [1/2] Starting Backend (FastAPI on port 8000)...
-start cmd /k "cd backend && python -m pip install fastapi uvicorn python-multipart -q && python -m uvicorn api:app --reload --port 8000"
+start cmd /k "cd backend && python -m uvicorn api:app --reload --port 8000"
 
 REM Wait a moment for backend to start
-timeout /t 3 /nobreak
+timeout /t 1 /nobreak
 
 REM Start frontend in a new window
 echo [2/2] Starting Frontend (Vite on port 5173)...
-start cmd /k "cd frontend && npm install -q && npm run dev"
+start cmd /k "cd frontend && npm run dev"
 
 echo.
 echo ✓ Services starting...
