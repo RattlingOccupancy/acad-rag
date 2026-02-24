@@ -179,7 +179,7 @@ def ask_endpoint(payload: AskRequest) -> AskResponse:
     try:
         upload_dir = Path("data/uploads")
         if not upload_dir.exists() or not any(upload_dir.iterdir()):
-            return AskResponse(answer="No pdf file uploaded available", sources=[])
+            return AskResponse(answer="No PDF file/s uploaded available, please upload to conversate", sources=[])
 
         global RUNTIME_INIT_ERROR
         if RUNTIME_INIT_ERROR:

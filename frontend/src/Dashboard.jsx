@@ -129,6 +129,7 @@ export default function NoirTutor() {
   useEffect(() => {
     setTimeout(() => setMounted(true), 80);
     checkHealth();
+    resetBackend(); // Clear previous database on every page refresh
   }, []);
 
   useEffect(() => {
@@ -138,9 +139,19 @@ export default function NoirTutor() {
   const checkHealth = async () => {
     try {
       const res = await fetch(`${API_BASE_URL}/health`);
-      if (!res.ok) setApiError("Backend unavailable");
+      if (!res.ok) throw new Error("Backend degraded");
+      setApiError(""); // Clear any previous error on success
     } catch (err) {
       setApiError("Cannot connect to backend. Make sure it's running on port 8000.");
+    }
+  };
+
+  const resetBackend = async () => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/reset`, { method: "POST" });
+      if (res.ok) setApiError(""); // Clear any previous error on success
+    } catch (err) {
+      console.warn("Could not reset backend", err);
     }
   };
 
