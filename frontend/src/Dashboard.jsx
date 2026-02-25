@@ -116,7 +116,6 @@ export default function NoirTutor() {
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
   const [dragOver, setDragOver] = useState(false);
-  const [tab, setTab] = useState("docs");
   const [openSource, setOpenSource] = useState(null);
   const [mounted, setMounted] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -275,13 +274,27 @@ export default function NoirTutor() {
 
 
 
-      setTab("docs");
     } catch (err) {
       setUploadError(err.message || "Upload failed");
       // Remove placeholders on error
       setDocs(p => p.filter(d => !placeholders.some(ph => ph.id === d.id)));
     } finally {
       setUploading(false);
+    }
+  };
+
+  const deleteFile = async (docId, filename) => {
+    // Optimistic UI update
+    setDocs(p => p.filter(d => d.id !== docId));
+    try {
+      const res = await fetch(`${API_BASE_URL}/delete`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ filename: filename + ".pdf" })
+      });
+      if (!res.ok) throw new Error("Delete failed");
+    } catch (err) {
+      console.warn("Could not delete from backend", err);
     }
   };
 
@@ -577,67 +590,85 @@ export default function NoirTutor() {
             <div className="brand-sub">Knowledge-grounded Q&A · Zero external data · Your materials only</div>
           </div>
 
-          <div className="sb-tabs">
-            <button className={`sb-tab ${tab === "docs" ? "active" : ""}`} onClick={() => setTab("docs")}>Documents</button>
-            <button className={`sb-tab ${tab === "upload" ? "active" : ""}`} onClick={() => setTab("upload")}>Upload</button>
-          </div>
-
-          {tab === "docs" ? (
-            <div className="doc-list">
-              {docs.length === 0 ? (
-                <div style={{ padding: "24px 16px", textAlign: "center", color: "var(--text-muted)", fontSize: 12 }}>
-                  No documents uploaded yet. Switch to the Upload tab to add files.
-                </div>
-              ) : (
-                docs.map((doc, i) => (
-                  <div key={doc.id} className="doc-card" style={{ animationDelay: `${i * 0.06}s` }}>
-                    <div className="doc-name">{doc.name}</div>
-                    <div className="doc-meta">
-                      <CourseTag course={doc.course} />
-                      <span style={{ fontSize: 10, color: doc.status === "indexed" ? "#34d399" : "#f59e0b", fontWeight: 600 }}>
-                        {doc.status === "indexed" ? "● Indexed" : "◌ Processing"}
-                      </span>
+          <div className="doc-list">
+            {docs.length === 0 ? (
+              <div style={{ padding: "24px 16px", textAlign: "center", color: "var(--text-muted)", fontSize: 12 }}>
+                No documents uploaded yet.
+              </div>
+            ) : (
+              docs.map((doc, i) => (
+                <div key={doc.id} className="doc-card" style={{ animationDelay: `${i * 0.06}s` }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "5px" }}>
+                    <div className="doc-name" style={{ margin: 0 }}>{doc.name}</div>
+                  </div>
+                  <div className="doc-meta">
+                    <CourseTag course={doc.course} />
+                    <span style={{ fontSize: 10, color: doc.status === "indexed" ? "#34d399" : "#f59e0b", fontWeight: 600 }}>
+                      {doc.status === "indexed" ? "● Indexed" : "◌ Processing"}
+                    </span>
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginTop: "4px" }}>
+                    <div className="doc-info" style={{ margin: 0 }}>
+                      {doc.ext} · {doc.size}{doc.pages !== "—" ? ` · ${doc.pages} pages` : ""} · {doc.date}
                     </div>
-                    <div className="doc-info">
-                      {doc.ext} · {doc.size}{doc.pages !== "—" ? ` · ${doc.pages} pp` : ""} · {doc.date}
-                    </div>
-                    {doc.status === "processing" && (
-                      <div className="processing-bar"><div className="processing-fill" /></div>
+                    {doc.status === "indexed" && (
+                      <button
+                        onClick={(e) => { e.stopPropagation(); deleteFile(doc.id, doc.name); }}
+                        style={{
+                          background: "rgba(239, 68, 68, 0.1)",
+                          border: "1px solid rgba(239, 68, 68, 0.4)",
+                          color: "#ef4444",
+                          cursor: "pointer",
+                          fontSize: "9px",
+                          fontWeight: "800",
+                          letterSpacing: "0.05em",
+                          padding: "3px 8px",
+                          borderRadius: "4px",
+                          transition: "all 0.2s ease"
+                        }}
+                        onMouseOver={(e) => e.currentTarget.style.background = "rgba(239, 68, 68, 0.2)"}
+                        onMouseOut={(e) => e.currentTarget.style.background = "rgba(239, 68, 68, 0.1)"}
+                        title="Remove document"
+                      >
+                        REMOVE
+                      </button>
                     )}
                   </div>
-                ))
-              )}
-            </div>
-          ) : (
-            <div style={{ flex: 1, overflowY: "auto" }}>
-              {uploadError && (
-                <div style={{
-                  margin: "14px", padding: "12px 16px", borderRadius: "10px",
-                  background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)",
-                  color: "#fca5a5", fontSize: "12px", animation: "fade-up 0.3s ease"
-                }}>
-                  ⚠ {uploadError}
+                  {doc.status === "processing" && (
+                    <div className="processing-bar"><div className="processing-fill" /></div>
+                  )}
                 </div>
-              )}
-              <div
-                className={`upload-zone ${dragOver ? "active" : ""}`}
-                style={{ opacity: uploading ? 0.5 : 1, pointerEvents: uploading ? "none" : "auto" }}
-                onClick={() => !uploading && fileRef.current?.click()}
-                onDragOver={e => { e.preventDefault(); !uploading && setDragOver(true); }}
-                onDragLeave={() => setDragOver(false)}
-                onDrop={e => { e.preventDefault(); setDragOver(false); !uploading && uploadFiles(e.dataTransfer.files); }}
-              >
-                <div className="upload-icon">{uploading ? "⏳" : "📂"}</div>
-                <div className="upload-title">{uploading ? "Processing..." : "Drop course materials here"}</div>
-                <div className="upload-sub">{uploading ? "Your files are being uploaded and indexed..." : "PDF files only\nEmbedded into your private vector store"}</div>
-                <button className="upload-btn" disabled={uploading}>{uploading ? "Uploading…" : "Browse Files"}</button>
-                <input ref={fileRef} type="file" multiple accept=".pdf" style={{ display: "none" }} onChange={e => uploadFiles(e.target.files)} disabled={uploading} />
+              ))
+            )}
+          </div>
+
+          <div style={{ padding: "16px", borderTop: "1px solid var(--glass-bd)", background: "rgba(0,0,0,0.2)" }}>
+            {uploadError && (
+              <div style={{
+                marginBottom: "10px", padding: "10px", borderRadius: "8px",
+                background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)",
+                color: "#fca5a5", fontSize: "11px", animation: "fade-up 0.3s ease"
+              }}>
+                ⚠ {uploadError}
               </div>
-              <div style={{ padding: "0 16px 16px", fontSize: 11, color: "var(--text-muted)", lineHeight: 1.8 }}>
-                Files are chunked, embedded, and stored locally in your vector index. Nothing leaves your environment.
-              </div>
+            )}
+            <div
+              className={`upload-zone ${dragOver ? "active" : ""}`}
+              style={{ margin: 0, padding: "20px 14px", opacity: uploading ? 0.5 : 1, pointerEvents: uploading ? "none" : "auto" }}
+              onClick={() => !uploading && fileRef.current?.click()}
+              onDragOver={e => { e.preventDefault(); !uploading && setDragOver(true); }}
+              onDragLeave={() => setDragOver(false)}
+              onDrop={e => { e.preventDefault(); setDragOver(false); !uploading && uploadFiles(e.dataTransfer.files); }}
+            >
+              <div className="upload-icon" style={{ fontSize: 20, marginBottom: 6 }}>{uploading ? "⏳" : "📂"}</div>
+              <div className="upload-title" style={{ fontSize: 12 }}>{uploading ? "Processing..." : "Upload Materials"}</div>
+              <div className="upload-sub" style={{ fontSize: 10, marginBottom: 10 }}>{uploading ? "Indexing files..." : "Drop PDFs here"}</div>
+              <button className="upload-btn" style={{ fontSize: 11, padding: "6px 14px" }} disabled={uploading}>
+                {uploading ? "Uploading…" : "Browse"}
+              </button>
+              <input ref={fileRef} type="file" multiple accept=".pdf" style={{ display: "none" }} onChange={e => uploadFiles(e.target.files)} disabled={uploading} />
             </div>
-          )}
+          </div>
 
 
         </aside>

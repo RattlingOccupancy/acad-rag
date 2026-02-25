@@ -24,6 +24,10 @@ class AskRequest(BaseModel):
     use_cache: bool = True
 
 
+class DeleteRequest(BaseModel):
+    filename: str
+
+
 class SourceItem(BaseModel):
     doc: str
     page: str
@@ -170,6 +174,40 @@ async def upload_endpoint(files: List[UploadFile] = File(...)) -> dict:
         }
     except HTTPException:
         raise
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc))
+
+
+@app.post("/delete")
+def delete_endpoint(payload: DeleteRequest) -> dict:
+    try:
+        filename = payload.filename
+        upload_dir = Path("data/uploads")
+        file_path = upload_dir / filename
+        
+        if file_path.exists():
+            file_path.unlink()
+            
+        # Wipe storage to remove old embeddings
+        for d in ["storage", "backend/storage"]:
+            path = Path(d)
+            if path.exists():
+                shutil.rmtree(path, ignore_errors=True)
+                
+        reset_runtime()
+                
+        # Re-ingest remaining files (if any)
+        all_pdf_paths = [str(p) for p in upload_dir.glob("*.pdf")]
+        if all_pdf_paths:
+            nodes = run_ingestion(uploaded_files=all_pdf_paths)
+            build_vector_index(nodes)
+            initialize_runtime(retrieval_top_k=8)
+            return {"status": "success", "message": f"Deleted {filename} and re-indexed remainder."}
+        else:
+            # If no files left, ensure empty index
+            build_vector_index([])
+            return {"status": "success", "message": f"Deleted {filename}. Database is now empty."}
+            
     except Exception as exc:
         raise HTTPException(status_code=500, detail=str(exc))
 
