@@ -235,7 +235,7 @@ export default function NoirTutor() {
     const formData = new FormData();
     pdfFiles.forEach(f => formData.append("files", f));
 
-    // Add placeholder docs (and wipe old ones for Strict Replace Mode)
+    // Add placeholder docs (Append Mode)
     const placeholders = pdfFiles.map(f => ({
       id: Date.now() + Math.random(),
       name: f.name.replace(/\.[^.]+$/, ""),
@@ -247,9 +247,8 @@ export default function NoirTutor() {
       size: (f.size / 1e6).toFixed(1) + " MB",
     }));
 
-    // Reset UI to mirror Backend Strict Replace Mode Wipe
-    setDocs(placeholders);
-    setMessages(INITIAL_MESSAGES);
+    // Append to UI list instead of replacing
+    setDocs(prev => [...prev, ...placeholders]);
 
     try {
       const res = await fetch(`${API_BASE_URL}/upload`, {
@@ -691,7 +690,7 @@ export default function NoirTutor() {
                             return (
                               <div key={si}>
                                 <span className={`source-chip ${isOpen ? "open" : ""}`} onClick={() => setOpenSource(isOpen ? null : key)}>
-                                  📄 {s.doc} {s.page !== "—" ? `· p.${s.page}` : ""} {isOpen ? "▲" : "▼"}
+                                  📄 {s.doc} {isOpen ? "▲" : "▼"}
                                 </span>
                                 {isOpen && (
                                   <div className="source-expand">

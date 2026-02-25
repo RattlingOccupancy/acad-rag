@@ -113,8 +113,8 @@ def reset_endpoint() -> dict:
 async def upload_endpoint(files: List[UploadFile] = File(...)) -> dict:
     """Upload PDF files and ingest them into the RAG system."""
     try:
-        # Strict Replace Mode: completely wipe old database and files on new upload
-        for d in ["data/uploads", "storage", "backend/storage", "backend/data/uploads"]:
+        # Append Mode: keep old uploads, just wipe storage to rebuild index cleanly
+        for d in ["storage", "backend/storage"]:
             path = Path(d)
             if path.exists():
                 shutil.rmtree(path, ignore_errors=True)
@@ -122,7 +122,6 @@ async def upload_endpoint(files: List[UploadFile] = File(...)) -> dict:
         upload_dir = Path("data/uploads")
         upload_dir.mkdir(parents=True, exist_ok=True)
 
-        uploaded_paths = []
         for file in files:
             filename = Path(file.filename or "").name
             if not filename:
@@ -136,9 +135,10 @@ async def upload_endpoint(files: List[UploadFile] = File(...)) -> dict:
             with open(file_path, "wb") as f:
                 contents = await file.read()
                 f.write(contents)
-            uploaded_paths.append(str(file_path))
 
-        nodes = run_ingestion(uploaded_files=uploaded_paths)
+        # Ingest ALL files currently in the uploads directory (old + new)
+        all_pdf_paths = [str(p) for p in upload_dir.glob("*.pdf")]
+        nodes = run_ingestion(uploaded_files=all_pdf_paths)
         build_vector_index(nodes)
         reset_runtime()
         initialize_runtime(retrieval_top_k=8)
