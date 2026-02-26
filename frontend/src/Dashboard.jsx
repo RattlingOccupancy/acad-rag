@@ -124,6 +124,7 @@ export default function NoirTutor() {
   const fileRef = useRef(null);
   const chatEnd = useRef(null);
   const textaRef = useRef(null);
+  const abortControllerRef = useRef(null);
 
   useEffect(() => {
     setTimeout(() => setMounted(true), 80);
@@ -165,9 +166,11 @@ export default function NoirTutor() {
     setTyping(true);
 
     try {
+      abortControllerRef.current = new AbortController();
       const res = await fetch(`${API_BASE_URL}/ask`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        signal: abortControllerRef.current.signal,
         body: JSON.stringify({
           query: userQuery,
           retrieval_top_k: 8,
@@ -197,17 +200,32 @@ export default function NoirTutor() {
         confidence: null,
       }]);
     } catch (err) {
-      setApiError(err.message || "Error processing query");
-      setMessages(p => [...p, {
-        id: Date.now() + 1,
-        role: "assistant",
-        text: `Error: ${err.message}. Please try again.`,
-        sources: [],
-        confidence: null,
-      }]);
+      if (err.name === "AbortError") {
+        setMessages(p => [...p, {
+          id: Date.now() + 1,
+          role: "assistant",
+          text: "Generation Stopped!",
+          sources: [],
+          confidence: null,
+        }]);
+      } else {
+        setApiError(err.message || "Error processing query");
+        setMessages(p => [...p, {
+          id: Date.now() + 1,
+          role: "assistant",
+          text: `Error: ${err.message}. Please try again.`,
+          sources: [],
+          confidence: null,
+        }]);
+      }
     } finally {
       setTyping(false);
+      abortControllerRef.current = null;
     }
+  };
+
+  const stopGeneration = () => {
+    if (abortControllerRef.current) abortControllerRef.current.abort();
   };
 
   const onKey = e => {
@@ -284,8 +302,8 @@ export default function NoirTutor() {
   };
 
   const deleteFile = async (docId, filename) => {
-    // Optimistic UI update
-    setDocs(p => p.filter(d => d.id !== docId));
+    // Set to removing state
+    setDocs(p => p.map(d => d.id === docId ? { ...d, status: "removing" } : d));
     try {
       const res = await fetch(`${API_BASE_URL}/delete`, {
         method: "POST",
@@ -293,8 +311,12 @@ export default function NoirTutor() {
         body: JSON.stringify({ filename: filename + ".pdf" })
       });
       if (!res.ok) throw new Error("Delete failed");
+      // Actually remove it from UI now that backend is done
+      setDocs(p => p.filter(d => d.id !== docId));
     } catch (err) {
       console.warn("Could not delete from backend", err);
+      // Revert if error
+      setDocs(p => p.map(d => d.id === docId ? { ...d, status: "indexed" } : d));
     }
   };
 
@@ -597,14 +619,22 @@ export default function NoirTutor() {
               </div>
             ) : (
               docs.map((doc, i) => (
-                <div key={doc.id} className="doc-card" style={{ animationDelay: `${i * 0.06}s` }}>
+                <div key={doc.id} className="doc-card" style={{
+                  animationDelay: `${i * 0.06}s`,
+                  opacity: doc.status === "removing" ? 0.4 : 1,
+                  pointerEvents: doc.status === "removing" ? "none" : "auto"
+                }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "5px" }}>
                     <div className="doc-name" style={{ margin: 0 }}>{doc.name}</div>
                   </div>
                   <div className="doc-meta">
                     <CourseTag course={doc.course} />
-                    <span style={{ fontSize: 10, color: doc.status === "indexed" ? "#34d399" : "#f59e0b", fontWeight: 600 }}>
-                      {doc.status === "indexed" ? "● Indexed" : "◌ Processing"}
+                    <span style={{
+                      fontSize: 10,
+                      color: doc.status === "indexed" ? "#34d399" : doc.status === "removing" ? "#ef4444" : "#f59e0b",
+                      fontWeight: 600
+                    }}>
+                      {doc.status === "indexed" ? "● Indexed" : doc.status === "removing" ? "◌ Removing..." : "◌ Processing"}
                     </span>
                   </div>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginTop: "4px" }}>
@@ -767,10 +797,16 @@ export default function NoirTutor() {
                 }}
                 onKeyDown={onKey}
               />
-              <button className="send-btn" onClick={send} disabled={!input.trim() || typing}>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" />
-                </svg>
+              <button className="send-btn" onClick={typing ? stopGeneration : send} disabled={!typing && !input.trim()}>
+                {typing ? (
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2">
+                    <rect x="4" y="4" width="16" height="16" rx="2" ry="2" />
+                  </svg>
+                ) : (
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" />
+                  </svg>
+                )}
               </button>
             </div>
 
