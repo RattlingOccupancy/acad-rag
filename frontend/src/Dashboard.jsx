@@ -119,6 +119,7 @@ export default function NoirTutor() {
   const [openSource, setOpenSource] = useState(null);
   const [mounted, setMounted] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const isLocked = uploading || docs.some(d => d.status === "removing");
   const [uploadError, setUploadError] = useState("");
   const [apiError, setApiError] = useState("");
   const fileRef = useRef(null);
@@ -555,19 +556,19 @@ export default function NoirTutor() {
     /* Input */
     .input-area { padding: 16px 28px 22px; border-top: 1px solid var(--glass-bd); background: rgba(8,8,8,0.8); backdrop-filter: blur(20px); flex-shrink: 0; }
     .input-wrap {
-      max-width: 780px; margin: 0 auto; display: flex; align-items: flex-end; gap: 12px;
+      max-width: 780px; margin: 0 auto; display: flex; align-items: center; gap: 12px;
       background: rgba(255,255,255,0.03); border: 1px solid var(--glass-bd); border-radius: 16px;
-      padding: 12px 14px 12px 18px; transition: border-color 0.2s, box-shadow 0.2s;
+      padding: 14px 18px; transition: border-color 0.2s, box-shadow 0.2s;
     }
     .input-wrap:focus-within { border-color: rgba(201,168,76,0.35); box-shadow: 0 0 0 3px rgba(201,168,76,0.06), 0 4px 30px rgba(0,0,0,0.5); }
     .chat-input {
       flex: 1; background: none; border: none; outline: none;
       color: var(--text); font-size: 14px; font-family: 'Outfit', sans-serif;
-      resize: none; line-height: 1.6; min-height: 24px; max-height: 130px;
+      resize: none; line-height: 1.4; min-height: 24px; max-height: 130px;
     }
     .chat-input::placeholder { color: var(--text-muted); }
     .send-btn {
-      width: 38px; height: 38px; border-radius: 10px; border: none; cursor: pointer;
+      width: 34px; height: 34px; border-radius: 10px; border: none; cursor: pointer;
       background: linear-gradient(135deg, #c9a84c, #a07c2e);
       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
       transition: all 0.2s; box-shadow: 0 2px 16px rgba(201,168,76,0.3);
@@ -783,13 +784,14 @@ export default function NoirTutor() {
 
           {/* Input */}
           <div className="input-area">
-            <div className="input-wrap">
-              <textarea
+                  <div className="input-wrap" style={{ opacity: isLocked ? 0.5 : 1, pointerEvents: isLocked ? "none" : "auto" }}>
+                    <textarea
                 ref={textaRef}
                 className="chat-input"
                 placeholder="Ask a question from your course materials…"
                 value={input}
                 rows={1}
+                      disabled={isLocked}
                 onChange={e => {
                   setInput(e.target.value);
                   e.target.style.height = "24px";
@@ -797,7 +799,7 @@ export default function NoirTutor() {
                 }}
                 onKeyDown={onKey}
               />
-              <button className="send-btn" onClick={typing ? stopGeneration : send} disabled={!typing && !input.trim()}>
+              <button className="send-btn" onClick={typing ? stopGeneration : send} disabled={!typing && !input.trim() || isLocked}>
                 {typing ? (
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2">
                     <rect x="4" y="4" width="16" height="16" rx="2" ry="2" />
