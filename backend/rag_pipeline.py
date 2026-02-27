@@ -326,7 +326,7 @@ def run_cli():
             ask_result, ask_stdout, ask_stderr = _capture_output(
                 ask,
                 query,
-                enable_evaluation=True,
+                enable_evaluation=False,
                 use_cache=False,
             )
             answer, retrieved_nodes, sources, evaluation = ask_result
@@ -337,24 +337,25 @@ def run_cli():
             print("Pipeline failed at unknown stage: unexpected error.")
             continue
 
-        try:
-            _append_run_to_json(
-                json_path="evaluation/rag_pipeline_runs.json",
-                query=query,
-                answer=answer,
-                evaluation=evaluation,
-                retrieved_nodes=retrieved_nodes,
-                reranked_nodes=sources,
-                setup_info=setup_info,
-                suppressed_logs={
-                    "setup_stdout": setup_suppressed_stdout,
-                    "setup_stderr": setup_suppressed_stderr,
-                    "query_stdout": ask_stdout,
-                    "query_stderr": ask_stderr,
-                },
-            )
-        except Exception:
-            print("Warning: failed to save this run to JSON log.")
+        # Evaluation logging disabled as per request
+        # try:
+        #     _append_run_to_json(
+        #         json_path="evaluation/rag_pipeline_runs.json",
+        #         query=query,
+        #         answer=answer,
+        #         evaluation=evaluation,
+        #         retrieved_nodes=retrieved_nodes,
+        #         reranked_nodes=sources,
+        #         setup_info=setup_info,
+        #         suppressed_logs={
+        #             "setup_stdout": setup_suppressed_stdout,
+        #             "setup_stderr": setup_suppressed_stderr,
+        #             "query_stdout": ask_stdout,
+        #             "query_stderr": ask_stderr,
+        #         },
+        #     )
+        # except Exception:
+        #     print("Warning: failed to save this run to JSON log.")
 
         print("\nLLM response:\n")
         print(answer)

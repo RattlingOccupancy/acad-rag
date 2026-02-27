@@ -1,26 +1,19 @@
 """
-Retrieval evaluation utilities compatible with this project's retrievers.
-
-This module evaluates relevance for nodes returned by:
-- backend/retrieval/search.py
-- backend/retrieval/hybrid_search.py
-- backend/retrieval/reranker.py
-
-It supports both item shapes commonly returned by llama-index pipelines:
-- objects with `.text`
-- objects with `.node.text` (e.g., NodeWithScore)
+Improved RAG evaluation system with GUI file upload and hybrid search integration.
 """
 
 import os
 import sys
 import json
+import tkinter as tk
+from tkinter import filedialog
 from datetime import datetime, timezone
-from dataclasses import dataclass
-from dataclasses import asdict
+from dataclasses import dataclass, asdict
 from typing import Any, Dict, List, Optional, Sequence, Tuple
+from pathlib import Path
 
-# Ensure project root imports work for direct execution.
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+# Ensure project root imports work
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
@@ -29,21 +22,23 @@ try:
 except ImportError:
     CrossEncoder = None
 
+from backend.ingestion.ingest import run_ingestion
+from backend.retrieval.embed_store import build_vector_index
+from backend.retrieval.hybrid_search import HybridRetriever
 
 @dataclass
 class RetrievalEvaluation:
     query: str
     num_retrieved: int
-    relevance_scores: List[float]
     context_precision: float
     context_recall: float
-    avg_relevance: float
+    hit_rate: float
+    avg_relevance: float  # Added for compatibility
     passed_threshold: bool
     details: Dict[str, Any]
 
-
-class RAGASEvaluator:
-    """Cross-encoder based retrieval evaluator."""
+class RobustEvaluator:
+    """Enhanced RAG evaluator with robust metrics and thresholding."""
 
     def __init__(
         self,
@@ -55,7 +50,10 @@ class RAGASEvaluator:
         self.model = None
 
         if CrossEncoder is not None:
-            self.model = CrossEncoder(model_name)
+            try:
+                self.model = CrossEncoder(model_name)
+            except Exception as e:
+                print(f"Warning: Could not load CrossEncoder model: {e}")
 
     @staticmethod
     def _unwrap_node(item: Any) -> Any:
@@ -64,11 +62,10 @@ class RAGASEvaluator:
     @classmethod
     def _extract_text(cls, item: Any) -> str:
         node = cls._unwrap_node(item)
-
         text = getattr(node, "text", None)
         if isinstance(text, str) and text.strip():
             return text
-
+        
         get_content = getattr(node, "get_content", None)
         if callable(get_content):
             try:
@@ -77,24 +74,25 @@ class RAGASEvaluator:
                 extracted = get_content()
             if isinstance(extracted, str):
                 return extracted
-
         return ""
 
-    @classmethod
-    def _extract_node_id(cls, item: Any) -> Optional[str]:
-        node = cls._unwrap_node(item)
-        node_id = getattr(node, "node_id", None)
-        if node_id is not None:
-            return str(node_id)
-        return None
+    def calculate_context_recall(self, query: str, retrieved_texts: List[str]) -> float:
+        """Simplified keyword-based context recall."""
+        query_words = set(query.lower().split())
+        if not query_words:
+            return 0.0
+        
+        combined_text = " ".join(retrieved_texts).lower()
+        found_words = [word for word in query_words if word in combined_text]
+        return len(found_words) / len(query_words)
 
-    def evaluate_relevance_simple(
+    def evaluate_query(
         self,
         query: str,
         retrieved_nodes: Sequence[Any],
     ) -> Optional[RetrievalEvaluation]:
         if self.model is None:
-            print("sentence-transformers is not installed. Install it to run evaluation.")
+            print("Cross-encoder model not available for evaluation.")
             return None
 
         nodes = list(retrieved_nodes)
@@ -102,200 +100,164 @@ class RAGASEvaluator:
             return RetrievalEvaluation(
                 query=query,
                 num_retrieved=0,
-                relevance_scores=[],
                 context_precision=0.0,
                 context_recall=0.0,
-                avg_relevance=0.0,
+                relevancy_score=0.0,
                 passed_threshold=False,
-                details={
-                    "method": "cross_encoder",
-                    "model": self.model_name,
-                    "num_relevant": 0,
-                    "threshold": self.relevance_threshold,
-                    "node_scores": [],
-                },
+                details={"error": "No nodes retrieved"}
             )
 
-        pairs: List[Tuple[str, str]] = []
-        for item in nodes:
-            pairs.append((query, self._extract_text(item)))
-
-        raw_scores = self.model.predict(pairs)
-        relevance_scores = [float(score) for score in raw_scores]
-
-        num_relevant = sum(score >= self.relevance_threshold for score in relevance_scores)
+        retrieved_texts = [self._extract_text(n) for n in nodes]
+        pairs = [(query, text) for text in retrieved_texts]
+        
+        # Cross-encoder scores
+        scores = self.model.predict(pairs)
+        relevance_scores = [float(s) for s in scores]
+        
+        # Metrics calculation
+        num_relevant = sum(1 for s in relevance_scores if s >= self.relevance_threshold)
+        context_precision = num_relevant / len(nodes)
+        context_recall = self.calculate_context_recall(query, retrieved_texts)
+        hit_rate = 1.0 if num_relevant > 0 else 0.0
         avg_relevance = sum(relevance_scores) / len(relevance_scores)
-        context_precision_value = num_relevant / len(relevance_scores)
-        passed_threshold = context_precision_value >= 0.5
+        
+        passed_threshold = context_precision >= 0.5
 
-        node_scores: List[Dict[str, Any]] = []
-        for item, score in zip(nodes, relevance_scores):
-            text_preview = self._extract_text(item)
-            text_preview = (text_preview[:100] + "...") if len(text_preview) > 100 else text_preview
-            node_scores.append(
-                {
-                    "node_id": self._extract_node_id(item),
-                    "text": text_preview,
-                    "score": score,
-                    "relevant": score >= self.relevance_threshold,
-                }
-            )
+        node_details = []
+        for i, (node, score) in enumerate(zip(nodes, relevance_scores)):
+            node_details.append({
+                "rank": i + 1,
+                "score": score,
+                "is_relevant": score >= self.relevance_threshold,
+                "text_snippet": self._extract_text(node)[:200] + "..."
+            })
 
         return RetrievalEvaluation(
             query=query,
             num_retrieved=len(nodes),
-            relevance_scores=relevance_scores,
-            context_precision=context_precision_value,
-            context_recall=0.0,
-            avg_relevance=avg_relevance,
+            context_precision=context_precision,
+            context_recall=context_recall,
+            hit_rate=hit_rate,
+            avg_relevance=avg_relevance, # Corrected variable name
             passed_threshold=passed_threshold,
             details={
-                "method": "cross_encoder",
-                "model": self.model_name,
-                "num_relevant": int(num_relevant),
                 "threshold": self.relevance_threshold,
-                "node_scores": node_scores,
-            },
+                "num_relevant": num_relevant,
+                "node_results": node_details
+            }
         )
 
-    def filter_by_relevance(
-        self,
-        query: str,
-        retrieved_nodes: Sequence[Any],
-        min_relevance: Optional[float] = None,
-    ) -> Tuple[List[Any], Optional[RetrievalEvaluation]]:
-        nodes = list(retrieved_nodes)
-        if not nodes:
-            return [], None
-
-        evaluation = self.evaluate_relevance_simple(query, nodes)
-        if evaluation is None:
-            return nodes, None
-
-        threshold = self.relevance_threshold if min_relevance is None else min_relevance
-
-        filtered_nodes: List[Any] = []
-        for item, score in zip(nodes, evaluation.relevance_scores):
-            if score >= threshold:
-                filtered_nodes.append(item)
-
-        return filtered_nodes, evaluation
-
-    def print_evaluation_report(self, evaluation: Optional[RetrievalEvaluation]) -> None:
-        if evaluation is None:
-            print("No evaluation available.")
-            return
-
-        print("\n" + "=" * 80)
-        print("RETRIEVAL EVALUATION REPORT")
-        print("=" * 80)
-        print(f"\nQuery: {evaluation.query}")
-        print(f"Documents Retrieved: {evaluation.num_retrieved}")
-        print("\n--- METRICS ---")
-        print(f"Context Precision: {evaluation.context_precision:.2%}")
-        print(f"Average Relevance: {evaluation.avg_relevance:.3f}")
-        print(f"Threshold: {evaluation.details['threshold']}")
-        print(f"Relevant Docs: {evaluation.details['num_relevant']}/{evaluation.num_retrieved}")
-        print(f"Quality Check: {'PASS' if evaluation.passed_threshold else 'FAIL'}")
-        print("\n--- PER DOCUMENT SCORES ---")
-
-        for idx, detail in enumerate(evaluation.details["node_scores"], start=1):
-            status = "OK" if detail["relevant"] else "NO"
-            print(f"\n[{idx}] {status} Score: {detail['score']:.3f}")
-            if detail["node_id"]:
-                print(f"Node ID: {detail['node_id']}")
-            print(f"Text: {detail['text']}")
-
-        print("\n" + "=" * 80 + "\n")
-
-
-def _save_evaluation_run(
-    query: str,
-    evaluation: Optional[RetrievalEvaluation],
-    filtered_count: int,
-    output_json_path: str,
-) -> None:
-    run_record: Dict[str, Any] = {
-        "timestamp_utc": datetime.now(timezone.utc).isoformat(),
-        "query": query,
-        "filtered_count": filtered_count,
-        "evaluation": asdict(evaluation) if evaluation is not None else None,
-    }
-
-    output_dir = os.path.dirname(output_json_path)
-    if output_dir:
-        os.makedirs(output_dir, exist_ok=True)
-
-    existing_data: Dict[str, Any] = {"runs": []}
-    if os.path.exists(output_json_path):
-        try:
-            with open(output_json_path, "r", encoding="utf-8") as f:
-                loaded = json.load(f)
-            if isinstance(loaded, dict) and isinstance(loaded.get("runs"), list):
-                existing_data = loaded
-        except (json.JSONDecodeError, OSError):
-            pass
-
-    existing_data["runs"].append(run_record)
-
-    with open(output_json_path, "w", encoding="utf-8") as f:
-        json.dump(existing_data, f, indent=2, ensure_ascii=True)
-
+# Compatibility Aliases and Functions
+RAGASEvaluator = RobustEvaluator
 
 def evaluate_retrieval(
     query: str,
     retrieved_nodes: Sequence[Any],
     relevance_threshold: float = 0.5,
     print_report: bool = True,
-    min_relevance: Optional[float] = None,
     save_to_json: bool = True,
-    output_json_path: str = "backend/retrieval/ragas_eval_runs.json",
+    output_json_path: str = "evaluation/ragas_eval_runs.json",
 ) -> Tuple[List[Any], Optional[RetrievalEvaluation]]:
-    evaluator = RAGASEvaluator(relevance_threshold=relevance_threshold)
-    filtered_nodes, evaluation = evaluator.filter_by_relevance(
-        query=query,
-        retrieved_nodes=retrieved_nodes,
-        min_relevance=min_relevance,
+    """Compatibility wrapper for rag_pipeline.py."""
+    evaluator = RobustEvaluator(relevance_threshold=relevance_threshold)
+    evaluation = evaluator.evaluate_query(query, retrieved_nodes)
+    
+    if evaluation and save_to_json:
+        save_evaluation_to_json(evaluation, output_json_path)
+        
+    return list(retrieved_nodes), evaluation
+
+def select_files() -> List[str]:
+    """Open a file dialog to select PDF files."""
+    root = tk.Tk()
+    root.withdraw()
+    root.attributes("-topmost", True)
+    file_paths = filedialog.askopenfilenames(
+        title="Select PDF files for evaluation",
+        filetypes=[("PDF files", "*.pdf"), ("All files", "*.*")]
     )
+    root.destroy()
+    return list(file_paths)
 
-    if print_report:
-        evaluator.print_evaluation_report(evaluation)
+def save_evaluation_to_json(eval_data: RetrievalEvaluation, file_path: str = "evaluation/ragas_eval_runs.json"):
+    """Save evaluation results to a JSON file."""
+    record = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "evaluation": asdict(eval_data)
+    }
+    
+    data = {"runs": []}
+    if os.path.exists(file_path):
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+        except Exception:
+            pass
+            
+    data["runs"].append(record)
+    
+    os.makedirs(os.path.dirname(file_path), exist_ok=True)
+    with open(file_path, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2)
 
-    if save_to_json:
-        _save_evaluation_run(
-            query=query,
-            evaluation=evaluation,
-            filtered_count=len(filtered_nodes),
-            output_json_path=output_json_path,
-        )
+def main():
+    print("--- RAG Evaluation System ---")
+    
+    # 1. File Upload
+    print("\nPlease select PDF files to upload...")
+    files = select_files()
+    if not files:
+        print("No files selected. Exiting.")
+        return
+    
+    print(f"Selected {len(files)} files: {[os.path.basename(f) for f in files]}")
+    
+    # 2. Ingestion
+    print("\nProcessing documents...")
+    try:
+        nodes = run_ingestion(uploaded_files=files)
+        build_vector_index(nodes)
+        print("Ingestion and indexing complete.")
+    except Exception as e:
+        print(f"Error during ingestion: {e}")
+        return
 
-    return filtered_nodes, evaluation
+    # 3. Evaluation Loop
+    evaluator = RobustEvaluator(relevance_threshold=0.5)
+    retriever = HybridRetriever(top_k=5)
 
+    while True:
+        query = input("\nEnter evaluation query (or 'exit' to quit): ").strip()
+        if query.lower() == 'exit':
+            break
+        if not query:
+            continue
+
+        print(f"Evaluating: '{query}'...")
+        retrieved_nodes = retriever.retrieve(query)
+        evaluation = evaluator.evaluate_query(query, retrieved_nodes)
+
+        if evaluation:
+            print("\n" + "="*30)
+            print("EVALUATION RESULTS")
+            print("="*30)
+            print(f"Query: {evaluation.query}")
+            print(f"Context Precision: {evaluation.context_precision:.2f}")
+            print(f"Context Recall: {evaluation.context_recall:.2f}")
+            print(f"Hit Rate: {evaluation.hit_rate:.2f}")
+            print(f"Overall Quality: {'PASS' if evaluation.passed_threshold else 'FAIL'}")
+            print("-" * 30)
+            print(f"Retrieved {evaluation.num_retrieved} documents.")
+            
+            for doc in evaluation.details.get("node_results", []):
+                status = "[RELEVANT]" if doc["is_relevant"] else "[NOT RELEVANT]"
+                print(f"\nRank {doc['rank']} {status} (Score: {doc['score']:.2f})")
+                print(f"Text: {doc['text_snippet']}")
+            
+            save_evaluation_to_json(evaluation)
+            print(f"\nResults saved to evaluation/ragas_eval_runs.json")
+        else:
+            print("Evaluation failed.")
 
 if __name__ == "__main__":
-    from backend.retrieval.hybrid_search import HybridRetriever
-    from backend.retrieval.reranker import Reranker
-
-    query = "blockchain"
-
-    hybrid = HybridRetriever(top_k=8)
-    candidates = hybrid.retrieve(query)
-
-    filtered, evaluation = evaluate_retrieval(
-        query=query,
-        retrieved_nodes=candidates,
-        relevance_threshold=0.5,
-        print_report=True,
-    )
-
-    reranker = Reranker()
-    final_nodes = reranker.rerank(query, filtered, top_k=5)
-
-    print("Final reranked results:")
-    for i, item in enumerate(final_nodes, start=1):
-        text = RAGASEvaluator._extract_text(item)
-        node = RAGASEvaluator._unwrap_node(item)
-        metadata = getattr(node, "metadata", {}) or {}
-        print(f"\n--- Result {i} ---")
-        print(text[:300])
-        print("SOURCE:", metadata.get("source"))
+    main()
