@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Dashboard Snapshot</title>
+    <!-- Snapshot uses the component CSS for reference; in the real app CSS is imported from JS -->
+    <link rel="stylesheet" href="/src/Dashboard.css" />
+  </head>
+  <body>
+    <div id="root">
+      <div class="app">
+        <!-- This is a static snapshot of the Dashboard structure. Dynamic parts are placeholders. -->
+        <aside class="sidebar">
+          <div class="sb-brand">
+            <div class="brand-eyebrow">Private Academic Intelligence</div>
+            <div class="brand-name">ScholArx</div>
+            <div class="brand-sub">Knowledge-grounded Q&A · Zero external data · Your materials only</div>
+          </div>
+          <div class="doc-list">
+            <!-- Documents listed here dynamically in React -->
+          </div>
+        </aside>
+        <main class="main">
+          <div class="top-bar">
+            <div class="top-title">Academic Q&A</div>
+            <div class="top-badges"><span class="badge badge-active">● 0 docs active</span></div>
+          </div>
+          <div class="chat-scroll">
+            <div class="chat-inner">
+              <!-- Messages rendered by React -->
+            </div>
+          </div>
+          <div class="input-area">
+            <div class="input-wrap">
+              <textarea class="chat-input" placeholder="Ask a question from your course materials…"></textarea>
+              <button class="send-btn">→</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

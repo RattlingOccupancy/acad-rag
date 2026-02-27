@@ -15,14 +15,11 @@ from backend.ingestion.ingest import run_ingestion
 from backend.retrieval.embed_store import build_vector_index
 from backend.retrieval.hybrid_search import HybridRetriever
 from backend.retrieval.reranker import Reranker
-from backend.retrieval.ragas_eval import evaluate_retrieval, RAGASEvaluator
+from evaluation.ragas_eval import evaluate_retrieval, RAGASEvaluator
 from generation.answer_generator import generate_answer
 
 _RETRIEVER_POOL: Dict[int, HybridRetriever] = {}
 _RERANKER: Optional[Reranker] = None
-_ASK_CACHE: Dict[Tuple[str, int, int], Tuple[Any, Any, Any, Any]] = {}
-_ASK_CACHE_ORDER: List[Tuple[str, int, int]] = []
-_ASK_CACHE_MAX_SIZE = 128
 _DEFAULT_RETRIEVAL_TOP_K = 8
 _DEFAULT_FINAL_TOP_K = 4
 
@@ -173,26 +170,10 @@ def initialize_runtime(retrieval_top_k: int = 8) -> None:
 def reset_runtime(clear_reranker: bool = False) -> None:
     global _RERANKER
     _RETRIEVER_POOL.clear()
-    _ASK_CACHE.clear()
-    _ASK_CACHE_ORDER.clear()
     if clear_reranker:
         _RERANKER = None
 
 
-def _make_cache_key(question: str, retrieval_top_k: int, final_top_k: int) -> Tuple[str, int, int]:
-    return (question.strip().lower(), retrieval_top_k, final_top_k)
-
-
-def _get_cached_result(cache_key: Tuple[str, int, int]) -> Optional[Tuple[Any, Any, Any, Any]]:
-    return _ASK_CACHE.get(cache_key)
-
-
-def _save_cached_result(cache_key: Tuple[str, int, int], result: Tuple[Any, Any, Any, Any]) -> None:
-    _ASK_CACHE[cache_key] = result
-    _ASK_CACHE_ORDER.append(cache_key)
-    if len(_ASK_CACHE_ORDER) > _ASK_CACHE_MAX_SIZE:
-        oldest_key = _ASK_CACHE_ORDER.pop(0)
-        _ASK_CACHE.pop(oldest_key, None)
 
 
 def _retrieve_with_fallback(question: str, retrieval_top_k: int) -> List[Any]:
@@ -286,14 +267,8 @@ def ask(
     retrieval_top_k=_DEFAULT_RETRIEVAL_TOP_K,
     final_top_k=_DEFAULT_FINAL_TOP_K,
     enable_evaluation=False,
-    use_cache=True,
+    use_cache=True, # Kept for backward compatibility but ignored
 ):
-    cache_key = _make_cache_key(question, retrieval_top_k, final_top_k)
-    if use_cache:
-        cached_result = _get_cached_result(cache_key)
-        if cached_result is not None:
-            return cached_result
-
     candidates = _retrieve_with_fallback(question, retrieval_top_k)
     filtered_nodes, evaluation = _evaluate_if_enabled(question, candidates, enable_evaluation)
     final_nodes = _rerank_with_fallback(question, filtered_nodes, final_top_k)
@@ -311,8 +286,6 @@ def ask(
         result_data.final_nodes,
         result_data.evaluation,
     )
-    if use_cache:
-        _save_cached_result(cache_key, result)
 
     return result
 
@@ -366,7 +339,7 @@ def run_cli():
 
         try:
             _append_run_to_json(
-                json_path="backend/retrieval/rag_pipeline_runs.json",
+                json_path="evaluation/rag_pipeline_runs.json",
                 query=query,
                 answer=answer,
                 evaluation=evaluation,

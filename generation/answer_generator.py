@@ -70,7 +70,7 @@ Context:
     response = client_instance.chat.completions.create(
         model="llama-3.3-70b-versatile",  # Using supported Groq model
         messages=messages,
-        temperature=0
+        temperature=0.2
     )
 
     return response.choices[0].message.content    
