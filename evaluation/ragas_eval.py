@@ -1,5 +1,6 @@
 """
-Improved RAG evaluation system with GUI file upload and hybrid search integration.
+This module provides the evaluation system for the RAG pipeline.
+It uses custom metrics (Precision, Recall, Hit Rate) and a Cross-Encoder for relevance scoring.
 """
 
 import os
@@ -26,16 +27,19 @@ from backend.ingestion.ingest import run_ingestion
 from backend.retrieval.embed_store import build_vector_index
 from backend.retrieval.hybrid_search import HybridRetriever
 
+
 @dataclass
 class RetrievalEvaluation:
+    """Dataclass to hold the results of a retrieval evaluation."""
     query: str
     num_retrieved: int
     context_precision: float
     context_recall: float
     hit_rate: float
-    avg_relevance: float  # Added for compatibility
+    avg_relevance: float
     passed_threshold: bool
     details: Dict[str, Any]
+
 
 class RobustEvaluator:
     """Enhanced RAG evaluator with robust metrics and thresholding."""
@@ -45,6 +49,13 @@ class RobustEvaluator:
         relevance_threshold: float = 0.5,
         model_name: str = "cross-encoder/ms-marco-MiniLM-L-6-v2",
     ):
+        """
+        Initializes the RobustEvaluator.
+
+        Args:
+            relevance_threshold (float): Score above which a document is considered relevant.
+            model_name (str): Name of the Cross-Encoder model to use.
+        """
         self.relevance_threshold = relevance_threshold
         self.model_name = model_name
         self.model = None
@@ -57,10 +68,12 @@ class RobustEvaluator:
 
     @staticmethod
     def _unwrap_node(item: Any) -> Any:
+        """Unwraps a LlamaIndex node from its wrapper if necessary."""
         return item.node if hasattr(item, "node") else item
 
     @classmethod
     def _extract_text(cls, item: Any) -> str:
+        """Extracts text content from a node."""
         node = cls._unwrap_node(item)
         text = getattr(node, "text", None)
         if isinstance(text, str) and text.strip():
@@ -77,7 +90,16 @@ class RobustEvaluator:
         return ""
 
     def calculate_context_recall(self, query: str, retrieved_texts: List[str]) -> float:
-        """Simplified keyword-based context recall."""
+        """
+        Calculates a simplified keyword-based context recall.
+
+        Args:
+            query (str): The search query.
+            retrieved_texts (List[str]): List of retrieved document texts.
+
+        Returns:
+            float: Recall score.
+        """
         query_words = set(query.lower().split())
         if not query_words:
             return 0.0
@@ -91,6 +113,16 @@ class RobustEvaluator:
         query: str,
         retrieved_nodes: Sequence[Any],
     ) -> Optional[RetrievalEvaluation]:
+        """
+        Evaluates retrieval results for a single query.
+
+        Args:
+            query (str): The search query.
+            retrieved_nodes (Sequence[Any]): The nodes returned by the retriever.
+
+        Returns:
+            Optional[RetrievalEvaluation]: The evaluation results or None if model unavailable.
+        """
         if self.model is None:
             print("Cross-encoder model not available for evaluation.")
             return None
@@ -102,7 +134,8 @@ class RobustEvaluator:
                 num_retrieved=0,
                 context_precision=0.0,
                 context_recall=0.0,
-                relevancy_score=0.0,
+                hit_rate=0.0,
+                avg_relevance=0.0,
                 passed_threshold=False,
                 details={"error": "No nodes retrieved"}
             )
@@ -138,7 +171,7 @@ class RobustEvaluator:
             context_precision=context_precision,
             context_recall=context_recall,
             hit_rate=hit_rate,
-            avg_relevance=avg_relevance, # Corrected variable name
+            avg_relevance=avg_relevance,
             passed_threshold=passed_threshold,
             details={
                 "threshold": self.relevance_threshold,
@@ -147,8 +180,10 @@ class RobustEvaluator:
             }
         )
 
+
 # Compatibility Aliases and Functions
 RAGASEvaluator = RobustEvaluator
+
 
 def evaluate_retrieval(
     query: str,
@@ -158,7 +193,9 @@ def evaluate_retrieval(
     save_to_json: bool = True,
     output_json_path: str = "evaluation/ragas_eval_runs.json",
 ) -> Tuple[List[Any], Optional[RetrievalEvaluation]]:
-    """Compatibility wrapper for rag_pipeline.py."""
+    """
+    Compatibility wrapper for rag_pipeline.py to perform evaluation.
+    """
     evaluator = RobustEvaluator(relevance_threshold=relevance_threshold)
     evaluation = evaluator.evaluate_query(query, retrieved_nodes)
     
@@ -167,8 +204,9 @@ def evaluate_retrieval(
         
     return list(retrieved_nodes), evaluation
 
+
 def select_files() -> List[str]:
-    """Open a file dialog to select PDF files."""
+    """Opens a file dialog to select PDF files for evaluation."""
     root = tk.Tk()
     root.withdraw()
     root.attributes("-topmost", True)
@@ -179,8 +217,9 @@ def select_files() -> List[str]:
     root.destroy()
     return list(file_paths)
 
+
 def save_evaluation_to_json(eval_data: RetrievalEvaluation, file_path: str = "evaluation/ragas_eval_runs.json"):
-    """Save evaluation results to a JSON file."""
+    """Saves evaluation results to a JSON file."""
     record = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "evaluation": asdict(eval_data)
@@ -200,7 +239,9 @@ def save_evaluation_to_json(eval_data: RetrievalEvaluation, file_path: str = "ev
     with open(file_path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2)
 
+
 def main():
+    """CLI entry point for running the evaluation system."""
     print("--- RAG Evaluation System ---")
     
     # 1. File Upload
@@ -258,6 +299,7 @@ def main():
             print(f"\nResults saved to evaluation/ragas_eval_runs.json")
         else:
             print("Evaluation failed.")
+
 
 if __name__ == "__main__":
     main()

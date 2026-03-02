@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+pydantic
+llama-index-core
+llama-index-embeddings-huggingface
+llama-index-readers-file
+rank_bm25
+sentence-transformers
+groq
+python-dotenv
+pypdf
+torch
+transformers

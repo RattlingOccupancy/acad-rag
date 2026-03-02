@@ -11,6 +11,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 try:
     from backend.ingestion.ingest import run_ingestion
     from backend.retrieval.embed_store import build_vector_index
+    from backend.config import VECTOR_EMBEDDING_STORAGE_DIR
 except ImportError:
     # Fallback for direct execution
     sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
@@ -22,12 +23,12 @@ def load_index():
         model_name="BAAI/bge-small-en-v1.5",
         device="cpu"
     )
-    storage_context = StorageContext.from_defaults(persist_dir="./storage")
+    vector_embedding_storage_context = StorageContext.from_defaults(persist_dir=str(VECTOR_EMBEDDING_STORAGE_DIR))
 
     # Check if index exists, if not build it
     try:
         return load_index_from_storage(
-            storage_context,
+            vector_embedding_storage_context,
             embed_model=embed_model
         )
     except ValueError:

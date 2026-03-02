@@ -1,12 +1,16 @@
-
-
-
+/**
+ * ScholArx Dashboard - Main UI for the Academic RAG Application.
+ * This file handles the frontend state, file uploads, and chat interactions.
+ */
 
 import { useState, useRef, useEffect } from "react";
 
+// The base URL for the backend API
 const API_BASE_URL = "http://localhost:8000";
 
-// ── Data ─────────────────────────────────────────────────────────────────────
+/**
+ * Styling configuration for different course tags.
+ */
 const COURSE_COLORS = {
   "MATH 101": { fg: "#c9a84c", bg: "rgba(201,168,76,0.12)", bd: "rgba(201,168,76,0.3)" },
   "CS 201": { fg: "#a78bfa", bg: "rgba(167,139,250,0.12)", bd: "rgba(167,139,250,0.3)" },
@@ -15,6 +19,9 @@ const COURSE_COLORS = {
   "GENERAL": { fg: "#94a3b8", bg: "rgba(148,163,184,0.1)", bd: "rgba(148,163,184,0.25)" },
 };
 
+/**
+ * Default initial message from the assistant.
+ */
 const INITIAL_MESSAGES = [
   {
     id: 1, role: "assistant",
@@ -23,7 +30,9 @@ const INITIAL_MESSAGES = [
   },
 ];
 
-// ── Particle Canvas ───────────────────────────────────────────────────────────
+/**
+ * Renders a decorative particle field on a background canvas.
+ */
 function ParticleField() {
   const canvasRef = useRef(null);
   useEffect(() => {
@@ -59,7 +68,7 @@ function ParticleField() {
         ctx.fill();
       });
 
-      // Draw soft connection lines
+      // Draw soft connection lines between nearby particles
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
@@ -84,7 +93,9 @@ function ParticleField() {
   return <canvas ref={canvasRef} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }} />;
 }
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
+/**
+ * Utility to parse markdown-like text and convert to React elements.
+ */
 function parseText(text) {
   return text.split("\n").map((line, i) => {
     const key = i;
@@ -98,8 +109,9 @@ function parseText(text) {
   });
 }
 
-
-
+/**
+ * Component for rendering a course badge.
+ */
 function CourseTag({ course }) {
   const c = COURSE_COLORS[course] || COURSE_COLORS["GENERAL"];
   return (
@@ -109,7 +121,7 @@ function CourseTag({ course }) {
   );
 }
 
-// ── Main Component ────────────────────────────────────────────────────────────
+// ── NoirTutor: Main Application Entry Point ───────────────────────────────────
 export default function NoirTutor() {
   const [messages, setMessages] = useState(INITIAL_MESSAGES);
   const [docs, setDocs] = useState([]);
@@ -784,14 +796,14 @@ export default function NoirTutor() {
 
           {/* Input */}
           <div className="input-area">
-                  <div className="input-wrap" style={{ opacity: isLocked ? 0.5 : 1, pointerEvents: isLocked ? "none" : "auto" }}>
-                    <textarea
+            <div className="input-wrap" style={{ opacity: isLocked ? 0.5 : 1, pointerEvents: isLocked ? "none" : "auto" }}>
+              <textarea
                 ref={textaRef}
                 className="chat-input"
                 placeholder="Ask a question from your course materials…"
                 value={input}
                 rows={1}
-                      disabled={isLocked}
+                disabled={isLocked}
                 onChange={e => {
                   setInput(e.target.value);
                   e.target.style.height = "24px";
