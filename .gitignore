@@ -1,0 +1,43 @@
+# --- Python/Package Cache (Apply to all folders) ---
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Virtual Environments ---
+.venv/
+venv/
+ENV/
+env/
+.env/
+
+# --- Sensitive Environment Vars ---
+.env
+.env.local
+frontend/.env
+frontend/.env*.local
+
+# --- Project-specific RAG Data (DO NOT COMMIT) ---
+# These folders contain large binary indices, embeddings, and sensitive PDFs
+storage/
+vector_embedding_storage/
+data/uploads/
+chroma_db/
+ragas_eval_runs.json
+**/ragas_eval_runs.json
+
+# --- Frontend (Node.js) ---
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+frontend/dist-ssr/
+frontend/.eslintcache
+
+# --- IDEs & OS ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.suo
+*.sln
+*.sw?

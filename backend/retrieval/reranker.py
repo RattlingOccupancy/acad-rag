@@ -1,25 +1,45 @@
+"""
+This module provides a reranking component using a Cross-Encoder model.
+"""
+
+from typing import List, Any
 from sentence_transformers import CrossEncoder
 
 
 class Reranker:
+    """
+    Reranks retrieved nodes based on their relevance to the query using a Cross-Encoder.
+    """
+
     def __init__(self):
-        self.model= CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
+        """
+        Initializes the Reranker with a pre-trained Cross-Encoder model.
+        """
+        self.model = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
 
-    def rerank(self, query, nodes, top_k=5):
-        pairs= []
-        for n in nodes:
-            pairs.append((query, n.text))
+    def rerank(self, query: str, nodes: List[Any], top_k: int = 5) -> List[Any]:
+        """
+        Reranks a list of nodes for a given query.
 
-        scores= self.model.predict(pairs)
+        Args:
+            query (str): The search query.
+            nodes (List[Any]): List of nodes to rerank.
+            top_k (int): Number of top-ranked nodes to return.
 
-        scored= []
-        for node, score in zip(nodes, scores):
-            scored.append((node, score))
+        Returns:
+            List[Any]: The top-k reranked nodes.
+        """
+        if not nodes:
+            return []
 
-        scored.sort(key=lambda x: x[1], reverse=True)
+        # Prepare pairs for the Cross-Encoder
+        pairs = [(query, n.text) for n in nodes]
 
-        top_nodes= []
-        for node, _ in scored[:top_k]:
-            top_nodes.append(node)
+        # Predict relevance scores
+        scores = self.model.predict(pairs)
 
-        return top_nodes
+        # Sort nodes by score in descending order
+        scored_nodes = sorted(zip(nodes, scores), key=lambda x: x[1], reverse=True)
+
+        # Return the top-k nodes
+        return [node for node, score in scored_nodes[:top_k]]

@@ -1,12 +1,16 @@
-
-
-
+/**
+ * ScholArx Dashboard - Main UI for the Academic RAG Application.
+ * This file handles the frontend state, file uploads, and chat interactions.
+ */
 
 import { useState, useRef, useEffect } from "react";
 
+// The base URL for the backend API
 const API_BASE_URL = "http://localhost:8000";
 
-// ── Data ─────────────────────────────────────────────────────────────────────
+/**
+ * Styling configuration for different course tags.
+ */
 const COURSE_COLORS = {
   "MATH 101": { fg: "#c9a84c", bg: "rgba(201,168,76,0.12)", bd: "rgba(201,168,76,0.3)" },
   "CS 201": { fg: "#a78bfa", bg: "rgba(167,139,250,0.12)", bd: "rgba(167,139,250,0.3)" },
@@ -15,6 +19,9 @@ const COURSE_COLORS = {
   "GENERAL": { fg: "#94a3b8", bg: "rgba(148,163,184,0.1)", bd: "rgba(148,163,184,0.25)" },
 };
 
+/**
+ * Default initial message from the assistant.
+ */
 const INITIAL_MESSAGES = [
   {
     id: 1, role: "assistant",
@@ -23,7 +30,9 @@ const INITIAL_MESSAGES = [
   },
 ];
 
-// ── Particle Canvas ───────────────────────────────────────────────────────────
+/**
+ * Renders a decorative particle field on a background canvas.
+ */
 function ParticleField() {
   const canvasRef = useRef(null);
   useEffect(() => {
@@ -59,7 +68,7 @@ function ParticleField() {
         ctx.fill();
       });
 
-      // Draw soft connection lines
+      // Draw soft connection lines between nearby particles
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
@@ -84,7 +93,9 @@ function ParticleField() {
   return <canvas ref={canvasRef} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }} />;
 }
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
+/**
+ * Utility to parse markdown-like text and convert to React elements.
+ */
 function parseText(text) {
   return text.split("\n").map((line, i) => {
     const key = i;
@@ -98,8 +109,9 @@ function parseText(text) {
   });
 }
 
-
-
+/**
+ * Component for rendering a course badge.
+ */
 function CourseTag({ course }) {
   const c = COURSE_COLORS[course] || COURSE_COLORS["GENERAL"];
   return (
@@ -109,26 +121,28 @@ function CourseTag({ course }) {
   );
 }
 
-// ── Main Component ────────────────────────────────────────────────────────────
+// ── NoirTutor: Main Application Entry Point ───────────────────────────────────
 export default function NoirTutor() {
   const [messages, setMessages] = useState(INITIAL_MESSAGES);
   const [docs, setDocs] = useState([]);
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
   const [dragOver, setDragOver] = useState(false);
-  const [tab, setTab] = useState("docs");
   const [openSource, setOpenSource] = useState(null);
   const [mounted, setMounted] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const isLocked = uploading || docs.some(d => d.status === "removing");
   const [uploadError, setUploadError] = useState("");
   const [apiError, setApiError] = useState("");
   const fileRef = useRef(null);
   const chatEnd = useRef(null);
   const textaRef = useRef(null);
+  const abortControllerRef = useRef(null);
 
   useEffect(() => {
     setTimeout(() => setMounted(true), 80);
     checkHealth();
+    resetBackend(); // Clear previous database on every page refresh
   }, []);
 
   useEffect(() => {
@@ -138,9 +152,19 @@ export default function NoirTutor() {
   const checkHealth = async () => {
     try {
       const res = await fetch(`${API_BASE_URL}/health`);
-      if (!res.ok) setApiError("Backend unavailable");
+      if (!res.ok) throw new Error("Backend degraded");
+      setApiError(""); // Clear any previous error on success
     } catch (err) {
       setApiError("Cannot connect to backend. Make sure it's running on port 8000.");
+    }
+  };
+
+  const resetBackend = async () => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/reset`, { method: "POST" });
+      if (res.ok) setApiError(""); // Clear any previous error on success
+    } catch (err) {
+      console.warn("Could not reset backend", err);
     }
   };
 
@@ -155,9 +179,11 @@ export default function NoirTutor() {
     setTyping(true);
 
     try {
+      abortControllerRef.current = new AbortController();
       const res = await fetch(`${API_BASE_URL}/ask`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        signal: abortControllerRef.current.signal,
         body: JSON.stringify({
           query: userQuery,
           retrieval_top_k: 8,
@@ -187,17 +213,32 @@ export default function NoirTutor() {
         confidence: null,
       }]);
     } catch (err) {
-      setApiError(err.message || "Error processing query");
-      setMessages(p => [...p, {
-        id: Date.now() + 1,
-        role: "assistant",
-        text: `Error: ${err.message}. Please try again.`,
-        sources: [],
-        confidence: null,
-      }]);
+      if (err.name === "AbortError") {
+        setMessages(p => [...p, {
+          id: Date.now() + 1,
+          role: "assistant",
+          text: "Generation Stopped!",
+          sources: [],
+          confidence: null,
+        }]);
+      } else {
+        setApiError(err.message || "Error processing query");
+        setMessages(p => [...p, {
+          id: Date.now() + 1,
+          role: "assistant",
+          text: `Error: ${err.message}. Please try again.`,
+          sources: [],
+          confidence: null,
+        }]);
+      }
     } finally {
       setTyping(false);
+      abortControllerRef.current = null;
     }
+  };
+
+  const stopGeneration = () => {
+    if (abortControllerRef.current) abortControllerRef.current.abort();
   };
 
   const onKey = e => {
@@ -224,7 +265,7 @@ export default function NoirTutor() {
     const formData = new FormData();
     pdfFiles.forEach(f => formData.append("files", f));
 
-    // Add placeholder docs (and wipe old ones for Strict Replace Mode)
+    // Add placeholder docs (Append Mode)
     const placeholders = pdfFiles.map(f => ({
       id: Date.now() + Math.random(),
       name: f.name.replace(/\.[^.]+$/, ""),
@@ -236,9 +277,8 @@ export default function NoirTutor() {
       size: (f.size / 1e6).toFixed(1) + " MB",
     }));
 
-    // Reset UI to mirror Backend Strict Replace Mode Wipe
-    setDocs(placeholders);
-    setMessages(INITIAL_MESSAGES);
+    // Append to UI list instead of replacing
+    setDocs(prev => [...prev, ...placeholders]);
 
     try {
       const res = await fetch(`${API_BASE_URL}/upload`, {
@@ -265,13 +305,31 @@ export default function NoirTutor() {
 
 
 
-      setTab("docs");
     } catch (err) {
       setUploadError(err.message || "Upload failed");
       // Remove placeholders on error
       setDocs(p => p.filter(d => !placeholders.some(ph => ph.id === d.id)));
     } finally {
       setUploading(false);
+    }
+  };
+
+  const deleteFile = async (docId, filename) => {
+    // Set to removing state
+    setDocs(p => p.map(d => d.id === docId ? { ...d, status: "removing" } : d));
+    try {
+      const res = await fetch(`${API_BASE_URL}/delete`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ filename: filename + ".pdf" })
+      });
+      if (!res.ok) throw new Error("Delete failed");
+      // Actually remove it from UI now that backend is done
+      setDocs(p => p.filter(d => d.id !== docId));
+    } catch (err) {
+      console.warn("Could not delete from backend", err);
+      // Revert if error
+      setDocs(p => p.map(d => d.id === docId ? { ...d, status: "indexed" } : d));
     }
   };
 
@@ -510,19 +568,19 @@ export default function NoirTutor() {
     /* Input */
     .input-area { padding: 16px 28px 22px; border-top: 1px solid var(--glass-bd); background: rgba(8,8,8,0.8); backdrop-filter: blur(20px); flex-shrink: 0; }
     .input-wrap {
-      max-width: 780px; margin: 0 auto; display: flex; align-items: flex-end; gap: 12px;
+      max-width: 780px; margin: 0 auto; display: flex; align-items: center; gap: 12px;
       background: rgba(255,255,255,0.03); border: 1px solid var(--glass-bd); border-radius: 16px;
-      padding: 12px 14px 12px 18px; transition: border-color 0.2s, box-shadow 0.2s;
+      padding: 14px 18px; transition: border-color 0.2s, box-shadow 0.2s;
     }
     .input-wrap:focus-within { border-color: rgba(201,168,76,0.35); box-shadow: 0 0 0 3px rgba(201,168,76,0.06), 0 4px 30px rgba(0,0,0,0.5); }
     .chat-input {
       flex: 1; background: none; border: none; outline: none;
       color: var(--text); font-size: 14px; font-family: 'Outfit', sans-serif;
-      resize: none; line-height: 1.6; min-height: 24px; max-height: 130px;
+      resize: none; line-height: 1.4; min-height: 24px; max-height: 130px;
     }
     .chat-input::placeholder { color: var(--text-muted); }
     .send-btn {
-      width: 38px; height: 38px; border-radius: 10px; border: none; cursor: pointer;
+      width: 34px; height: 34px; border-radius: 10px; border: none; cursor: pointer;
       background: linear-gradient(135deg, #c9a84c, #a07c2e);
       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
       transition: all 0.2s; box-shadow: 0 2px 16px rgba(201,168,76,0.3);
@@ -567,67 +625,93 @@ export default function NoirTutor() {
             <div className="brand-sub">Knowledge-grounded Q&A · Zero external data · Your materials only</div>
           </div>
 
-          <div className="sb-tabs">
-            <button className={`sb-tab ${tab === "docs" ? "active" : ""}`} onClick={() => setTab("docs")}>Documents</button>
-            <button className={`sb-tab ${tab === "upload" ? "active" : ""}`} onClick={() => setTab("upload")}>Upload</button>
-          </div>
-
-          {tab === "docs" ? (
-            <div className="doc-list">
-              {docs.length === 0 ? (
-                <div style={{ padding: "24px 16px", textAlign: "center", color: "var(--text-muted)", fontSize: 12 }}>
-                  No documents uploaded yet. Switch to the Upload tab to add files.
-                </div>
-              ) : (
-                docs.map((doc, i) => (
-                  <div key={doc.id} className="doc-card" style={{ animationDelay: `${i * 0.06}s` }}>
-                    <div className="doc-name">{doc.name}</div>
-                    <div className="doc-meta">
-                      <CourseTag course={doc.course} />
-                      <span style={{ fontSize: 10, color: doc.status === "indexed" ? "#34d399" : "#f59e0b", fontWeight: 600 }}>
-                        {doc.status === "indexed" ? "● Indexed" : "◌ Processing"}
-                      </span>
+          <div className="doc-list">
+            {docs.length === 0 ? (
+              <div style={{ padding: "24px 16px", textAlign: "center", color: "var(--text-muted)", fontSize: 12 }}>
+                No documents uploaded yet.
+              </div>
+            ) : (
+              docs.map((doc, i) => (
+                <div key={doc.id} className="doc-card" style={{
+                  animationDelay: `${i * 0.06}s`,
+                  opacity: doc.status === "removing" ? 0.4 : 1,
+                  pointerEvents: doc.status === "removing" ? "none" : "auto"
+                }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "5px" }}>
+                    <div className="doc-name" style={{ margin: 0 }}>{doc.name}</div>
+                  </div>
+                  <div className="doc-meta">
+                    <CourseTag course={doc.course} />
+                    <span style={{
+                      fontSize: 10,
+                      color: doc.status === "indexed" ? "#34d399" : doc.status === "removing" ? "#ef4444" : "#f59e0b",
+                      fontWeight: 600
+                    }}>
+                      {doc.status === "indexed" ? "● Indexed" : doc.status === "removing" ? "◌ Removing..." : "◌ Processing"}
+                    </span>
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginTop: "4px" }}>
+                    <div className="doc-info" style={{ margin: 0 }}>
+                      {doc.ext} · {doc.size}{doc.pages !== "—" ? ` · ${doc.pages} pages` : ""} · {doc.date}
                     </div>
-                    <div className="doc-info">
-                      {doc.ext} · {doc.size}{doc.pages !== "—" ? ` · ${doc.pages} pp` : ""} · {doc.date}
-                    </div>
-                    {doc.status === "processing" && (
-                      <div className="processing-bar"><div className="processing-fill" /></div>
+                    {doc.status === "indexed" && (
+                      <button
+                        onClick={(e) => { e.stopPropagation(); deleteFile(doc.id, doc.name); }}
+                        style={{
+                          background: "rgba(239, 68, 68, 0.1)",
+                          border: "1px solid rgba(239, 68, 68, 0.4)",
+                          color: "#ef4444",
+                          cursor: "pointer",
+                          fontSize: "9px",
+                          fontWeight: "800",
+                          letterSpacing: "0.05em",
+                          padding: "3px 8px",
+                          borderRadius: "4px",
+                          transition: "all 0.2s ease"
+                        }}
+                        onMouseOver={(e) => e.currentTarget.style.background = "rgba(239, 68, 68, 0.2)"}
+                        onMouseOut={(e) => e.currentTarget.style.background = "rgba(239, 68, 68, 0.1)"}
+                        title="Remove document"
+                      >
+                        REMOVE
+                      </button>
                     )}
                   </div>
-                ))
-              )}
-            </div>
-          ) : (
-            <div style={{ flex: 1, overflowY: "auto" }}>
-              {uploadError && (
-                <div style={{
-                  margin: "14px", padding: "12px 16px", borderRadius: "10px",
-                  background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)",
-                  color: "#fca5a5", fontSize: "12px", animation: "fade-up 0.3s ease"
-                }}>
-                  ⚠ {uploadError}
+                  {doc.status === "processing" && (
+                    <div className="processing-bar"><div className="processing-fill" /></div>
+                  )}
                 </div>
-              )}
-              <div
-                className={`upload-zone ${dragOver ? "active" : ""}`}
-                style={{ opacity: uploading ? 0.5 : 1, pointerEvents: uploading ? "none" : "auto" }}
-                onClick={() => !uploading && fileRef.current?.click()}
-                onDragOver={e => { e.preventDefault(); !uploading && setDragOver(true); }}
-                onDragLeave={() => setDragOver(false)}
-                onDrop={e => { e.preventDefault(); setDragOver(false); !uploading && uploadFiles(e.dataTransfer.files); }}
-              >
-                <div className="upload-icon">{uploading ? "⏳" : "📂"}</div>
-                <div className="upload-title">{uploading ? "Processing..." : "Drop course materials here"}</div>
-                <div className="upload-sub">{uploading ? "Your files are being uploaded and indexed..." : "PDF files only\nEmbedded into your private vector store"}</div>
-                <button className="upload-btn" disabled={uploading}>{uploading ? "Uploading…" : "Browse Files"}</button>
-                <input ref={fileRef} type="file" multiple accept=".pdf" style={{ display: "none" }} onChange={e => uploadFiles(e.target.files)} disabled={uploading} />
+              ))
+            )}
+          </div>
+
+          <div style={{ padding: "16px", borderTop: "1px solid var(--glass-bd)", background: "rgba(0,0,0,0.2)" }}>
+            {uploadError && (
+              <div style={{
+                marginBottom: "10px", padding: "10px", borderRadius: "8px",
+                background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)",
+                color: "#fca5a5", fontSize: "11px", animation: "fade-up 0.3s ease"
+              }}>
+                ⚠ {uploadError}
               </div>
-              <div style={{ padding: "0 16px 16px", fontSize: 11, color: "var(--text-muted)", lineHeight: 1.8 }}>
-                Files are chunked, embedded, and stored locally in your vector index. Nothing leaves your environment.
-              </div>
+            )}
+            <div
+              className={`upload-zone ${dragOver ? "active" : ""}`}
+              style={{ margin: 0, padding: "20px 14px", opacity: uploading ? 0.5 : 1, pointerEvents: uploading ? "none" : "auto" }}
+              onClick={() => !uploading && fileRef.current?.click()}
+              onDragOver={e => { e.preventDefault(); !uploading && setDragOver(true); }}
+              onDragLeave={() => setDragOver(false)}
+              onDrop={e => { e.preventDefault(); setDragOver(false); !uploading && uploadFiles(e.dataTransfer.files); }}
+            >
+              <div className="upload-icon" style={{ fontSize: 20, marginBottom: 6 }}>{uploading ? "⏳" : "📂"}</div>
+              <div className="upload-title" style={{ fontSize: 12 }}>{uploading ? "Processing..." : "Upload Materials"}</div>
+              <div className="upload-sub" style={{ fontSize: 10, marginBottom: 10 }}>{uploading ? "Indexing files..." : "Drop PDFs here"}</div>
+              <button className="upload-btn" style={{ fontSize: 11, padding: "6px 14px" }} disabled={uploading}>
+                {uploading ? "Uploading…" : "Browse"}
+              </button>
+              <input ref={fileRef} type="file" multiple accept=".pdf" style={{ display: "none" }} onChange={e => uploadFiles(e.target.files)} disabled={uploading} />
             </div>
-          )}
+          </div>
 
 
         </aside>
@@ -680,7 +764,7 @@ export default function NoirTutor() {
                             return (
                               <div key={si}>
                                 <span className={`source-chip ${isOpen ? "open" : ""}`} onClick={() => setOpenSource(isOpen ? null : key)}>
-                                  📄 {s.doc} {s.page !== "—" ? `· p.${s.page}` : ""} {isOpen ? "▲" : "▼"}
+                                  📄 {s.doc} {isOpen ? "▲" : "▼"}
                                 </span>
                                 {isOpen && (
                                   <div className="source-expand">
@@ -712,13 +796,14 @@ export default function NoirTutor() {
 
           {/* Input */}
           <div className="input-area">
-            <div className="input-wrap">
+            <div className="input-wrap" style={{ opacity: isLocked ? 0.5 : 1, pointerEvents: isLocked ? "none" : "auto" }}>
               <textarea
                 ref={textaRef}
                 className="chat-input"
                 placeholder="Ask a question from your course materials…"
                 value={input}
                 rows={1}
+                disabled={isLocked}
                 onChange={e => {
                   setInput(e.target.value);
                   e.target.style.height = "24px";
@@ -726,10 +811,16 @@ export default function NoirTutor() {
                 }}
                 onKeyDown={onKey}
               />
-              <button className="send-btn" onClick={send} disabled={!input.trim() || typing}>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" />
-                </svg>
+              <button className="send-btn" onClick={typing ? stopGeneration : send} disabled={!typing && !input.trim() || isLocked}>
+                {typing ? (
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2">
+                    <rect x="4" y="4" width="16" height="16" rx="2" ry="2" />
+                  </svg>
+                ) : (
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" />
+                  </svg>
+                )}
               </button>
             </div>
 

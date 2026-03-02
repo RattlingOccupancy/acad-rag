@@ -1,3 +1,8 @@
+"""
+This module implements the core RAG (Retrieval-Augmented Generation) pipeline.
+It orchestrates the flow from ingestion and retrieval to reranking and response generation.
+"""
+
 import sys
 import os
 import json
@@ -15,19 +20,21 @@ from backend.ingestion.ingest import run_ingestion
 from backend.retrieval.embed_store import build_vector_index
 from backend.retrieval.hybrid_search import HybridRetriever
 from backend.retrieval.reranker import Reranker
-from backend.retrieval.ragas_eval import evaluate_retrieval, RAGASEvaluator
+from evaluation.ragas_eval import evaluate_retrieval, RAGASEvaluator
 from generation.answer_generator import generate_answer
 
+# Global pools and singletons for performance
 _RETRIEVER_POOL: Dict[int, HybridRetriever] = {}
 _RERANKER: Optional[Reranker] = None
-_ASK_CACHE: Dict[Tuple[str, int, int], Tuple[Any, Any, Any, Any]] = {}
-_ASK_CACHE_ORDER: List[Tuple[str, int, int]] = []
-_ASK_CACHE_MAX_SIZE = 128
+
+# Default configuration constants
 _DEFAULT_RETRIEVAL_TOP_K = 8
 _DEFAULT_FINAL_TOP_K = 4
 
 
 class PipelineStageError(Exception):
+    """Exception raised for errors in specific stages of the RAG pipeline."""
+
     def __init__(self, stage: str, message: str):
         super().__init__(message)
         self.stage = stage
@@ -35,27 +42,33 @@ class PipelineStageError(Exception):
 
 @dataclass
 class QueryResult:
+    """Dataclass to hold the results of a pipeline query."""
+
     answer: str
     retrieved_nodes: List[Any]
     final_nodes: List[Any]
     evaluation: Any = None
 
 
-def _extract_text(item):
+def _extract_text(item: Any) -> str:
+    """Extracts text from a node or item."""
     return RAGASEvaluator._extract_text(item)
 
 
-def _extract_source(item):
+def _extract_source(item: Any) -> str:
+    """Extracts the source metadata from a node."""
     node = RAGASEvaluator._unwrap_node(item)
     metadata = getattr(node, "metadata", {}) or {}
     return metadata.get("source", "unknown")
 
 
 def _short_stage_error_message(error: PipelineStageError) -> str:
+    """Format a short error message for pipeline stage failures."""
     return f"Pipeline failed at {error.stage} stage: {error}"
 
 
-def _serialize_retrieved_nodes(nodes, max_chars=300):
+def _serialize_retrieved_nodes(nodes: List[Any], max_chars: int = 300) -> List[Dict[str, Any]]:
+    """Serializes node information for logging or reporting."""
     return [
         {
             "rank": i,
@@ -66,7 +79,8 @@ def _serialize_retrieved_nodes(nodes, max_chars=300):
     ]
 
 
-def _capture_output(func, *args, **kwargs):
+def _capture_output(func, *args, **kwargs) -> Tuple[Any, str, str]:
+    """Captures stdout and stderr from a function call."""
     stdout_buffer = io.StringIO()
     stderr_buffer = io.StringIO()
     with contextlib.redirect_stdout(stdout_buffer), contextlib.redirect_stderr(stderr_buffer):
@@ -75,15 +89,16 @@ def _capture_output(func, *args, **kwargs):
 
 
 def _append_run_to_json(
-    json_path,
-    query,
-    answer,
-    evaluation,
-    retrieved_nodes,
-    reranked_nodes,
-    setup_info,
-    suppressed_logs,
-):
+    json_path: str,
+    query: str,
+    answer: str,
+    evaluation: Any,
+    retrieved_nodes: List[Any],
+    reranked_nodes: List[Any],
+    setup_info: Dict[str, Any],
+    suppressed_logs: Dict[str, str],
+) -> None:
+    """Logs pipeline run details to a JSON file."""
     payload = {"runs": []}
     out_path = Path(json_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
@@ -124,7 +139,8 @@ def _append_run_to_json(
         json.dump(payload, f, indent=2, ensure_ascii=True)
 
 
-def _select_files_via_dialog():
+def _select_files_via_dialog() -> List[str]:
+    """Opens a file dialog to select PDF files."""
     try:
         import tkinter as tk
         from tkinter import filedialog
@@ -147,10 +163,12 @@ def _select_files_via_dialog():
 
 
 def _get_valid_pdf_files(file_paths: List[str]) -> List[str]:
+    """Filters a list of file paths for existing PDF files."""
     return [p for p in file_paths if Path(p).exists() and Path(p).suffix.lower() == ".pdf"]
 
 
 def _get_retriever(top_k: int) -> HybridRetriever:
+    """Retrieves or creates a HybridRetriever for a specific top_k."""
     retriever = _RETRIEVER_POOL.get(top_k)
     if retriever is None:
         retriever = HybridRetriever(top_k=top_k)
@@ -159,6 +177,7 @@ def _get_retriever(top_k: int) -> HybridRetriever:
 
 
 def _get_reranker() -> Reranker:
+    """Retrieves or creates the Reranker singleton."""
     global _RERANKER
     if _RERANKER is None:
         _RERANKER = Reranker()
@@ -166,36 +185,21 @@ def _get_reranker() -> Reranker:
 
 
 def initialize_runtime(retrieval_top_k: int = 8) -> None:
+    """Initializes the pipeline components."""
     _get_retriever(retrieval_top_k)
     _get_reranker()
 
 
 def reset_runtime(clear_reranker: bool = False) -> None:
+    """Resets the pipeline runtime state."""
     global _RERANKER
     _RETRIEVER_POOL.clear()
-    _ASK_CACHE.clear()
-    _ASK_CACHE_ORDER.clear()
     if clear_reranker:
         _RERANKER = None
 
 
-def _make_cache_key(question: str, retrieval_top_k: int, final_top_k: int) -> Tuple[str, int, int]:
-    return (question.strip().lower(), retrieval_top_k, final_top_k)
-
-
-def _get_cached_result(cache_key: Tuple[str, int, int]) -> Optional[Tuple[Any, Any, Any, Any]]:
-    return _ASK_CACHE.get(cache_key)
-
-
-def _save_cached_result(cache_key: Tuple[str, int, int], result: Tuple[Any, Any, Any, Any]) -> None:
-    _ASK_CACHE[cache_key] = result
-    _ASK_CACHE_ORDER.append(cache_key)
-    if len(_ASK_CACHE_ORDER) > _ASK_CACHE_MAX_SIZE:
-        oldest_key = _ASK_CACHE_ORDER.pop(0)
-        _ASK_CACHE.pop(oldest_key, None)
-
-
 def _retrieve_with_fallback(question: str, retrieval_top_k: int) -> List[Any]:
+    """Retrieves documents with a fallback mechanism if initial retrieval fails."""
     try:
         return _get_retriever(retrieval_top_k).retrieve(question)
     except Exception:
@@ -211,6 +215,7 @@ def _evaluate_if_enabled(
     candidates: List[Any],
     enable_evaluation: bool,
 ) -> Tuple[List[Any], Any]:
+    """Performs retrieval evaluation if enabled."""
     if not enable_evaluation:
         return candidates, None
 
@@ -228,6 +233,7 @@ def _evaluate_if_enabled(
 
 
 def _rerank_with_fallback(question: str, nodes: List[Any], final_top_k: int) -> List[Any]:
+    """Reranks nodes with a fallback to top-k selection if reranking fails."""
     if not nodes:
         raise PipelineStageError("reranking", "no documents available after retrieval.")
 
@@ -238,6 +244,7 @@ def _rerank_with_fallback(question: str, nodes: List[Any], final_top_k: int) -> 
 
 
 def _generate_with_error_context(question: str, final_nodes: List[Any]) -> str:
+    """Generates an answer using the provided context nodes."""
     if not final_nodes:
         raise PipelineStageError("generation", "no context found to generate an answer.")
 
@@ -248,6 +255,7 @@ def _generate_with_error_context(question: str, final_nodes: List[Any]) -> str:
 
 
 def _setup_index_from_uploaded_files(file_paths: List[str]) -> Tuple[Dict[str, Any], str, str]:
+    """Processes uploaded files and updates the vector index."""
     setup_info = {
         "index_updated_from_upload": False,
         "uploaded_pdf_files": [],
@@ -282,42 +290,35 @@ def _setup_index_from_uploaded_files(file_paths: List[str]) -> Tuple[Dict[str, A
 
 
 def ask(
-    question,
-    retrieval_top_k=_DEFAULT_RETRIEVAL_TOP_K,
-    final_top_k=_DEFAULT_FINAL_TOP_K,
-    enable_evaluation=False,
-    use_cache=True,
-):
-    cache_key = _make_cache_key(question, retrieval_top_k, final_top_k)
-    if use_cache:
-        cached_result = _get_cached_result(cache_key)
-        if cached_result is not None:
-            return cached_result
+    question: str,
+    retrieval_top_k: int = _DEFAULT_RETRIEVAL_TOP_K,
+    final_top_k: int = _DEFAULT_FINAL_TOP_K,
+    enable_evaluation: bool = False,
+    use_cache: bool = True,  # Kept for backward compatibility but ignored
+) -> Tuple[str, List[Any], List[Any], Optional[Any]]:
+    """
+    Main entry point for querying the RAG pipeline.
 
+    Args:
+        question (str): The user query.
+        retrieval_top_k (int): Number of nodes to retrieve initially.
+        final_top_k (int): Number of nodes to keep after reranking.
+        enable_evaluation (bool): Whether to perform RAGAS evaluation on retrieval.
+        use_cache (bool): Ignored.
+
+    Returns:
+        Tuple[str, List[Any], List[Any], Optional[Any]]: Answer text, retrieved nodes, final nodes, and evaluation metrics.
+    """
     candidates = _retrieve_with_fallback(question, retrieval_top_k)
     filtered_nodes, evaluation = _evaluate_if_enabled(question, candidates, enable_evaluation)
     final_nodes = _rerank_with_fallback(question, filtered_nodes, final_top_k)
     answer = _generate_with_error_context(question, final_nodes)
 
-    result_data = QueryResult(
-        answer=answer,
-        retrieved_nodes=candidates,
-        final_nodes=final_nodes,
-        evaluation=evaluation,
-    )
-    result = (
-        result_data.answer,
-        result_data.retrieved_nodes,
-        result_data.final_nodes,
-        result_data.evaluation,
-    )
-    if use_cache:
-        _save_cached_result(cache_key, result)
-
-    return result
+    return answer, candidates, final_nodes, evaluation
 
 
-def run_cli():
+def run_cli() -> None:
+    """Runs a simple CLI interface for the pipeline."""
     file_paths = _select_files_via_dialog()
     setup_info = {
         "index_updated_from_upload": False,
@@ -353,7 +354,7 @@ def run_cli():
             ask_result, ask_stdout, ask_stderr = _capture_output(
                 ask,
                 query,
-                enable_evaluation=True,
+                enable_evaluation=False,
                 use_cache=False,
             )
             answer, retrieved_nodes, sources, evaluation = ask_result
@@ -364,31 +365,9 @@ def run_cli():
             print("Pipeline failed at unknown stage: unexpected error.")
             continue
 
-        try:
-            _append_run_to_json(
-                json_path="backend/retrieval/rag_pipeline_runs.json",
-                query=query,
-                answer=answer,
-                evaluation=evaluation,
-                retrieved_nodes=retrieved_nodes,
-                reranked_nodes=sources,
-                setup_info=setup_info,
-                suppressed_logs={
-                    "setup_stdout": setup_suppressed_stdout,
-                    "setup_stderr": setup_suppressed_stderr,
-                    "query_stdout": ask_stdout,
-                    "query_stderr": ask_stderr,
-                },
-            )
-        except Exception:
-            print("Warning: failed to save this run to JSON log.")
-
         print("\nLLM response:\n")
         print(answer)
 
 
 if __name__ == "__main__":
     run_cli()
-
-
-
