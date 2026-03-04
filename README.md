@@ -73,7 +73,7 @@ This opens **two terminal windows** simultaneously:
 *   **Frontend** (React/Vite): `http://localhost:5173`
 *   **Interactive API Docs**: `http://localhost:8000/docs`
 
-> **Note:** Wait a few seconds for the backend to finish loading the embedding model before uploading files.
+> **Note:** Wait a few seconds for the backend to finish loading the embedding model before uploading files
 
 ---
 
